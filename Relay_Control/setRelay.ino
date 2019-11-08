@@ -1,10 +1,25 @@
+String firstCharacter, secondCharacter;
+
 void setRelay(String relay_status) {
-    if(relay_status == "TR") {
+    firstCharacter = relay_status.substring(0,1);
+    secondCharacter = relay_status.substring(1,2);
+    // Serial.println("First Character: " + firstCharacter + "Second Character " + secondCharacter);
+
+    if(relay_status == "TR" || firstCharacter == "T" || secondCharacter == "R") {
         digitalWrite(relayPin, HIGH);
         Serial.println("Relay: HIGH");
-    } else if (relay_status == "FL") {
+    } else if (relay_status == "FL" || firstCharacter == "F" || secondCharacter == "L") {
         Serial.println("Relay: LOW");
         digitalWrite(relayPin, LOW);
     } else
         Serial.println("Relay: Nothing happened");
+
+    // if(relay_status == "TR") {
+    //     digitalWrite(relayPin, HIGH);
+    //     Serial.println("Relay: HIGH");
+    // } else if (relay_status == "FL") {
+    //     Serial.println("Relay: LOW");
+    //     digitalWrite(relayPin, LOW);
+    // } else
+    //     Serial.println("Relay: Nothing happened");
 }

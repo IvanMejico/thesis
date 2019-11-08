@@ -19,9 +19,9 @@ boolean sendToServer() {
 
         // response += esp8266.readString();
         // Serial.println(response);
-        if(esp8266.find("SEND OK")) {
+        if(esp8266.find("OK")) {
             Serial.println("nasend na");
-
+            delay(500);
             if(esp8266.find("#")) {
                 response = esp8266.readString();
                 response = response.substring(0,2);
@@ -35,6 +35,6 @@ boolean sendToServer() {
 
     
     // Serial.println(response);
-    sendCommand("AT+CIPCLOSE=0",3000,"OK");
+    // sendCommand("AT+CIPCLOSE=0",3000,"OK");  // Closed to make the process faster. Turned out it's not necessary.
     Serial.println("");
 }
