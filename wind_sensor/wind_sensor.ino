@@ -95,13 +95,13 @@ void loop() {
   
   //Print voltage and windspeed to serial
   
-  Serial.print("Voltage: ");
-  Serial.print(sensorVoltage);
-  Serial.print(" Average: ");
-  Serial.print(averageWind);
-  Serial.print("\t");
-  Serial.print("Wind speed: ");
-  Serial.println(windSpeed);
+  // Serial.print("Voltage: ");
+  // Serial.print(sensorVoltage);
+  // Serial.print(" Average: ");
+  // Serial.print(averageWind);
+  // Serial.print("\t");
+  // Serial.print("Wind speed: ");
+  // Serial.println(windSpeed);
   
   delay(sensorDelay);
 }
