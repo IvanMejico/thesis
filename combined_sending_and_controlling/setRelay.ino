@@ -1,6 +1,6 @@
-String firstCharacter, secondCharacter;
-
 void setRelay(String relay_status) {
+    String firstCharacter, secondCharacter;
+
     firstCharacter = relay_status.substring(0,1);
     secondCharacter = relay_status.substring(1,2);
 

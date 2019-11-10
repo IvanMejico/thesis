@@ -1,4 +1,5 @@
 boolean setupESP() {
+    Serial.println("\n>> SETTING UP ESP CONNECTION...\n");
 
     if(sendCommand("AT", 2000, "OK")) {
         if(sendCommand("AT+RST", 2000, "OK")) {
@@ -7,10 +8,10 @@ boolean setupESP() {
                     if(sendCommand("AT+CWJAP=\""+SSID_ESP+"\",\""+SSID_KEY+"\"", 10000, "OK")) {
                         if(sendCommand("AT+CIFSR", 5000, "192.168")) {
                             String returnVal = esp8266.readString();
-                            IP_ADDRESS = "192.168" + returnVal.substring(0,8);
+                            nodeIp = "192.168" + returnVal.substring(0,8);
 
                             if(sendCommand("AT+CIPMUX=1", 5000, "OK")) {
-                                Serial.println("IP ADDRESS: " + IP_ADDRESS);
+                                Serial.println("IP ADDRESS: " + nodeIp);
                                 Serial.println("DONE");
                             }
                         }

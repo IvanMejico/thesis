@@ -11,7 +11,7 @@ String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 // String location_url = "/sensordata/submit.php?value=";          // TARGET PHP SCRIPT
 String location_url = "/sensordata/relay.php?";
-String IP_ADDRESS;
+String nodeIp;
 String response = "";
 
 unsigned long timeout_start_val;

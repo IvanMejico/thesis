@@ -74,6 +74,6 @@ float getSensorData(){
         b = b;
     }
 
-    Serial.println("Wind Speed: " + String(windSpeed));
+    Serial.println("\nWind Speed: " + String(windSpeed));
     return windSpeed;
 }
