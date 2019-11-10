@@ -1,6 +1,6 @@
 boolean sendCommand(String command, int maxTime, char readReply[]) {
     unsigned long timeout_start_val;
-
+    
     Serial.print("at command => ");
     Serial.print(command);
     Serial.print(" ");

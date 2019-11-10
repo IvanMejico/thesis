@@ -1,4 +1,4 @@
-boolean sendToServer() {
+boolean checkRelay() {
     valSensor = getSensorData();
 
     String getData = "GET " + location_url + String(valSensor); // CHANGE THIS
@@ -35,6 +35,6 @@ boolean sendToServer() {
 
     
     // Serial.println(response);
-    // sendCommand("AT+CIPCLOSE=0",3000,"OK");  // Closed to make the process faster. Turned out it's not necessary.
+    sendCommand("AT+CIPCLOSE=0",3000,"OK");  // Closed to make the process faster. Turned out it's not necessary.
     // Serial.println("");
 }
