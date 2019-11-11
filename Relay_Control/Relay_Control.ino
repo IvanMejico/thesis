@@ -2,7 +2,7 @@
 
 #define ESP8266_RX 10  //Connect the TX pin from the ESP to this RX pin of the Arduino
 #define ESP8266_TX 11  //Connect the TX pin from the Arduino to the RX pin of ESP
-#define relayPin = 3;
+#define relayPin 3
 
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID

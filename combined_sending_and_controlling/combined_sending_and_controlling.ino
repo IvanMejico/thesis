@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-#define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
-#define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
+// #define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
+// #define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
 #define relayPin 3
 
 //NETWORK INFORMATION
@@ -31,7 +31,7 @@ const int numReadings = 10;   // Defines number of reading to calculate average 
 int readings[numReadings];    // the readings from the analog input
 
 
-SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
+// SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
 
 void setup() {
   // SETUP WIND SENSOR READING VALUES
@@ -41,8 +41,8 @@ void setup() {
 
   pinMode(relayPin, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600);
+  Serial.begin(115200);
   setupESP();
   digitalWrite(relayPin, LOW);
 }
@@ -53,5 +53,5 @@ void loop() {
   valSensor = getSensorData();    // gather sensor dat
   sendSensorReading(valSensor);   // send sensor measurement to the server
   
-  Serial.println("---");
+  //Serial.println("---");
 }

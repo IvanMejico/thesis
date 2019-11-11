@@ -6,10 +6,10 @@ void setRelay(String relay_status) {
 
     if(relay_status == "TR" || firstCharacter == "T" || secondCharacter == "R") {
         digitalWrite(relayPin, HIGH);
-        Serial.println("Relay: HIGH");
+        //Serial.println("Relay: HIGH");
     } else if (relay_status == "FL" || firstCharacter == "F" || secondCharacter == "L") {
-        Serial.println("Relay: LOW");
+        //Serial.println("Relay: LOW");
         digitalWrite(relayPin, LOW);
-    } else
-        Serial.println("Relay: Nothing happened");
+    }
+        //Serial.println("Relay: Nothing happened");
 }
