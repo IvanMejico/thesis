@@ -2,115 +2,120 @@
 <html>
 <head>  
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="styles.css"></style>
-<script>
-window.onload = function () {
-    toggle = document.getElementById('relay1');
-    toggle.onclick = function() {
-        saveToggle();
-    }
-    
-	var dps = [];
-
-	var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled: true,
-		theme: "light1",
-		title:{
-			text: "Wind Power Chart"
-		},
-		axisY:{
-			includeZero: false
-		},
-		data: [{        
-			type: "line",
-			markerSize: 5,
-			dataPoints: dps
-		}]
-	});
-
-	var xVal;
-	var yVal;
-	var updateInterval = 1000;
-	var dataLength = 50;
-	var prevXval = 0;
-
-	var updateChart = function (count) {
-		var response;
-		
-		count = count || 1;
-
-		// Perform AJAX request here. Get the xVal and the yVal values
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'getTrends.php?datalength='+count, true);
-		xhr.onload = function() {
-			response = JSON.parse(this.responseText);
-
-			// foreach element in the response array, push it to the dataPoints;
-			response.forEach(function(item, index){
-				// while there's element left, push data to dataPoints
-				let xVal = item['x'];
-				let yVal = item['y'];
-
-				// if count == 1 check if the current id == previous id
-				if(xVal != prevXval) {
-					dps.push({
-						x: xVal,
-						y: yVal
-					});
-					prevXval = xVal;
-				}
-			});	
-		}
-		xhr.send();
-
-
-		if (dps.length > dataLength) {
-			dps.shift();
-		}
-		chart.render();
-	};
-
-    // update toggle
-    var updateToggle = function() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'getrelaystatus.php?getid=1',true);
-        xhr.onload = function() {
-            var response = JSON.parse(this.responseText);
-            if(response.status == "TR")
-                toggle.checked = true;
-            else if (response.status == "FL")
-                toggle.checked = false;
-        }
-        xhr.send();
-    }
-
-    var saveToggle = function() {
-        status = toggle.checked?'TR':'FL';
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'getrelaystatus.php?setid=1&setvalue='+status,true);
-        xhr.onload = function() {
-            console.log('okay');
-        }
-        xhr.send();
-    }
-    
-	updateChart(dataLength);
-	setInterval(function(){updateChart()}, updateInterval);
-    setInterval(function(){updateToggle()}, updateInterval);
-}
-</script>
+<link rel="stylesheet" type="text/css" href="ledstyles.css"></style>
 </head>
 <body>
-<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-<div class="relay-status">
-     <div class="status1">
-       <h4>Relay 1:</h4>
-       <label class="switch">
-     <input type="checkbox" id="relay1" checked>
-         <span class="slider round"></span>
-       </label>
-     </div>
-</div>
-<script src="resources/canvasjs.min.js"></script>
-</body>
+	<div class="header">
+		<h1>IoT Dashboard</h1>
+		<!-- <h4>CREATED BY:</h4>
+		<span>Mark Anthony Ivan S. Mejico</span> -->
+	</div>
+	<div class="main-content">
+		<div class="panel panel1">
+			<div class="panel-header"><h3>Wind Sensor Data</h3></div>
+			<div class="panel-body">
+				<div class="chart">
+					<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel2">
+			<div class="panel-header"><h3>Numeric Display</h3></div>
+			<div class="panel-body">
+				<div class="numeric">
+					<span id="wind-numeric">0</span>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="panel panel3">
+			<div class="panel-header"><h3>Relay Status</h3></div>
+			<div class="panel-body">
+				<div class="leds">
+					<div>
+						<span>Relay #1</span>
+						<div id="led-r1" class="led led-red"></div>
+					</div>
+					<div>
+						<span>Relay #2</span>
+						<div id="led-r2" class="led led-yellow"></div>
+					</div>
+					<div>
+						<span>Relay #3</span>
+						<div id="led-r3" class="led led-green"></div>
+					</div>
+					<div>
+						<span>Relay #4</span>
+						<div id="led-r4" class="led led-blue"></div>
+					</div>
+					<div>
+						<span>Relay #5</span>
+						<div id="led-r5" class="led led-violet"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="manualcontrol">
+		<h1>Relay Manual Control</h1>
+		<div class="relaystatus">
+			<div class="status1">
+				<h4>Relay (Sensor node #1)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay1" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+	
+			<div class="status1">
+				<h4>Relay (Sensor node #2)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay2" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+	
+			<div class="status1">
+				<h4>Relay (Sensor node #3)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay3" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+	
+			<div class="status1">
+				<h4>Relay (Sensor node #4)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay4" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+	
+			<div class="status1">
+				<h4>Relay (Sensor node #5)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay5" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="script.js"></script>
+	<script src="resources/canvasjs.min.js"></script>
+	</body>
 </html>

@@ -1,0 +1,52 @@
+.led {
+    display: inline-block;
+}
+.led-red {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #993d00;
+    border-radius: 50%;
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
+}
+
+.led-yellow {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #ac9c10;
+    border-radius: 50%;
+    /* box-shadow: #000 0 -1px 7px 1px, inset #660 0 -1px 9px, #DD0 0 2px 25px; */
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
+}
+
+.led-green {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #517509;
+    border-radius: 50%;
+    /* box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 25px; */
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
+}
+
+.led-blue {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #105d6b;
+    border-radius: 50%;
+    /* box-shadow: rgb(0, 13, 187) 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px; */
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
+    
+}
+
+.led-violet {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #430457;
+    border-radius: 50%;
+    /* box-shadow: rgb(47, 3, 56) 0 -1px 7px 1px, inset rgb(82, 13, 173) 0 -1px 9px, rgb(140, 0, 255) 0 2px 25px; */
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
+}

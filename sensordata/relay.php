@@ -11,7 +11,6 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     
-    //$sql="insert into `sensor_values` (`values`) values ('".$_REQUEST['value']."')";
     $sql = "SELECT status FROM `relay_control` WHERE id = 1";
        
     $qry = mysqli_query($conn ,$sql);

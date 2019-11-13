@@ -1,3 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(247, 247, 247);
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -18,7 +27,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: rgb(99, 73, 73);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -36,11 +45,11 @@
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: rgb(16, 190, 83);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px rgb(77, 52, 52);
 }
 
 input:checked + .slider:before {
@@ -57,23 +66,201 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
-.relay-status {
+.manualcontrol {
+    background-color: rgb(49, 33, 33);
+    height: 517px;
+}
+.manualcontrol h1 {
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 920px;
-    margin: 2em  auto 0;
-    padding: 0 1.5em;
-    display: table;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.main-content {
+    width: 90%;
+    margin: 0 auto 50px;
+    display: grid;
+    grid-template: 
+        'main main main side1'
+        'main main main side2';
+    grid-gap: 15px;
+}
+
+.relaystatus {
+    width: 920px;
+    margin: auto;
+    padding: 10px 0;
+
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.relaystatus div {
+    background: rgb(77, 52, 52);
+    color: rgb(219, 204, 204);
+    font-size: .8em;
+    border-radius: 1em;
 }
 
 .status1 {
     display: table;
+    height: 100px;
 }
 
-.relay-status h4 {
+.status1 div {
+    height: 100px;
+}
+
+.status1 div label {
+    display: table-caption;
+    vertical-align: middle;
+    transform: translatey(33px);
+}
+
+.relaystatus h4 {
     display: table-cell;
     vertical-align: middle;
+    font-size: 1.3em;
     margin: 0;
-    margin-bottom: 10px;
-    padding-right: 15px;
-    font-family: Lucida Console;
+    padding: 0;
+    margin-right: 15px;
+    font-family: Arial;
+    text-align: center;
+}
+
+.panel .chart {
+    background: rgb(238, 235, 235);
+}
+
+.panel {
+    /* width: 900px; */
+    /* margin-bottom: 20px; */
+}
+
+.panel.panel1 {
+    grid-area: main;
+}
+.panel.panel2 {
+    grid-area: side1;
+}
+
+.panel.panel3 {
+    grid-area: side2;
+}
+
+.panel-header {
+    background-color: #2F7EB2;
+    color: #fff;
+    font-size: .8em;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 100;
+}
+
+.panel-header h3 {
+    margin-left: 10px;
+}
+.panel-body {
+    background-color: rgb(223, 222, 222);
+    padding: .6em;
+}
+
+.panel .numeric {
+    background-color: #fff;
+    padding: 30px;
+}
+
+.panel .leds {
+    background-color: #fff;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    text-align: right;
+}
+
+.leds > div {
+    display: table;
+    padding: 10px 0;
+    /* width: 90%;
+    text-align: right; */
+}
+
+.leds div span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 30px;
+    
+}
+
+.leds div div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.panel .numeric > span {
+    display: inline-block;
+    padding: 20px 10px;
+    border: solid 1px rgb(122, 117, 117);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.6em;
+    font-weight: 700;
+    width: 100%;;
+    text-align: right;
+}
+
+.header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    background-color: rgb(228, 61, 10);
+    opacity: 0.9;
+}
+
+.header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.header span {
+    color: #fff;
+    display: block;
+}
+
+.header h4, .header span {
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    margin: 0;
+    line-height: 1.3em;
+}
+
+
+/* responsive */
+@media only screen and (max-width: 980px) {
+    .relaystatus {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        grid-gap: 2px;
+        grid-template-columns: 1fr;
+    }
+    .relaystatus div {
+        border-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .chart {
+        margin: 0;
+        padding: 0;
+    }
 }
