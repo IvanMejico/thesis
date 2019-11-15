@@ -66,11 +66,49 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-.manualcontrol {
-    background-color: rgb(49, 33, 33);
-    height: 517px;
+
+
+
+/**
+* CUSTOM STYLES
+*/
+
+.header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    background-color: rgb(228, 61, 10);
+    opacity: 0.9;
 }
-.manualcontrol h1 {
+
+.header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.header span {
+    color: #fff;
+    display: block;
+}
+
+.header h4, .header span {
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    margin: 0;
+    line-height: 1.3em;
+}
+
+.manual-control {
+    background-color: rgb(49, 33, 33);
+    height: 558px;
+}
+.manual-control h1 {
     color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 920px;
@@ -78,15 +116,9 @@ input:checked + .slider:before {
     padding: 30px 0;
 }
 .main-content {
-    width: 90%;
+    width: 95%;
     margin: 0 auto 50px;
-    display: grid;
-    grid-template: 
-        'main main main side1'
-        'main main main side2';
-    grid-gap: 15px;
 }
-
 .relaystatus {
     width: 920px;
     margin: auto;
@@ -130,24 +162,20 @@ input:checked + .slider:before {
     text-align: center;
 }
 
+.graph-group1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.graph-group2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
 .panel .chart {
     background: rgb(238, 235, 235);
-}
-
-.panel {
-    /* width: 900px; */
-    /* margin-bottom: 20px; */
-}
-
-.panel.panel1 {
-    grid-area: main;
-}
-.panel.panel2 {
-    grid-area: side1;
-}
-
-.panel.panel3 {
-    grid-area: side2;
 }
 
 .panel-header {
@@ -168,10 +196,6 @@ input:checked + .slider:before {
     padding: .6em;
 }
 
-.panel .numeric {
-    background-color: #fff;
-    padding: 30px;
-}
 
 .panel .leds {
     background-color: #fff;
@@ -201,51 +225,51 @@ input:checked + .slider:before {
     vertical-align: middle;
 }
 
-.panel .numeric > span {
-    display: inline-block;
-    padding: 20px 10px;
-    border: solid 1px rgb(122, 117, 117);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 2.6em;
-    font-weight: 700;
-    width: 100%;;
-    text-align: right;
-}
-
-.header {
-    position: sticky;
-    z-index: 100;
-    top: 0;
-    padding: 20px 0;
-    margin-bottom: 30px;
-    background-color: rgb(228, 61, 10);
-    opacity: 0.9;
-}
-
-.header h1 {
-    margin: 0;
-    color: #fff;
-    font-size: 1.5em;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-.header span {
-    color: #fff;
-    display: block;
-}
-
-.header h4, .header span {
-    color: #fff;
+.numeric-group {
+    margin-bottom: 10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: center;
-    margin: 0;
-    line-height: 1.3em;
 }
 
+.numeric-group span {
+    font-weight: 500;
+    font-size: 1.6em;
+    padding-right: 30px;
+    display: block;
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.panel .numeric-power {
+    color: rgb(5, 164, 238);
+}
+
+.panel .numeric-voltage {
+    color: rgb(236, 11, 11);
+}
+
+.panel .numeric-current {
+    color: rgb(0, 124, 31);
+}
+
+.panel .numeric-speed {
+    color: rgb(196, 167, 4);
+}
+
+.numeric-group {
+    display: flex;
+}
+.numeric-group i {
+    display: block;
+    font-size: .8em;
+    font-style: normal;
+}
+.numeric-group span {
+    margin-left: 10px;
+}
 
 /* responsive */
-@media only screen and (max-width: 980px) {
+/* @media only screen and (max-width: 980px) {
     .relaystatus {
         width: auto;
         margin: 0;
@@ -258,9 +282,10 @@ input:checked + .slider:before {
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media o                                    nly screen and (max-width: 720px) {
     .chart {
         margin: 0;
         padding: 0;
     }
-}
+} */
+

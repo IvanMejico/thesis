@@ -13,55 +13,155 @@
 		<span>Mark Anthony Ivan S. Mejico</span> -->
 	</div>
 	<div class="main-content">
-		<div class="panel panel1">
-			<div class="panel-header"><h3>Wind Sensor Data</h3></div>
-			<div class="panel-body">
-				<div class="chart">
-					<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+		<div class="graph-group1">
+			<div class="panel wind">
+				<div class="panel-header"><h3>Wind Sensor Node</h3></div>
+				<div class="panel-body">
+					<div class="numeric-group">
+						<div>
+							<i>Power</i>
+							<span class="numeric-power" id="wind-power">23W</span>
+						</div>
+						<div>
+							<i>Voltage</i>
+							<span class="numeric-voltage" id="wind-voltage">220V</span>
+						</div>
+						<div>
+							<i>Current</i>
+							<span class="numeric-current" id="wind-current">1A</span>
+						</div>
+						<div>
+							<i>Speed</i>
+							<span class="numeric-speed" id="wind-speed">2m/s</span>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel relay-status">
+				<div class="panel-header"><h3>Relay Status</h3></div>
+				<div class="panel-body">
+					<div class="leds">
+						<div>
+							<span>Sensor Node #1</span>
+							<div id="led-r1" class="led led-red"></div>
+						</div>
+						<div>
+							<span>Sensor Node #2</span>
+							<div id="led-r2" class="led led-yellow"></div>
+						</div>
+						<div>
+							<span>Sensor Node #3</span>
+							<div id="led-r3" class="led led-green"></div>
+						</div>
+						<div>
+							<span>Sensor Node #4</span>
+							<div id="led-r4" class="led led-blue"></div>
+						</div>
+						<div>
+							<span>Sensor Node #5</span>
+							<div id="led-r5" class="led led-violet"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="panel panel2">
-			<div class="panel-header"><h3>Numeric Display</h3></div>
-			<div class="panel-body">
-				<div class="numeric">
-					<span id="wind-numeric">0</span>
+		<div class="graph-group2">
+			<div class="panel">
+				<div class="panel-header"><h3>Energy Sensor Node #1</h3></div>
+				<div class="panel-body">
+					<div class="numeric-group">
+						<div>
+							<i>Power</i>
+							<span class="numeric-power">23W</span>
+						</div>
+						<div>
+							<i>Voltage</i>
+							<span class="numeric-voltage">220V</span>
+						</div>
+						<div>
+							<i>Current</i>
+							<span class="numeric-current">1A</span>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+					</div>
 				</div>
 			</div>
-		</div>
-		
-
-		<div class="panel panel3">
-			<div class="panel-header"><h3>Relay Status</h3></div>
-			<div class="panel-body">
-				<div class="leds">
-					<div>
-						<span>Relay #1</span>
-						<div id="led-r1" class="led led-red"></div>
+			<div class="panel">
+				<div class="panel-header"><h3>Energy Sensor Node #2</h3></div>
+				<div class="panel-body">
+					<div class="numeric-group">
+						<div>
+							<i>Power</i>
+							<span class="numeric-power">23W</span>
+						</div>
+						<div>
+							<i>Voltage</i>
+							<span class="numeric-voltage">220V</span>
+						</div>
+						<div>
+							<i>Current</i>
+							<span class="numeric-current">1A</span>
+						</div>
 					</div>
-					<div>
-						<span>Relay #2</span>
-						<div id="led-r2" class="led led-yellow"></div>
+					<div class="chart">
+						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
 					</div>
-					<div>
-						<span>Relay #3</span>
-						<div id="led-r3" class="led led-green"></div>
+				</div>
+			</div>
+			<div class="panel">
+				<div class="panel-header"><h3>Energy Sensor Node #3</h3></div>
+				<div class="panel-body">
+					<div class="numeric-group">
+						<div>
+							<i>Power</i>
+							<span class="numeric-power">23W</span>
+						</div>
+						<div>
+							<i>Voltage</i>
+							<span class="numeric-voltage">220V</span>
+						</div>
+						<div>
+							<i>Current</i>
+							<span class="numeric-current">1A</span>
+						</div>
 					</div>
-					<div>
-						<span>Relay #4</span>
-						<div id="led-r4" class="led led-blue"></div>
+					<div class="chart">
+						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
 					</div>
-					<div>
-						<span>Relay #5</span>
-						<div id="led-r5" class="led led-violet"></div>
+				</div>
+			</div>
+			<div class="panel">
+				<div class="panel-header"><h3>Energy Sensor Node #4</h3></div>
+				<div class="panel-body">
+					<div class="numeric-group">
+						<div>
+							<i>Power</i>
+							<span class="numeric-power">23W</span>
+						</div>
+						<div>
+							<i>Voltage</i>
+							<span class="numeric-voltage">220V</span>
+						</div>
+						<div>
+							<i>Current</i>
+							<span class="numeric-current">1A</span>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="manualcontrol">
+		
+	<div class="manual-control">
 		<h1>Relay Manual Control</h1>
 		<div class="relaystatus">
 			<div class="status1">

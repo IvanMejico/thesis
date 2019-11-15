@@ -54,6 +54,7 @@ var colorSets = [
 
 
 window.onload = function () {
+    var windSpeedNumeric = document.getElementById('wind-speed');
 
     // select toggle buttons
     var toggle1 = document.getElementById('relay1');
@@ -85,7 +86,6 @@ window.onload = function () {
     }
     
 	
-	var numericDisplay = document.getElementById('wind-numeric');
     
 	var dps = [];
 
@@ -95,9 +95,9 @@ window.onload = function () {
 		backgroundColor: "#FFF",
 		// width: 320,
 		animationEnabled: true,
-		theme: "light1",
+		theme: "light2",
 		title:{
-			text: "Wind Power Chart"
+			text: "Wind Speed Chart"
 		},
 		axisY:{
 			includeZero: false
@@ -106,7 +106,7 @@ window.onload = function () {
 			type: "line",
 			lineColor: "red",
 			markerColor: "red",
-			markerSize: 6,
+			markerSize: 0,
 			dataPoints: dps
 		}]
 	});
@@ -114,7 +114,7 @@ window.onload = function () {
 	var xVal;
 	var yVal;
 	var updateInterval = 1000;
-	var dataLength = 50;
+	var dataLength = 1000;
 	var prevXval = 0;
 
 	var updateChart = function (count) {
@@ -142,7 +142,7 @@ window.onload = function () {
 					});
 					prevXval = xVal;
 				}
-				numericDisplay.innerText = item['y']; // update numeric display
+				windSpeedNumeric.innerText = item['y'] + "m/s"; // update numeric display
 			});	
 		}
 		xhr.send();

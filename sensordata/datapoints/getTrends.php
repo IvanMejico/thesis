@@ -7,8 +7,8 @@
  */
 
 $host = "localhost";
-$dbId = "pi";
-$dbPw = "root";
+$dbId = "root";
+$dbPw = "";
 $dbName = "sensor_record";
 
 $dataPoints = [];
