@@ -17,7 +17,7 @@ var colorSets = [
         ],
         [ // ON
             ["#f7de05"],
-            ["rgb(168, 162, 162) 0 -1px 7px 1px, inset rgb(167, 167, 12) 0 -1px 9px, rgb(221, 221, 19) 0 2px 25px"]
+            ["#000 0 -1px 7px 1px, inset rgb(167, 167, 12) 0 -1px 9px, rgb(221, 221, 19) 0 2px 25px"]
         ]
     ],
     [//relay3 (green)
@@ -86,31 +86,59 @@ window.onload = function () {
     }
     
 	
+    // CHART
+    var dps1 = [];
+    var dps2 = [];
+    var dps3 = [];
+    var dps4 = [];
+    var dps5 = [];
     
-	var dps = [];
-
-	var chart = new CanvasJS.Chart("chartContainer", {
+    // CHART 1
+	var chart1 = new CanvasJS.Chart("chartContainer1", {
 		zoomEnabled: true,
 		zoomType: "xy",
-		backgroundColor: "#FFF",
+		backgroundColor: "#1f1e1b",
 		// width: 320,
 		animationEnabled: true,
 		theme: "light2",
-		title:{
-			text: "Wind Speed Chart"
-		},
 		axisY:{
 			includeZero: false
 		},
 		data: [{        
-			type: "line",
-			lineColor: "red",
-			markerColor: "red",
+            type: "area",
+            color: "#c4a704",
+            fillOpacity: .7, 
+			lineColor: "#c4a704",
+			markerColor: "#c4a704",
 			markerSize: 0,
-			dataPoints: dps
+			dataPoints: dps1
 		}]
 	});
 
+    // CHART 2
+    var chart2 = new CanvasJS.Chart("chartContainer2", {
+		zoomEnabled: true,
+		zoomType: "xy",
+		backgroundColor: "#1f1e1b",
+		// width: 320,
+		animationEnabled: true,
+		theme: "light2",
+		axisY:{
+			includeZero: false
+		},
+		data: [{        
+            type: "area",
+            color: "#05a4ee",
+            fillOpacity: .7, 
+			lineColor: "#05a4ee",
+			markerColor: "#05a4ee",
+			markerSize: 0,
+			dataPoints: dps1
+		}]
+    });
+    
+
+    // CHARTS UPDATE
 	var xVal;
 	var yVal;
 	var updateInterval = 1000;
@@ -136,7 +164,11 @@ window.onload = function () {
 
 				// if count == 1 check if the current id == previous id
 				if(xVal != prevXval) {
-					dps.push({
+					dps1.push({
+						x: xVal,
+						y: yVal
+                    });
+                    dps2.push({
 						x: xVal,
 						y: yVal
 					});
@@ -148,17 +180,23 @@ window.onload = function () {
 		xhr.send();
 
 
-		if (dps.length > dataLength) {
-			dps.shift();
-		}
-		chart.render();
-	};
+		if (dps1.length > dataLength) {
+			dps1.shift();
+        }
+        if (dps2.length > dataLength) {
+			dps2.shift();
+        }
+        chart1.render();
+        chart2.render();
+    }; // END CHART
+    
 
-    // update toggle
+
+    // TOGGLE
     var updateToggle = function(relayId) {
         relayId;
-        var toggle = document.getElementById('relay'+relayId)
-        var led = document.getElementById("led-r"+relayId);
+        var toggle = document.getElementById('relay'+relayId) // TOGGLE BUTTON
+        var led = document.getElementById("led-r"+relayId); // LED
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'getrelaystatus.php?getid='+relayId,true);
@@ -174,6 +212,7 @@ window.onload = function () {
             } else if (response.status == "FL") {
                 toggle.checked = false;
                 
+                // UPDATE LED
                 led.style.backgroundColor = colorSets[relayId-1][0][0];
                 led.style.boxShadow = colorSets[relayId-1][0][1];
             }
@@ -192,8 +231,11 @@ window.onload = function () {
         xhr.send();
 	}
     
+    // UPDATE CHART
 	updateChart(dataLength);
-	setInterval(function(){updateChart()}, updateInterval);
+    setInterval(function(){updateChart()}, updateInterval);
+    
+    // UPDATE TOGGLE BUTTONS
     setInterval(function(){updateToggle(1)}, updateInterval);
     setInterval(function(){updateToggle(2)}, updateInterval);
     setInterval(function(){updateToggle(3)}, updateInterval);

@@ -36,7 +36,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer1" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer2" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer3" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -132,7 +132,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer4" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer5" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
