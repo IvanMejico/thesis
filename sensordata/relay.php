@@ -1,20 +1,15 @@
 <?php
 
-    $servername = "localhost";
-    $username = "pi";
-    $password = "root";
-    $db="sensor_record";
+include('datapoints/config.php');
+$conn = mysqli_connect($servername, $username, $password,$db);
+
+$sensor_node_id = $_REQUEST['sensor_id'];
+
+$sql = "SELECT `status` FROM `relay_control` WHERE `sensor_id` = '$sensor_node_id'";
     
-    $conn = mysqli_connect($servername, $username, $password,$db);
-    
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    
-    $sql = "SELECT status FROM `relay_control` WHERE id = 1";
-       
-    $qry = mysqli_query($conn ,$sql);
-    $res = mysqli_fetch_assoc($qry);
-    $value = $res['status'];
-    echo '#'.$value;
+$qry = mysqli_query($conn ,$sql);
+$res = mysqli_fetch_assoc($qry);
+$value = $res['status'];
+echo '#'.$value;
+
 ?>

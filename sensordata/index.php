@@ -10,21 +10,6 @@
 </head>
 <title>Temperature Result</title>
 <body>
- 
-<div id="show">
- 
-</div>
- 
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        setInterval(function () {
-            $('#show').load('displaydata.php')
-        }, 3000);
-    });
-</script>
- 
-<!------Jquery------------------>
- 
+<h1>Welcome</h1>
 </body>
 </html>

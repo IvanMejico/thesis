@@ -7,10 +7,7 @@
  * 4) when the relay is manually set, it will override changes made by the sensor node
  */
 
-$host = "localhost";
-$dbId = "root";
-$dbPw = "";
-$dbName = "sensor_record";
+include('config.php');
 
 $conn = mysqli_connect($host, $dbId, $dbPw, $dbName);
 

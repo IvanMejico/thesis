@@ -6,18 +6,18 @@
  * 3) translate to line graph
  */
 
-$host = "localhost";
-$dbId = "root";
-$dbPw = "";
-$dbName = "sensor_record";
+include('config.php');
 
 $dataPoints = [];
 
 $conn = mysqli_connect($host, $dbId, $dbPw, $dbName);
+$sensor_id = $GET['sensor_id'];
+$unit = $GET['unit'];
+$table = $unit . '_reading';
 
 if(isset($_GET['datalength'])) {
     $dataLength = $_GET['datalength'];
-    $query = "SELECT * FROM `sensor_values` ORDER BY `id` DESC LIMIT $dataLength;";
+    $query = "SELECT * FROM `$table` WHERE `sensor_id` = $sensor_id ORDER BY `timestamp` DESC LIMIT $dataLength;";
 } else {
     $query = "SELECT * FROM `sensor_values` ORDER BY `id` DESC LIMIT 50;";
 }

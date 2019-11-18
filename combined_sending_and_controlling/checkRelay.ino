@@ -1,15 +1,19 @@
+/**
+ * TODO: 
+ * 1) send sensor node id
+ * 2) get the relay status for the specific sensor node
+ * */
+
 void checkRelay() {
     Serial.println("\n>> CHECKING RELAY STATUS...\n");
 
-    valSensor = getSensorData();
-
-    String getData = "GET " + location_url + String(valSensor); // CHANGE THIS
-
+    String getData = "GET " + relay_url +"sensor_id=" + sensor_node_id; // GET request
+    // Serial.println(getData); // For debugging only
     sendCommand("AT+CIPSTART=1,\"TCP\",\""+ HOST +"\","+ PORT,4000,"OK");
 
     if(sendCommand("AT+CIPSEND=1," +String(getData.length()+4),10000,">")) {
         esp8266.println(getData);
-        esp8266.println();
+        // esp8266.println();
 
         int start_time = millis();
         while(!esp8266.available()){    //wait until a new byte is sent down from the ESP - good way to keep in lock-step with the serial port
