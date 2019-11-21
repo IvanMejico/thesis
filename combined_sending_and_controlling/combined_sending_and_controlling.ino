@@ -10,7 +10,7 @@ String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
 String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
-String sensor_node_id = "PSN004";
+String sensor_node_id = "ESN001";
 
 String relay_url = "/sensordata/relay.php?";   // SCRIPT FROR RELAY CONTROL
 String send_url = "/sensordata/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
@@ -51,14 +51,14 @@ void setup() {
 }
 
 void loop() {
-  // checkRelay();   // check and set relay status from the server
+  checkRelay();   // check and set relay status from the server
 
   // for debugging
   valSensor = random(10);
   //Serial.println(valSensor);
 
   // valSensor = getSensorData();    // gather sensor dat
-   sendSensorReading("current", valSensor);   // send sensor measurement to the server
+   sendSensorReading("wind_speed", valSensor);   // send sensor measurement to the server
   
   //Serial.println("---");
 }
