@@ -13,7 +13,7 @@ void checkRelay() {
 
     if(sendCommand("AT+CIPSEND=1," +String(getData.length()+4),10000,">")) {
         Serial.println(getData);
-        // esp8266.println();
+        Serial.println();
 
         int start_time = millis();
         while(!Serial.available()){    //wait until a new byte is sent down from the ESP - good way to keep in lock-step with the serial port
@@ -38,5 +38,5 @@ void checkRelay() {
         //Serial.println("passed");
     }
     
-    sendCommand("AT+CIPCLOSE=1",3000,"OK");  // Closed to make the process faster. Turned out it's not necessary.
+    sendCommand("AT+CIPCLOSE=1",1000,"OK");  // Closed to make the process faster. Turned out it's not necessary.
 }
