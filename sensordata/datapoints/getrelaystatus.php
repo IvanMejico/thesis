@@ -9,13 +9,13 @@
 
 include('config.php');
 
-$conn = mysqli_connect($host, $dbId, $dbPw, $dbName);
+$conn = mysqli_connect($servername, $username, $password, $db);
 
 if(isset($_GET['getid'])) {
     // get the status
     $relayId = $_GET['getid'];
-    $query = "SELECT status FROM `relay_control` WHERE id = $relayId;";
-
+    $query = "SELECT `status` FROM `relay_control` WHERE `sensor_id` = '$relayId';";
+    
     if($result = mysqli_query($conn, $query)) {
         $row = $result->fetch_array();
         echo json_encode($row);
@@ -28,7 +28,7 @@ if(isset($_GET['setid']) && isset($_GET['setvalue'])) {
     // set the status to TR or FL
     $relayId = $_GET['setid'];
     $value = $_GET['setvalue'];
-    $query = "UPDATE `relay_control` SET `status` = '$value' WHERE id = $relayId;";
+    $query = "UPDATE `relay_control` SET `status` = '$value' WHERE sensor_id = '$relayId';";
     echo $query;
     if(mysqli_query($conn, $query)) {
         echo 'successfully updated';

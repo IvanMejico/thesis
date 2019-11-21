@@ -215,7 +215,14 @@
 			</div>
 		</div>
 	</div>
-	<script src="script.js"></script>
+	<script src="colorsets.js"></script>
 	<script src="resources/canvasjs.min.js"></script>
+	<script src="render_chart1.js"></script>
+	<script src="render_chart2.js"></script>
+	<script src="render_chart3.js"></script>
+	<script src="render_chart4.js"></script>
+	<script src="render_chart5.js"></script>
+	<script src="toggle.js"></script>
+	<script src="script.js"></script>
 	</body>
 </html>

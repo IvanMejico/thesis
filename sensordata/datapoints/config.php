@@ -1,8 +1,8 @@
 <?php
 
 $servername = "localhost";
-$username = "pi";
-$password = "root";
+$username = "root";
+$password = "";
 $db="sensor_database";
 
 ?>
