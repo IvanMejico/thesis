@@ -1,26 +1,38 @@
-window.onload = function () {
-    var updateInterval = 5000;
-    // UPDATE CHART1
-    updateChart1("ESN001", "wind_speed", 1000);
-    setInterval(function(){updateChart1("ESN001", "wind_speed")}, updateInterval);
+var updateInterval = 5000;
+var dataLength = 20;
 
-    updateChart2("PSN001", "voltage", 1000);
-    setInterval(function(){updateChart2("PSN001", "voltage")}, updateInterval);
 
-    updateChart3("PSN002", "current", 1000);
-    setInterval(function(){updateChart3("PSN002", "current")}, updateInterval);
+// GONNA WORK ON THIS CODE LATER ON
+// var sensorArray;
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', 'getSensorList.php', false)
+// xhr.onload = function() {
+//     sensorArray = JSON.parse(this.responseText);
+//     sensorArray.forEach(function(item){
+//         renderChart('chartContainer1', 'PSN001', dataLength);
+//         renderChart('chartContainer2', 'PSN003', dataLength);
+//     })
+// }
+// xhr.send();
 
-    updateChart4("PSN003", "voltage", 1000);
-    setInterval(function(){updateChart4("PSN003", "voltage")}, updateInterval);
 
-    updateChart5("PSN004", "current", 1000);
-    setInterval(function(){updateChart5("PSN004", "current")}, updateInterval);
+// CHARTS RENDERING
+renderChart('chartContainer1', 'ESN001', dataLength);
+setInterval(function(){updateChart("ESN001")}, updateInterval);
+renderChart('chartContainer2', 'PSN001', dataLength);
+setInterval(function(){updateChart("PSN001")}, updateInterval);
+renderChart('chartContainer3', 'PSN002', dataLength);
+setInterval(function(){updateChart("PSN002")}, updateInterval);
+renderChart('chartContainer4', 'PSN003', dataLength);
+setInterval(function(){updateChart("PSN003")}, updateInterval);
+renderChart('chartContainer5', 'PSN004', dataLength);
+setInterval(function(){updateChart("PSN004")}, updateInterval);
 
-    // UPDATE TOGGLE BUTTONS
-    
-    setInterval(function(){updateToggle("ESN001")}, updateInterval);
-    setInterval(function(){updateToggle("PSN001")}, updateInterval);
-    setInterval(function(){updateToggle("PSN002")}, updateInterval);
-    setInterval(function(){updateToggle("PSN003")}, updateInterval);
-    setInterval(function(){updateToggle("PSN004")}, updateInterval);
-}
+
+
+// UPDATE TOGGLE BUTTONS
+setInterval(function(){updateToggle("ESN001")}, updateInterval);
+setInterval(function(){updateToggle("PSN001")}, updateInterval);
+setInterval(function(){updateToggle("PSN002")}, updateInterval);
+setInterval(function(){updateToggle("PSN003")}, updateInterval);
+setInterval(function(){updateToggle("PSN004")}, updateInterval);

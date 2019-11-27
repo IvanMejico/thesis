@@ -18,7 +18,7 @@
 				<div class="panel-header"><h3>Wind Sensor Node</h3></div>
 				<div class="panel-body">
 					<div class="numeric-group">
-						<div>
+						<!-- <div>
 							<i>Power</i>
 							<span class="numeric-power" id="wind-power">23W</span>
 						</div>
@@ -29,10 +29,10 @@
 						<div>
 							<i>Current</i>
 							<span class="numeric-current" id="wind-current">1A</span>
-						</div>
+						</div> -->
 						<div>
 							<i>Speed</i>
-							<span class="numeric-speed" id="wind-speed">2m/s</span>
+							<span class="numeric-speed" id="wind-speed">0m/s</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -76,15 +76,15 @@
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">23W</span>
+							<span class="numeric-power">0W</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">220V</span>
+							<span class="numeric-voltage">0V</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">1A</span>
+							<span class="numeric-current">0A</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -98,15 +98,15 @@
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">23W</span>
+							<span class="numeric-power">0W</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">220V</span>
+							<span class="numeric-voltage">0V</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">1A</span>
+							<span class="numeric-current">0A</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -120,15 +120,15 @@
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">23W</span>
+							<span class="numeric-power">0W</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">220V</span>
+							<span class="numeric-voltage">0V</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">1A</span>
+							<span class="numeric-current">0A</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -142,15 +142,15 @@
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">23W</span>
+							<span class="numeric-power">0W</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">220V</span>
+							<span class="numeric-voltage">0V</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">1A</span>
+							<span class="numeric-current">0A</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -217,11 +217,7 @@
 	</div>
 	<script src="colorsets.js"></script>
 	<script src="resources/canvasjs.min.js"></script>
-	<script src="render_chart1.js"></script>
-	<script src="render_chart2.js"></script>
-	<script src="render_chart3.js"></script>
-	<script src="render_chart4.js"></script>
-	<script src="render_chart5.js"></script>
+	<script src="render_chart.js"></script>
 	<script src="toggle.js"></script>
 	<script src="script.js"></script>
 	</body>
