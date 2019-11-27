@@ -10,7 +10,7 @@ String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
 String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
-String sensor_node_id = "ESN001";
+String sensor_node_id = "PSN001";
 
 String relay_url = "/sensordata/relay.php?";   // SCRIPT FROR RELAY CONTROL
 String send_url = "/sensordata/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
@@ -33,6 +33,10 @@ float valSensor = 0;
 const int numReadings = 10;   // Defines number of reading to calculate average windspeed
 int readings[numReadings];    // the readings from the analog input
 
+float voltage=0;
+float current=0;
+float power=0;
+
 
 SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
 
@@ -53,12 +57,15 @@ void setup() {
 void loop() {
   checkRelay();   // check and set relay status from the server
 
-  // for debugging
-  valSensor = random(5);
-  Serial.println(valSensor);
+  voltage = random(3, 12);
+  current = random(1, 3);
+  power = current * voltage;
+  Serial.println(voltage);
+  Serial.println(current);
+  Serial.println(power);
 
   // valSensor = getSensorData();    // gather sensor dat
-   sendSensorReading("wind_speed", valSensor);   // send sensor measurement to the server
-  
+  sendSensorReading(voltage, current);   // send sensor measurement to the server
+  delay(2000);
   Serial.println("---");
 }
