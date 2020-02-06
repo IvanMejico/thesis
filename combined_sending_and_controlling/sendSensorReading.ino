@@ -8,8 +8,8 @@ void sendSensorReading(String type, float reading[]) {
 
     // Check if the type of measurement
     if (type == "electrical") {
-        int voltage = reading[0];
-        int current = reading[1];
+        float voltage = reading[0];
+        float current = reading[1];
 
         getData = "GET " + send_url 
         + "sensor_id=" + sensor_node_id 

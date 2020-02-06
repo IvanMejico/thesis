@@ -26,7 +26,7 @@ float windSpeedMax = 32; // Wind speed in meters/sec corresponding to maximum vo
 
 // END: WIND SENSOR VARIABLES
 
-float getSensorData(){
+float getWindSpeed(){
     sensorValue = analogRead(sensorPin); //Get a value between 0 and 1023 from the analog pin connected to the anemometer
 
     // subtract the last reading:
