@@ -12,7 +12,7 @@ EnergyMonitor emon1;             // Create an instance
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.103";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.101";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 String sensor_node_id = "PSN001";
@@ -23,7 +23,6 @@ String nodeIp;                                    // IP ANDRESS OF THE SENSOR NO
 String espResponseString = "";      // RESPONSE STRING FROM THE DATABASE
 
 //Define the used function later in the code.
-// float getSensorData();
 boolean setupESP();   
 boolean sendCommand(String command, int maxTime, String readReply);
 boolean sendToServer();
@@ -72,11 +71,8 @@ void loop() {
 
   //*** Wind measurements
   // type = "wind";
-  // wind = random(1, 4);
-  // reading[0] = wind;
-  // sendSensorReading(type, reading);
-
-  // valSensor = getWindSpeed();    // gather sensor dat
+  // windSpeed = getWindSpeed();    // gather sensor dat
+  // reading[0] = windSpeed;
   // sendSensorReading(type, reading);   // send sensor measurement to the server
 
   //*** Electrical measurements
@@ -85,13 +81,8 @@ void loop() {
   current = getCurrent();
   reading[0] = voltage;
   reading[1] = current;
-  // Serial.print("\nV:");
-  // Serial.print(reading[0]);
-  // Serial.print("\tI:");
-  // Serial.print(reading[1]);
-  // delay(500);
 
- sendSensorReading(type, reading);
+  sendSensorReading(type, reading);
 
   //*** For debugging
   // delay(2000);
