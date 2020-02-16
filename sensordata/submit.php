@@ -19,11 +19,12 @@ if(isset($_REQUEST['voltage']) && isset($_REQUEST['current'])) {
     $sql = "INSERT INTO `$tableName` (`sensor_id`, `voltage`, `current`, `timestamp`) 
             VALUES ('$sensor_id', '$voltage', '$current', '$timestamp')";
 
-} else if (isset($_REQUEST['wind_speed'])) {
+} else if (isset($_REQUEST['wind_speed']) && isset($_REQUEST['solar_irradiance'])) { // TODO: Do submit for solar irradiance
 
-    $tableName = "wind_speed_reading";
+    $tableName = "environment_reading";
     $windSpeed = $_REQUEST['wind_speed'];
-    $sql="INSERT INTO `$tableName` (`sensor_id`,`value`, `timestamp`) VALUES ('$sensor_id', '$windSpeed', '$timestamp')";
+    $solarIrradiance = $_REQUEST['solar_irradiance'];
+    $sql="INSERT INTO `$tableName` (`sensor_id`,`wind_speed`, `solar_irradiance`, `timestamp`) VALUES ('$sensor_id', '$windSpeed', '$solarIrradiance', '$timestamp')";
 }
 
 mysqli_query($conn ,$sql);

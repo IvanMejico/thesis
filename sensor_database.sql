@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb4
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 16, 2019 at 04:51 AM
--- Server version: 10.1.23-MariaDB-9+deb9u1
--- PHP Version: 7.0.30-0+deb9u1
+-- Host: 127.0.0.1
+-- Generation Time: Feb 16, 2020 at 09:41 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,15 +25,166 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `current_reading`
+-- Table structure for table `energy_reading`
 --
 
-CREATE TABLE `current_reading` (
+CREATE TABLE `energy_reading` (
   `id` int(11) NOT NULL,
   `sensor_id` char(6) NOT NULL,
-  `value` float NOT NULL,
+  `voltage` float NOT NULL,
+  `current` float NOT NULL,
   `timestamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `energy_reading`
+--
+
+INSERT INTO `energy_reading` (`id`, `sensor_id`, `voltage`, `current`, `timestamp`) VALUES
+(547, 'PSN001', 5.24, 0.11, '2020-02-16 07:17:45'),
+(548, 'PSN001', 3.46, 0.06, '2020-02-16 07:17:49'),
+(549, 'PSN001', 3.69, 0.06, '2020-02-16 07:17:53'),
+(550, 'PSN001', 3.68, 0.08, '2020-02-16 07:17:57'),
+(551, 'PSN001', 4.45, 0.06, '2020-02-16 07:18:02'),
+(552, 'PSN001', 5.87, 0.08, '2020-02-16 07:18:06'),
+(553, 'PSN001', 4.32, 0.08, '2020-02-16 07:18:10'),
+(554, 'PSN001', 3.95, 0.06, '2020-02-16 07:18:14'),
+(555, 'PSN001', 4.87, 0.08, '2020-02-16 07:18:19'),
+(556, 'PSN001', 3.93, 0.08, '2020-02-16 07:18:23'),
+(557, 'PSN001', 3.3, 0.08, '2020-02-16 07:18:27'),
+(558, 'PSN001', 4.83, 0.08, '2020-02-16 07:18:32'),
+(559, 'PSN001', 6.96, 0.08, '2020-02-16 07:18:36'),
+(560, 'PSN001', 5.81, 0.08, '2020-02-16 07:18:41'),
+(561, 'PSN001', 3.37, 0.08, '2020-02-16 07:18:45'),
+(562, 'PSN001', 140.86, 0.06, '2020-02-16 07:18:49'),
+(563, 'PSN001', 140.14, 0.08, '2020-02-16 07:18:54'),
+(564, 'PSN001', 139.89, 0.11, '2020-02-16 07:18:58'),
+(565, 'PSN001', 139.25, 0.06, '2020-02-16 07:19:02'),
+(566, 'PSN001', 139.42, 0.06, '2020-02-16 07:19:07'),
+(567, 'PSN001', 138.76, 0.08, '2020-02-16 07:19:11'),
+(568, 'PSN001', 139.35, 0.08, '2020-02-16 07:19:16'),
+(569, 'PSN001', 139.57, 0.06, '2020-02-16 07:19:20'),
+(570, 'PSN001', 138.88, 0.06, '2020-02-16 07:19:24'),
+(571, 'PSN001', 138.27, 0.08, '2020-02-16 07:19:29'),
+(572, 'PSN001', 138.58, 0.06, '2020-02-16 07:19:33'),
+(573, 'PSN001', 138.85, 0.08, '2020-02-16 07:19:38'),
+(574, 'PSN001', 138.64, 0.08, '2020-02-16 07:19:42'),
+(575, 'PSN001', 138.26, 0.08, '2020-02-16 07:19:47'),
+(576, 'PSN001', 138.16, 0.08, '2020-02-16 07:19:51'),
+(577, 'PSN001', 137.99, 0.06, '2020-02-16 07:19:55'),
+(578, 'PSN001', 138.32, 0.08, '2020-02-16 07:20:00'),
+(579, 'PSN001', 138.63, 0.08, '2020-02-16 07:20:04'),
+(580, 'PSN001', 136.67, 0.08, '2020-02-16 07:20:09'),
+(581, 'PSN001', 136.81, 0.08, '2020-02-16 07:20:13'),
+(582, 'PSN001', 136.58, 0.06, '2020-02-16 07:20:17'),
+(583, 'PSN001', 137.65, 0.08, '2020-02-16 07:20:22'),
+(584, 'PSN001', 136.22, 0.08, '2020-02-16 07:20:26'),
+(585, 'PSN001', 136.59, 0.08, '2020-02-16 07:20:31'),
+(586, 'PSN001', 135.99, 0.08, '2020-02-16 07:20:35'),
+(587, 'PSN001', 137.65, 0.11, '2020-02-16 07:20:39'),
+(588, 'PSN001', 136.87, 0.08, '2020-02-16 07:20:44'),
+(589, 'PSN001', 136.88, 0.08, '2020-02-16 07:20:48'),
+(590, 'PSN001', 136.8, 0.08, '2020-02-16 07:20:53'),
+(591, 'PSN001', 18.5, 0.08, '2020-02-16 07:20:57'),
+(592, 'PSN001', 19.63, 0.08, '2020-02-16 07:21:01'),
+(593, 'PSN001', 19.35, 0.08, '2020-02-16 07:21:05'),
+(594, 'PSN001', 17.11, 0.08, '2020-02-16 07:21:10'),
+(595, 'PSN001', 137.82, 0.06, '2020-02-16 07:21:14'),
+(596, 'PSN001', 135.3, 0.08, '2020-02-16 07:21:19'),
+(597, 'PSN001', 135.17, 0.08, '2020-02-16 07:21:23'),
+(598, 'PSN001', 135.61, 0.08, '2020-02-16 07:21:27'),
+(599, 'PSN001', 134.82, 0.08, '2020-02-16 07:21:32'),
+(600, 'PSN001', 134.74, 0.08, '2020-02-16 07:21:36'),
+(601, 'PSN001', 135.32, 0.08, '2020-02-16 07:21:41'),
+(602, 'PSN001', 134.73, 0.08, '2020-02-16 07:21:45'),
+(603, 'PSN001', 134.35, 0.08, '2020-02-16 07:21:49'),
+(604, 'PSN001', 133.98, 0.08, '2020-02-16 07:21:54'),
+(605, 'PSN001', 132.97, 0.08, '2020-02-16 07:21:58'),
+(606, 'PSN001', 133.35, 0.08, '2020-02-16 07:22:03'),
+(607, 'PSN001', 130.18, 0.11, '2020-02-16 07:22:07'),
+(608, 'PSN001', 135.91, 0.08, '2020-02-16 07:22:12'),
+(609, 'PSN001', 134.5, 0.08, '2020-02-16 07:22:16'),
+(610, 'PSN001', 135.91, 0.08, '2020-02-16 07:22:20'),
+(611, 'PSN001', 135.82, 0.08, '2020-02-16 07:22:25'),
+(612, 'PSN001', 135.71, 0.08, '2020-02-16 07:22:29'),
+(613, 'PSN001', 133.29, 0.08, '2020-02-16 07:22:34'),
+(614, 'PSN001', 135.79, 0.08, '2020-02-16 07:22:38'),
+(615, 'PSN001', 135.78, 0.08, '2020-02-16 07:22:42'),
+(616, 'PSN001', 135.32, 0.08, '2020-02-16 07:22:47'),
+(617, 'PSN001', 133.05, 0.08, '2020-02-16 07:22:51'),
+(618, 'PSN001', 134.9, 0.08, '2020-02-16 07:22:56'),
+(619, 'PSN001', 136.13, 0.08, '2020-02-16 07:23:00'),
+(620, 'PSN001', 135.7, 0.08, '2020-02-16 07:23:05'),
+(621, 'PSN001', 19, 0.08, '2020-02-16 07:23:09'),
+(622, 'PSN001', 20.11, 0.08, '2020-02-16 07:23:13'),
+(623, 'PSN001', 17.3, 0.08, '2020-02-16 07:23:17'),
+(624, 'PSN001', 15.78, 0.06, '2020-02-16 07:23:22'),
+(625, 'PSN001', 16.07, 0.08, '2020-02-16 07:23:26'),
+(626, 'PSN001', 14.99, 0.08, '2020-02-16 07:23:30'),
+(627, 'PSN001', 12.75, 0.11, '2020-02-16 07:23:34'),
+(628, 'PSN001', 11.29, 0.08, '2020-02-16 07:23:39'),
+(629, 'PSN001', 10.93, 0.08, '2020-02-16 07:23:43'),
+(630, 'PSN001', 9.8, 0.08, '2020-02-16 07:23:47'),
+(631, 'PSN001', 9.25, 0.08, '2020-02-16 07:23:52'),
+(632, 'PSN001', 9.33, 0.06, '2020-02-16 07:23:56'),
+(633, 'PSN001', 8.81, 0.06, '2020-02-16 07:24:00'),
+(634, 'PSN001', 6.62, 0.08, '2020-02-16 07:24:05'),
+(635, 'PSN001', 5.92, 0.11, '2020-02-16 07:24:09'),
+(636, 'PSN001', 5.66, 0.06, '2020-02-16 07:24:13'),
+(637, 'PSN001', 5.09, 0.06, '2020-02-16 07:24:17'),
+(638, 'PSN001', 5.88, 0.08, '2020-02-16 07:24:22'),
+(639, 'PSN001', 4.46, 0.06, '2020-02-16 07:24:26'),
+(640, 'PSN001', 4.1, 0.06, '2020-02-16 07:24:30'),
+(641, 'PSN001', 4.47, 0.08, '2020-02-16 07:24:35'),
+(642, 'PSN001', 4.58, 0.06, '2020-02-16 07:24:39'),
+(643, 'PSN001', 4.89, 0.08, '2020-02-16 07:24:43'),
+(644, 'PSN001', 4.36, 0.08, '2020-02-16 07:24:47'),
+(645, 'PSN001', 4.27, 0.11, '2020-02-16 07:24:52'),
+(646, 'PSN001', 3.93, 0.08, '2020-02-16 07:24:56'),
+(647, 'PSN001', 4.49, 0.11, '2020-02-16 07:25:00'),
+(648, 'PSN001', 4.07, 0.08, '2020-02-16 07:25:05'),
+(649, 'PSN001', 4.67, 0.08, '2020-02-16 07:25:09'),
+(650, 'PSN001', 4.98, 0.06, '2020-02-16 07:25:13'),
+(651, 'PSN001', 4.35, 0.11, '2020-02-16 07:25:17'),
+(652, 'PSN001', 4.5, 0.06, '2020-02-16 07:25:22'),
+(653, 'PSN001', 3.61, 0.11, '2020-02-16 07:25:26'),
+(654, 'PSN001', 4.01, 0.06, '2020-02-16 07:25:30'),
+(655, 'PSN001', 3.57, 0.08, '2020-02-16 07:25:35'),
+(656, 'PSN001', 4.19, 0.08, '2020-02-16 07:25:39'),
+(657, 'PSN001', 3.59, 0.06, '2020-02-16 07:25:43'),
+(658, 'PSN001', 3.58, 0.06, '2020-02-16 07:25:48'),
+(659, 'PSN001', 4.38, 0.06, '2020-02-16 07:25:52'),
+(660, 'PSN001', 3.58, 0.08, '2020-02-16 07:25:56'),
+(661, 'PSN001', 3.75, 0.08, '2020-02-16 07:26:00'),
+(662, 'PSN001', 3.85, 0.08, '2020-02-16 07:26:05'),
+(663, 'PSN001', 4.17, 0.08, '2020-02-16 07:26:09'),
+(664, 'PSN001', 3.32, 0.06, '2020-02-16 07:26:13'),
+(665, 'PSN001', 3.75, 0.08, '2020-02-16 07:26:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `environment_reading`
+--
+
+CREATE TABLE `environment_reading` (
+  `id` int(11) NOT NULL,
+  `sensor_id` char(6) NOT NULL,
+  `wind_speed` float NOT NULL,
+  `solar_irradiance` float NOT NULL,
+  `timestamp` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `environment_reading`
+--
+
+INSERT INTO `environment_reading` (`id`, `sensor_id`, `wind_speed`, `solar_irradiance`, `timestamp`) VALUES
+(96, 'ESN001', 23.14, 12, '2020-02-16 03:15:18'),
+(97, 'ESN001', 15.04, 11, '2020-02-16 03:16:18'),
+(98, 'ESN001', 18.75, 20.13, '2020-02-16 03:17:18'),
+(99, 'ESN001', 26.13, 26.46, '2020-02-16 03:17:18'),
+(100, 'ESN001', 4, 25, '2020-02-16 16:35:35');
 
 -- --------------------------------------------------------
 
@@ -46,6 +199,17 @@ CREATE TABLE `relay_control` (
   `override` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `relay_control`
+--
+
+INSERT INTO `relay_control` (`id`, `sensor_id`, `status`, `override`) VALUES
+(1, 'ESN001', 'FL', 'YES'),
+(2, 'PSN001', 'FL', 'YES'),
+(3, 'PSN002', 'FL', 'YES'),
+(4, 'PSN003', 'FL', 'YES'),
+(5, 'PSN004', 'FL', 'YES');
+
 -- --------------------------------------------------------
 
 --
@@ -58,40 +222,31 @@ CREATE TABLE `sensor` (
   `sensor_type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `voltage_reading`
+-- Dumping data for table `sensor`
 --
 
-CREATE TABLE `voltage_reading` (
-  `id` int(11) NOT NULL,
-  `sensor_id` char(6) NOT NULL,
-  `value` float NOT NULL,
-  `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wind_speed_reading`
---
-
-CREATE TABLE `wind_speed_reading` (
-  `id` int(11) NOT NULL,
-  `sensor_id` char(6) NOT NULL,
-  `value` float NOT NULL,
-  `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `sensor` (`id`, `sensor_name`, `sensor_type`) VALUES
+('ESN001', 'Wind Sensor Node', 'environment'),
+('PSN001', 'Electrical Sensor Node #1', 'electrical'),
+('PSN002', 'Electrical Sensor Node #2', 'electrical'),
+('PSN003', 'Electrical Sensor Node #3', 'electrical'),
+('PSN004', 'Electrical Sensor Node #4', 'electrical');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `current_reading`
+-- Indexes for table `energy_reading`
 --
-ALTER TABLE `current_reading`
+ALTER TABLE `energy_reading`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `environment_reading`
+--
+ALTER TABLE `environment_reading`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -101,15 +256,9 @@ ALTER TABLE `relay_control`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `voltage_reading`
+-- Indexes for table `sensor`
 --
-ALTER TABLE `voltage_reading`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `wind_speed_reading`
---
-ALTER TABLE `wind_speed_reading`
+ALTER TABLE `sensor`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -117,25 +266,24 @@ ALTER TABLE `wind_speed_reading`
 --
 
 --
--- AUTO_INCREMENT for table `current_reading`
+-- AUTO_INCREMENT for table `energy_reading`
 --
-ALTER TABLE `current_reading`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `energy_reading`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=666;
+
+--
+-- AUTO_INCREMENT for table `environment_reading`
+--
+ALTER TABLE `environment_reading`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
 --
 -- AUTO_INCREMENT for table `relay_control`
 --
 ALTER TABLE `relay_control`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `voltage_reading`
---
-ALTER TABLE `voltage_reading`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `wind_speed_reading`
---
-ALTER TABLE `wind_speed_reading`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

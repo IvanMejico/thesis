@@ -6,9 +6,9 @@
  *  If there's no unit parameter given, just query all possible units on the database
  *  If there is a unit parameter given, return just the value that corresponds to that specific unit
  *  == QUERIES EX ==
- *      QUERY1(VOLTAGE): SELECT * FROM voltage_reading WHERE sensor_id = 'ESN001';
- *      QUERY2(CURRENT): SELECT * FROM current_reading WHERE sensor_id = 'ESN001';
- *      QUERY2(WIND_SPEED): SELECT * FROM wind_speed_reading WHERE sensor_id = 'ESN001';
+ *      QUERY1(VOLTAGE): SELECT * FROM voltage_reading WHERE sensor_id = 'PSN001';
+ *      QUERY2(CURRENT): SELECT * FROM current_reading WHERE sensor_id = 'PSN001';
+ *      QUERY2(WIND_SPEED): SELECT * FROM environment_reading WHERE sensor_id = 'ESN001';
  * 3) Push and sort query result into respective arrays
  * 3) Combine the resulting arrays into a single array.
  * 4) Echo the result.
@@ -36,7 +36,7 @@ if($result = mysqli_query($conn, $querySensorType)) {
 
 
 // If sensor type is electrical get the voltage_reading and current_reading tables
-// if sensor type is wind get the wind_speed_reading table
+// if sensor type is wind get the environment_reading table
 if($sensorType == 'electrical') {
     $voltageQuery = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' ORDER BY `timestamp` DESC LIMIT $dataLength;";
 
@@ -57,9 +57,9 @@ if($sensorType == 'electrical') {
         echo 'ERROR: '. mysqli_error($conn);
 }
 
-if($sensorType == 'wind') {
+if($sensorType == 'environment') {
     $windDp = [];
-    $windQuery = "SELECT * FROM `wind_speed_reading` WHERE `sensor_id` = '$sensorId' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    $windQuery = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' ORDER BY `timestamp` DESC LIMIT $dataLength;";
     
     if($result = mysqli_query($conn, $windQuery)) {
         while($row = $result->fetch_assoc()) {
@@ -68,7 +68,8 @@ if($sensorType == 'wind') {
                 [
                     "id" => (int)$row['id'], 
                     "sensor_id" => $row['sensor_id'],
-                    "value" => (float) $row['value'],
+                    "wind_speed" => (float) $row['wind_speed'],
+                    "solar_irradiance" => (float) $row['solar_irradiance'],
                     "timestamp" => $row['timestamp']
                 ]
             );

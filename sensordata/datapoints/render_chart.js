@@ -8,6 +8,7 @@ var voltageDps = [];
 var currentDps = [];
 var powerDps = [];
 var windSpeedDps = [];
+var solarIrradianceDps = [];
 var prevDateTime = [];
 
 // var windData = {};
@@ -24,6 +25,9 @@ function renderChart(container,sensorId, count) {
         
     if(!windSpeedDps[sensorId])
         windSpeedDps[sensorId] = [];
+
+    if(!solarIrradianceDps[sensorId])
+        solarIrradianceDps[sensorId] = [];
         
     // prevDateTime[sensorId];
 
@@ -100,16 +104,28 @@ function renderChart(container,sensorId, count) {
                 dataPoints: voltageDps[sensorId]
             },
 
-            windData = {        
+            {        
                 type: "splineArea",
                 showInLegend: true,
                 name: "Wind Speed",
+                fillOpacity: .2, 
+                color: "#a80cad",
+                lineColor: "#a80cad",
+                markerColor: "#a80cad",
+                markerSize: 0,
+                dataPoints: windSpeedDps[sensorId]
+            },
+
+            {        
+                type: "splineArea",
+                showInLegend: true,
+                name: "Solar Irradiance",
                 fillOpacity: .2, 
                 color: "#c4a704",
                 lineColor: "#c4a704",
                 markerColor: "#c4a704",
                 markerSize: 0,
-                dataPoints: windSpeedDps[sensorId]
+                dataPoints: solarIrradianceDps[sensorId]
             }
 
         ]  
@@ -121,7 +137,7 @@ function renderChart(container,sensorId, count) {
 }
 
 var updateChart = function (sensorId, count) {
-    console.log('executed');
+    // console.log('executed');
     count = count || 1; // If count is not passed, default the value to 1
 
     if(!prevDateTime[sensorId]) {
@@ -135,7 +151,8 @@ var updateChart = function (sensorId, count) {
     xhr.onload = function() {
         var response = JSON.parse(this.responseText);
         var sensorType = response.sensor_type;
-        var sensorData = response.sensor_data;    
+        var sensorData = response.sensor_data;
+        
 
         
         if(sensorType == 'electrical') {
@@ -156,6 +173,10 @@ var updateChart = function (sensorId, count) {
                 let voltage = parseFloat(item.voltage);
                 let current = parseFloat(item.current);
                 let power = current * voltage;
+
+                updateNumeric(sensorId, 'voltage', voltage);
+                updateNumeric(sensorId, 'current', current);
+                updateNumeric(sensorId, 'power', power);
                 
                 if(dateTime.getTime() !== prevDateTime[sensorId].getTime()) {
                     // console.log(prevDateTime[sensorId]);
@@ -183,7 +204,7 @@ var updateChart = function (sensorId, count) {
                     }
                 }    
             });
-        } else if (sensorType == 'wind') {
+        } else if (sensorType == 'environment') {
             
             sensorData.forEach(function(item) {
                 let timeStamp = item.timestamp;
@@ -199,7 +220,11 @@ var updateChart = function (sensorId, count) {
                     dateTimeParts[5]
                 );
 
-                let windSpeed = parseFloat(item.value);                
+                let windSpeed = parseFloat(item.wind_speed);
+                let solarIrradiance = parseFloat(item.solar_irradiance);
+
+                updateNumeric(sensorId, 'wind_speed', windSpeed);
+                updateNumeric(sensorId, 'solar_irradiance', solarIrradiance);
                
                 if(dateTime.getTime() !== prevDateTime[sensorId].getTime()) {
                     
@@ -208,10 +233,16 @@ var updateChart = function (sensorId, count) {
                         y: windSpeed
                     });
 
+                    solarIrradianceDps[sensorId].push({
+                        x: dateTime,
+                        y: solarIrradiance
+                    });
+
                     prevDateTime[sensorId] = dateTime;
 
                     if (windSpeedDps.length > dataLength) {
                         windSpeedDps.shift();
+                        solarIrradianceDps.shift();
                     }
 
                 }    

@@ -235,7 +235,7 @@ input:checked + .slider:before {
     font-size: 1.6em;
     padding-right: 30px;
     display: block;
-    width: 150px;
+    width: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -252,7 +252,10 @@ input:checked + .slider:before {
     color: rgb(0, 124, 31);
 }
 
-.panel .numeric-speed {
+.panel .numeric-wind_speed {
+    color: rgb(168, 12, 173);
+}
+.panel .numeric-solar_irradiance {
     color: rgb(196, 167, 4);
 }
 
