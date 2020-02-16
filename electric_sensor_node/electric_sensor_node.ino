@@ -31,16 +31,9 @@ void checkRelay();
 void sendSensorReading(String unit, float reading);
 void setRelay(String relay_status);
 
-
-// WIND SENSOR VARAIBLES
-float valSensor = 0;
-const int numReadings = 10;   // Defines number of reading to calculate average windspeed
-int readings[numReadings];    // the readings from the analog input
-
 float voltage=0;
 float current=0;
 float power=0;
-float wind = 0;
 
 String type;
 float reading[2];
@@ -53,11 +46,6 @@ void setup() {
   pinMode(A1, INPUT);
   emon1.voltage(A0, VOLT_CAL, 1.7);  // Voltage: input pin, calibration, phase_shift
 
-  // SETUP WIND SENSOR READING VALUES
-  // for (int thisReading = 0; thisReading < numReadings; thisReading++) {
-  //   readings[thisReading] = 0;
-  // }
-
   pinMode(relayPin, OUTPUT);
 
   Serial.begin(9600);
@@ -68,12 +56,6 @@ void setup() {
 
 void loop() {
   checkRelay();   // check and set relay status from the server
-
-  //*** Wind measurements
-  // type = "wind";
-  // windSpeed = getWindSpeed();    // gather sensor dat
-  // reading[0] = windSpeed;
-  // sendSensorReading(type, reading);   // send sensor measurement to the server
 
   //*** Electrical measurements
   type = "electrical";
