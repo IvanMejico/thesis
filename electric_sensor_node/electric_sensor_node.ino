@@ -48,8 +48,8 @@ void setup() {
 
   pinMode(relayPin, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600);
+  Serial.begin(115200);
   setupESP();
   digitalWrite(relayPin, LOW);
 }
