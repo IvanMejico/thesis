@@ -37,10 +37,10 @@
 				<div class="panel-header"><h3>Relay Status</h3></div>
 				<div class="panel-body">
 					<div class="leds">
-						<div>
+						<!-- <div>
 							<span>Environment Sensor</span>
 							<div id="led-r1" class="led led-red"></div>
-						</div>
+						</div> -->
 						<div>
 							<span>Electric Sensor Node (AC Load)</span>
 							<div id="led-r2" class="led led-yellow"></div>
@@ -178,7 +178,7 @@
 	<div class="manual-control">
 		<h1>Relay Manual Control</h1>
 		<div class="relaystatus">
-			<div class="status1">
+			<!-- <div class="status1">
 				<h4>Environment Sensor Node</h4>
 				<div>
 					<label class="switch">
@@ -186,7 +186,7 @@
 						<span class="slider round"></span>
 					</label>
 				</div>
-			</div>
+			</div> -->
 	
 			<div class="status1">
 				<h4>Electric Sensor Node (AC Load)</h4>

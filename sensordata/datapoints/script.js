@@ -31,7 +31,7 @@ setInterval(function(){updateChart("PSN004")}, updateInterval);
 
 
 // UPDATE TOGGLE BUTTONS
-setInterval(function(){updateToggle("ESN001")}, updateInterval);
+// setInterval(function(){updateToggle("ESN001")}, updateInterval);
 setInterval(function(){updateToggle("PSN001")}, updateInterval);
 setInterval(function(){updateToggle("PSN002")}, updateInterval);
 setInterval(function(){updateToggle("PSN003")}, updateInterval);

@@ -1,15 +1,15 @@
 // select toggle buttons
-var toggle1 = document.getElementById('relay1');
+// var toggle1 = document.getElementById('relay1');
 var toggle2 = document.getElementById('relay2');
 var toggle3 = document.getElementById('relay3');
 var toggle4 = document.getElementById('relay4');
 var toggle5 = document.getElementById('relay5');
 
 // add event listerner to toggle buttons
-toggle1.onclick = function() {
-    checked = toggle1.checked;
-    saveToggle("ESN001",checked);
-}
+// toggle1.onclick = function() {
+//     checked = toggle1.checked;
+//     saveToggle("ESN001",checked);
+// }
 toggle2.onclick = function() {
     checked = toggle2.checked;
     saveToggle("PSN001", checked);
@@ -32,9 +32,9 @@ toggle5.onclick = function() {
 var updateToggle = function(sensor_id) {
     var relayId;
     switch (sensor_id) {
-        case "ESN001":
-            relayId = 1;
-            break;
+        // case "ESN001":
+        //     relayId = 1;
+        //     break;
         case "PSN001":
             relayId = 2;
             break;
