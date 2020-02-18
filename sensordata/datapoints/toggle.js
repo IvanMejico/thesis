@@ -22,10 +22,10 @@ toggle4.onclick = function() {
     checked = toggle4.checked;
     saveToggle("PSN003", checked);
 }
-toggle5.onclick = function() {
-    checked = toggle5.checked;
-    saveToggle("PSN004", checked);
-}
+// toggle5.onclick = function() {
+//     checked = toggle5.checked;
+//     saveToggle("PSN004", checked);
+// }
 
 
 // TOGGLE
@@ -44,9 +44,9 @@ var updateToggle = function(sensor_id) {
         case "PSN003":
             relayId = 4;
             break;
-        case "PSN004":
-            relayId = 5;
-            break;
+        // case "PSN004":
+        //     relayId = 5;
+        //     break;
         default:
     }
 

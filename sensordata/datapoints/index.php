@@ -53,10 +53,10 @@
 							<span> Electric Sensor Node (Solar)</span>
 							<div id="led-r4" class="led led-blue"></div>
 						</div>
-						<div>
+						<!-- <div>
 							<span>Electric Sensor Node (Battery)</span>
 							<div id="led-r5" class="led led-violet"></div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -128,28 +128,6 @@
 					</div>
 				</div>
 			</div>
-			<div id="PSN004" class="panel">
-				<div class="panel-header"><h3>Electric Sensor Node (Wind)</h3></div>
-				<div class="panel-body">
-					<div class="numeric-group">
-						<div>
-							<i>Power</i>
-							<span class="numeric-power">0W</span>
-						</div>
-						<div>
-							<i>Voltage</i>
-							<span class="numeric-voltage">0V</span>
-						</div>
-						<div>
-							<i>Current</i>
-							<span class="numeric-current">0A</span>
-						</div>
-					</div>
-					<div class="chart">
-						<div id="chartContainer5" style="height: 370px; margin: 0px auto;"></div>
-					</div>
-				</div>
-			</div>
 			<!-- <div id="PSN004" class="panel">
 				<div class="panel-header"><h3>Electric Sensor Node (Battery)</h3></div>
 				<div class="panel-body">
@@ -218,7 +196,7 @@
 				</div>
 			</div>
 	
-			<div class="status1">
+			<!-- <div class="status1">
 				<h4>Electric Sensor Node (Battery)</h4>
 				<div>
 					<label class="switch">
@@ -226,7 +204,7 @@
 						<span class="slider round"></span>
 					</label>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<script src="colorsets.js"></script>

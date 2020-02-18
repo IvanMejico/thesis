@@ -25,8 +25,8 @@ renderChart('chartContainer3', 'PSN002', dataLength);
 setInterval(function(){updateChart("PSN002")}, updateInterval);
 renderChart('chartContainer4', 'PSN003', dataLength);
 setInterval(function(){updateChart("PSN003")}, updateInterval);
-renderChart('chartContainer5', 'PSN004', dataLength);
-setInterval(function(){updateChart("PSN004")}, updateInterval);
+// renderChart('chartContainer5', 'PSN004', dataLength);
+// setInterval(function(){updateChart("PSN004")}, updateInterval);
 
 
 
@@ -35,4 +35,4 @@ setInterval(function(){updateChart("PSN004")}, updateInterval);
 setInterval(function(){updateToggle("PSN001")}, updateInterval);
 setInterval(function(){updateToggle("PSN002")}, updateInterval);
 setInterval(function(){updateToggle("PSN003")}, updateInterval);
-setInterval(function(){updateToggle("PSN004")}, updateInterval);
+// setInterval(function(){updateToggle("PSN004")}, updateInterval);
