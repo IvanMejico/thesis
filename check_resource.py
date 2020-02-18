@@ -11,17 +11,15 @@ import schedule
 import time
 from datetime import datetime
 
-min_speed = 3
+min_speed = 1
 min_irradiance = 10
 sensor_id = 'ESN001'
 
 
-db = pymysql.connect("localhost", "root", "", "sensor_database")
-
 def activateRelay():
-    db = pymysql.connect("localhost", "root", "", "sensor_database")
+    db = pymysql.connect("localhost", "pi", "root", "sensor_database")
     cursor = db.cursor()
-    sql = "UPDATE relay_control SET status = 'TR'  WHERE sensor_id = '%s'" % ('ESN001')
+    sql = "UPDATE relay_control SET status = 'TR'  WHERE sensor_id = '%s'" % ('PSN001')
 
     try:
         cursor.execute(sql)
@@ -33,9 +31,9 @@ def activateRelay():
     print('RELAY ACTIVATED')
 
 def deactivateRelay():
-    db = pymysql.connect("localhost", "root", "", "sensor_database")
+    db = pymysql.connect("localhost", "pi", "root", "sensor_database")
     cursor = db.cursor()
-    sql = "UPDATE relay_control SET status = 'FL'  WHERE sensor_id = '%s'" % ('ESN001')
+    sql = "UPDATE relay_control SET status = 'FL'  WHERE sensor_id = '%s'" % ('PSN001')
 
     try:
         cursor.execute(sql)
@@ -47,7 +45,7 @@ def deactivateRelay():
     print('RELAY DEACTIVATED')
 
 def checkAvailable():
-    db = pymysql.connect("localhost", "root", "", "sensor_database")
+    db = pymysql.connect("localhost", "pi", "root", "sensor_database")
     cursor = db.cursor()
     sql = "SELECT * FROM environment_reading ORDER BY ID DESC LIMIT 1;"
 
