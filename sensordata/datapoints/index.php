@@ -16,14 +16,35 @@
 		<div class="graph-group1">
 			<div id="ESN001"class="panel">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
+				<div class="panel-control">
+					<div class="tab-control">
+						<input type="radio" name="filter-environment" id="day-environment" value="day" checked>
+						<label for="day-environment"><span>D</span></label>
+						<input type="radio" name="filter-environment" id="week-environment" value="week">
+						<label for="week-environment"><span>W</span></label>
+						<input type="radio" name="filter-environment" id="month-environment" value="month">
+						<label for="month-environment"><span>M</span></label>
+						<input type="radio" name="filter-environment" id="year-environment" value="year">
+						<label for="year-environment"><span>Y</span></label>
+					</div>
+					<div class="text-control">
+						<em class="date">February 24, 2020</em>
+						<em class="week-day">Monday</em>
+					</div>
+					<div class="navigation-control">
+						<span><</span>
+						<span>></span>
+					</div>
+				</div>
 				<div class="panel-body">
+		
 					<div class="numeric-group">
 						<div>
 							<i>Wind Speed</i>
 							<span class="numeric-wind_speed">0m/s</span>
 						</div>
 						<div>
-							<i>Solar Irradiance</i>
+							<i>Solar Insolation</i>
 							<span class="numeric-solar_irradiance">0W/m²</span>
 						</div>
 					</div>
@@ -64,6 +85,26 @@
 		<div class="graph-group2">
 			<div id="PSN001" class="panel">
 				<div class="panel-header"><h3>Electric Sensor Node (AC Load)</h3></div>
+				<div class="panel-control">
+					<div class="tab-control">
+						<input type="radio" name="filter-ac-electric" id="day-ac-electric" value="day" checked>
+						<label for="day-ac-electric"><span>D</span></label>
+						<input type="radio" name="filter-ac-electric" id="week-ac-electric" value="week">
+						<label for="week-ac-electric"><span>W</span></label>
+						<input type="radio" name="filter-ac-electric" id="month-ac-electric" value="month">
+						<label for="month-ac-electric"><span>M</span></label>
+						<input type="radio" name="filter-ac-electric" id="year-ac-electric" value="year">
+						<label for="year-ac-electric"><span>Y</span></label>
+					</div>
+					<div class="text-control">
+						<em class="date">February 24, 2020</em>
+						<em class="week-day">Monday</em>
+					</div>
+					<div class="navigation-control">
+						<span><</span>
+						<span>></span>
+					</div>
+				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>
@@ -86,6 +127,26 @@
 			</div>
 			<div id="PSN002" class="panel">
 				<div class="panel-header"><h3>Electric Sensor Node (Wind)</h3></div>
+				<div class="panel-control">
+					<div class="tab-control">
+						<input type="radio" name="filter-wind-electric" id="day-wind-electric" value="day" checked>
+						<label for="day-wind-electric"><span>D</span></label>
+						<input type="radio" name="filter-wind-electric" id="week-wind-electric" value="week">
+						<label for="week-wind-electric"><span>W</span></label>
+						<input type="radio" name="filter-wind-electric" id="month-wind-electric" value="month">
+						<label for="month-wind-electric"><span>M</span></label>
+						<input type="radio" name="filter-wind-electric" id="year-wind-electric" value="year">
+						<label for="year-wind-electric"><span>Y</span></label>
+					</div>
+					<div class="text-control">
+						<em class="date">February 24, 2020</em>
+						<em class="week-day">Monday</em>
+					</div>
+					<div class="navigation-control">
+						<span><</span>
+						<span>></span>
+					</div>
+				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>
@@ -108,6 +169,26 @@
 			</div>
 			<div id="PSN003" class="panel">
 				<div class="panel-header"><h3>Electric Sensor Node (Solar)</h3></div>
+				<div class="panel-control">
+					<div class="tab-control">
+						<input type="radio" name="filter-solar-electric" id="day-solar-electric" value="day" checked>
+						<label for="day-solar-electric"><span>D</span></label>
+						<input type="radio" name="filter-solar-electric" id="week-solar-electric" value="week">
+						<label for="week-solar-electric"><span>W</span></label>
+						<input type="radio" name="filter-solar-electric" id="month-solar-electric" value="month">
+						<label for="month-solar-electric"><span>M</span></label>
+						<input type="radio" name="filter-solar-electric" id="year-solar-electric" value="year">
+						<label for="year-solar-electric"><span>Y</span></label>
+					</div>
+					<div class="text-control">
+						<em class="date">February 24, 2020</em>
+						<em class="week-day">Monday</em>
+					</div>
+					<div class="navigation-control">
+						<span><</span>
+						<span>></span>
+					</div>
+				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>

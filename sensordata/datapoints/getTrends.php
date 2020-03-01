@@ -19,6 +19,11 @@
 include('config.php');
 $conn = mysqli_connect($servername, $username, $password, $db);
 
+date_default_timezone_set("Asia/Manila");
+$timestamp = date("Y-m-d H:i:s");
+$arr = explode(" ", $timestamp);
+$date = $arr[0];
+
 $tempDp = [];
 $dataPoints = []; // Data to be returned
 
@@ -38,7 +43,7 @@ if($result = mysqli_query($conn, $querySensorType)) {
 // If sensor type is electrical get the voltage_reading and current_reading tables
 // if sensor type is wind get the environment_reading table
 if($sensorType == 'electrical') {
-    $voltageQuery = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    $voltageQuery = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
 
     if($result = mysqli_query($conn, $voltageQuery)) {
         while($row = $result->fetch_assoc()) {
@@ -59,7 +64,7 @@ if($sensorType == 'electrical') {
 
 if($sensorType == 'environment') {
     $windDp = [];
-    $windQuery = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    $windQuery = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
     
     if($result = mysqli_query($conn, $windQuery)) {
         while($row = $result->fetch_assoc()) {

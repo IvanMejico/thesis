@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -271,6 +272,60 @@ input:checked + .slider:before {
 .numeric-group span {
     margin-left: 10px;
 }
+
+
+
+
+.panel-control {
+    color: #FFF;
+    padding: 12px 0;
+    background: rgb(44, 41, 41);
+    position: relative;
+}
+.tab-control {
+    margin: 0 10px 0 10px;
+    display: inline-block;
+}
+.tab-control input[type="radio"]{
+    display: none;
+}
+.tab-control input[type="radio"]:checked+label>span{
+    background-color: #356de7;
+}
+.panel-control span {
+    padding: 8px 15px;
+    background-color: rgb(37, 35, 35);
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 4px;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+.panel-control span:hover {
+    background-color: rgb(63, 66, 68);
+}
+.panel-control span:active {
+    background-color: rgb(54, 56, 58);
+}
+.navigation-control {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+}
+.text-control {
+    display: inline-block;
+    margin-left: 25px;
+}
+.text-control em:first-child {
+    margin-right: 10px;
+    font-style: normal;
+}
+
+
 
 /* responsive */
 /* @media only screen and (max-width: 980px) {

@@ -1,6 +1,6 @@
 // var windSpeedNumeric = document.getElementById('wind-speed');
 var chart = [];
-var dataLength = 1000;
+var dataLength = 50;
 var x = 0;
 
 // Initialyze datapoints
