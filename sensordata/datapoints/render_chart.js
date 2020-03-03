@@ -1,4 +1,3 @@
-// var windSpeedNumeric = document.getElementById('wind-speed');
 var chart = [];
 var dataLength = 50;
 var x = 0;
@@ -11,9 +10,7 @@ var windSpeedDps = [];
 var solarIrradianceDps = [];
 var prevDateTime = [];
 
-// var windData = {};
-
-function renderChart(container,sensorId, count) {
+function renderChart(container,sensorId) {
     if(!voltageDps[sensorId])
         voltageDps[sensorId] = [];
 
@@ -28,8 +25,6 @@ function renderChart(container,sensorId, count) {
 
     if(!solarIrradianceDps[sensorId])
         solarIrradianceDps[sensorId] = [];
-        
-    // prevDateTime[sensorId];
 
 
     chart[sensorId] = new CanvasJS.Chart(container, {
@@ -131,9 +126,7 @@ function renderChart(container,sensorId, count) {
         ]  
     });
 
-
-
-    updateChart(sensorId, count);
+    updateChart(sensorId, dataLength);
 }
 
 var updateChart = function (sensorId, count) {

@@ -1,6 +1,4 @@
 var updateInterval = 5000;
-var dataLength = 20;
-
 
 // GONNA WORK ON THIS CODE LATER ON
 // var sensorArray;
@@ -9,30 +7,26 @@ var dataLength = 20;
 // xhr.onload = function() {
 //     sensorArray = JSON.parse(this.responseText);
 //     sensorArray.forEach(function(item){
-//         renderChart('chartContainer1', 'PSN001', dataLength);
-//         renderChart('chartContainer2', 'PSN003', dataLength);
+//         renderChart('chartContainer1', 'PSN001');
+//         renderChart('chartContainer2', 'PSN003');
 //     })
 // }
 // xhr.send();
 
 
 // CHARTS RENDERING
-renderChart('chartContainer1', 'ESN001', dataLength);
+renderChart('chartContainer1', 'ESN001');
 setInterval(function(){updateChart("ESN001")}, updateInterval);
-renderChart('chartContainer2', 'PSN001', dataLength);
+renderChart('chartContainer2', 'PSN001');
 setInterval(function(){updateChart("PSN001")}, updateInterval);
-renderChart('chartContainer3', 'PSN002', dataLength);
+renderChart('chartContainer3', 'PSN002');
 setInterval(function(){updateChart("PSN002")}, updateInterval);
-renderChart('chartContainer4', 'PSN003', dataLength);
+renderChart('chartContainer4', 'PSN003');
 setInterval(function(){updateChart("PSN003")}, updateInterval);
-// renderChart('chartContainer5', 'PSN004', dataLength);
-// setInterval(function(){updateChart("PSN004")}, updateInterval);
 
 
 
 // UPDATE TOGGLE BUTTONS
-// setInterval(function(){updateToggle("ESN001")}, updateInterval);
 setInterval(function(){updateToggle("PSN001")}, updateInterval);
 setInterval(function(){updateToggle("PSN002")}, updateInterval);
 setInterval(function(){updateToggle("PSN003")}, updateInterval);
-// setInterval(function(){updateToggle("PSN004")}, updateInterval);
