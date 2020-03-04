@@ -108,16 +108,28 @@
 				<div class="panel-body">
 					<div class="leds">
 						<div>
-							<span>Electric Sensor Node (AC Load)</span>
+							<span>Load 1</span>
+							<div id="led-r1" class="led led-red"></div>
+						</div>
+						<div>
+							<span>Load 2</span>
 							<div id="led-r2" class="led led-yellow"></div>
 						</div>
 						<div>
-							<span>Electric Sensor Node (Wind)</span>
+							<span>Load 3</span>
 							<div id="led-r3" class="led led-green"></div>
 						</div>
 						<div>
-							<span> Electric Sensor Node (Solar)</span>
+							<span>Load 4</span>
 							<div id="led-r4" class="led led-blue"></div>
+						</div>
+						<div>
+							<span>Wind</span>
+							<div id="led-r5" class="led led-violet"></div>
+						</div>
+						<div>
+							<span>Solar</span>
+							<div id="led-r6" class="led led-orange"></div>
 						</div>
 					</div>
 				</div>
@@ -125,17 +137,17 @@
 		</div>
 		<div class="graph-group2">
 			<div id="PSN001" class="panel">
-				<div class="panel-header"><h3>Electric Sensor Node (AC Load)</h3></div>
+				<div class="panel-header"><h3>Electrical Sensor Node (AC Load)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-ac-electric" id="day-ac-electric" value="day" checked>
-						<label for="day-ac-electric"><span>D</span></label>
-						<input type="radio" name="filter-ac-electric" id="week-ac-electric" value="week">
-						<label for="week-ac-electric"><span>W</span></label>
-						<input type="radio" name="filter-ac-electric" id="month-ac-electric" value="month">
-						<label for="month-ac-electric"><span>M</span></label>
-						<input type="radio" name="filter-ac-electric" id="year-ac-electric" value="year">
-						<label for="year-ac-electric"><span>Y</span></label>
+						<input type="radio" name="filter-ac-electrical" id="day-ac-electrical" value="day" checked>
+						<label for="day-ac-electrical"><span>D</span></label>
+						<input type="radio" name="filter-ac-electrical" id="week-ac-electrical" value="week">
+						<label for="week-ac-electrical"><span>W</span></label>
+						<input type="radio" name="filter-ac-electrical" id="month-ac-electrical" value="month">
+						<label for="month-ac-electrical"><span>M</span></label>
+						<input type="radio" name="filter-ac-electrical" id="year-ac-electrical" value="year">
+						<label for="year-ac-electrical"><span>Y</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -167,17 +179,17 @@
 				</div>
 			</div>
 			<div id="PSN002" class="panel">
-				<div class="panel-header"><h3>Electric Sensor Node (Wind Turbine)</h3></div>
+				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-wind-electric" id="day-wind-electric" value="day" checked>
-						<label for="day-wind-electric"><span>D</span></label>
-						<input type="radio" name="filter-wind-electric" id="week-wind-electric" value="week">
-						<label for="week-wind-electric"><span>W</span></label>
-						<input type="radio" name="filter-wind-electric" id="month-wind-electric" value="month">
-						<label for="month-wind-electric"><span>M</span></label>
-						<input type="radio" name="filter-wind-electric" id="year-wind-electric" value="year">
-						<label for="year-wind-electric"><span>Y</span></label>
+						<input type="radio" name="filter-wind-electrical" id="day-wind-electrical" value="day" checked>
+						<label for="day-wind-electrical"><span>D</span></label>
+						<input type="radio" name="filter-wind-electrical" id="week-wind-electrical" value="week">
+						<label for="week-wind-electrical"><span>W</span></label>
+						<input type="radio" name="filter-wind-electrical" id="month-wind-electrical" value="month">
+						<label for="month-wind-electrical"><span>M</span></label>
+						<input type="radio" name="filter-wind-electrical" id="year-wind-electrical" value="year">
+						<label for="year-wind-electrical"><span>Y</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -209,17 +221,17 @@
 				</div>
 			</div>
 			<div id="PSN003" class="panel">
-				<div class="panel-header"><h3>Electric Sensor Node (Solar Panel)</h3></div>
+				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-solar-electric" id="day-solar-electric" value="day" checked>
-						<label for="day-solar-electric"><span>D</span></label>
-						<input type="radio" name="filter-solar-electric" id="week-solar-electric" value="week">
-						<label for="week-solar-electric"><span>W</span></label>
-						<input type="radio" name="filter-solar-electric" id="month-solar-electric" value="month">
-						<label for="month-solar-electric"><span>M</span></label>
-						<input type="radio" name="filter-solar-electric" id="year-solar-electric" value="year">
-						<label for="year-solar-electric"><span>Y</span></label>
+						<input type="radio" name="filter-solar-electrical" id="day-solar-electrical" value="day" checked>
+						<label for="day-solar-electrical"><span>D</span></label>
+						<input type="radio" name="filter-solar-electrical" id="week-solar-electrical" value="week">
+						<label for="week-solar-electrical"><span>W</span></label>
+						<input type="radio" name="filter-solar-electrical" id="month-solar-electrical" value="month">
+						<label for="month-solar-electrical"><span>M</span></label>
+						<input type="radio" name="filter-solar-electrical" id="year-solar-electrical" value="year">
+						<label for="year-solar-electrical"><span>Y</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -257,29 +269,19 @@
 		<h1>Relay Manual Control</h1>
 		<div class="relaystatus">
 			<!-- LOADS -->
+			<!-- <h3>Loads</h3> -->
 			<div class="status1">
-				<h4>Electric Sensor Node (Load 1)</h4>
+				<h4>Electrical Sensor Node (Load 1)</h4>
 				<div>
 					<label class="switch">
-						<input type="checkbox" id="relay2" checked>
+						<input type="checkbox" id="relay1" checked>
 						<span class="slider round"></span>
 					</label>
 				</div>
 			</div>
 
 			<div class="status1">
-				<h4>Electric Sensor Node (Load 2)</h4>
-				<div>
-					<label class="switch">
-						<input type="checkbox" id="relay2" checked>
-						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-
-
-			<div class="status1">
-				<h4>Electric Sensor Node (Load 3)</h4>
+				<h4>Electrical Sensor Node (Load 2)</h4>
 				<div>
 					<label class="switch">
 						<input type="checkbox" id="relay2" checked>
@@ -290,10 +292,21 @@
 
 
 			<div class="status1">
-				<h4>Electric Sensor Node (Load 4)</h4>
+				<h4>Electrical Sensor Node (Load 3)</h4>
 				<div>
 					<label class="switch">
-						<input type="checkbox" id="relay2" checked>
+						<input type="checkbox" id="relay3" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+
+
+			<div class="status1">
+				<h4>Electrical Sensor Node (Load 4)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay4" checked>
 						<span class="slider round"></span>
 					</label>
 				</div>
@@ -302,21 +315,22 @@
 
 
 			<!-- GENERATORS -->
+			<!-- <h3>Generators</h3> -->
 			<div class="status1">
-				<h4>Electric Sensor Node (Wind Turbine)</h4>
+				<h4>Electrical Sensor Node (Wind)</h4>
 				<div>
 					<label class="switch">
-						<input type="checkbox" id="relay3" checked>
+						<input type="checkbox" id="relay5" checked>
 						<span class="slider round"></span>
 					</label>
 				</div>
 			</div>
 	
 			<div class="status1">
-				<h4>Electric Sensor Node (Solar Panel)</h4>
+				<h4>Electrical Sensor Node (Solar)</h4>
 				<div>
 					<label class="switch">
-						<input type="checkbox" id="relay4" checked>
+						<input type="checkbox" id="relay6" checked>
 						<span class="slider round"></span>
 					</label>
 				</div>

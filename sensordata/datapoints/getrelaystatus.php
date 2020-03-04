@@ -4,7 +4,7 @@
  * 1) Connect to the database
  * 2) get the relay status
  * 3) set relay status
- * 4) when the relay is manually set, it will override changes made by the sensor node
+ * 4) when the relay is manually set, it will override changes made by the relay node
  */
 
 include('config.php');
@@ -14,7 +14,7 @@ $conn = mysqli_connect($servername, $username, $password, $db);
 if(isset($_GET['getid'])) {
     // get the status
     $relayId = $_GET['getid'];
-    $query = "SELECT `status` FROM `relay_control` WHERE `sensor_id` = '$relayId';";
+    $query = "SELECT `status` FROM `relay_control` WHERE `relay_id` = '$relayId';";
     
     if($result = mysqli_query($conn, $query)) {
         $row = $result->fetch_array();
@@ -28,7 +28,7 @@ if(isset($_GET['setid']) && isset($_GET['setvalue'])) {
     // set the status to TR or FL
     $relayId = $_GET['setid'];
     $value = $_GET['setvalue'];
-    $query = "UPDATE `relay_control` SET `status` = '$value' WHERE sensor_id = '$relayId';";
+    $query = "UPDATE `relay_control` SET `status` = '$value' WHERE relay_id = '$relayId';";
     echo $query;
     if(mysqli_query($conn, $query)) {
         echo 'successfully updated';

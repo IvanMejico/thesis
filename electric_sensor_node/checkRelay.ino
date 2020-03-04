@@ -1,13 +1,12 @@
 /**
- * TODO: 
- * 1) send sensor node id
+ * 1) send relay id
  * 2) get the relay status for the specific sensor node
  * */
 
-void checkRelay() {
+void checkRelay(String relay_id) {
     Serial.println("\n>> CHECKING RELAY STATUS...\n");
 
-    String getData = "GET " + relay_url +"sensor_id=" + sensor_node_id; // GET request
+    String getData = "GET " + relay_url +"relay_id=" + relay_id; // GET request
     // Serial.println(getData); // For debugging only
     sendCommand("AT+CIPSTART=1,\"TCP\",\""+ HOST +"\","+ PORT,4000,"OK");
 

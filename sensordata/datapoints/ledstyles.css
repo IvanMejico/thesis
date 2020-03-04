@@ -50,3 +50,13 @@
     /* box-shadow: rgb(47, 3, 56) 0 -1px 7px 1px, inset rgb(82, 13, 173) 0 -1px 9px, rgb(140, 0, 255) 0 2px 25px; */
     box-shadow: #000 0 -1px 7px 1px, inset rgb(73, 21, 21) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;
 }
+
+.led-orange {
+    margin: 20px auto;
+    width: 25px;
+    height: 25px;
+    background-color: #a17331;
+    border-radius: 50%;
+    /* box-shadow: rgb(47, 3, 56) 0 -1px 7px 1px, inset rgb(82, 13, 173) 0 -1px 9px, rgb(140, 0, 255) 0 2px 25px; */
+    box-shadow: #000 0 -1px 7px 1px, inset rgb(184, 112, 7) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;";
+}

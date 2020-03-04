@@ -49,5 +49,15 @@ var colorSets = [
             ["#c200ff"],
             ["rgb(47, 3, 56) 0 -1px 7px 1px, inset rgb(82, 13, 173) 0 -1px 9px, rgb(140, 0, 255) 0 2px 25px"]
         ]
+    ],
+    [//relay6 (orange)
+        [ // OFF
+            ["#9c5d00"],
+            ["box-shadow: #000 0 -1px 7px 1px, inset rgb(184, 112, 7) 0 -1px 9px, rgb(180, 147, 147) 0 2px 25px;"]
+        ],
+        [ // ON
+            ["#ffb300"],
+            ["rgb(74, 44, 1) 0 -1px 7px 1px, inset rgb(184, 112, 7) 0 -1px 9px, rgb(255, 150, 0) 0 2px 25px"]
+        ]
     ]
 ];

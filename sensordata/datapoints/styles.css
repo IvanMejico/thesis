@@ -107,7 +107,7 @@ input:checked + .slider:before {
 
 .manual-control {
     background-color: rgb(25, 51, 45);
-    height: 558px;
+    height: 580px;
 }
 .manual-control h1 {
     color: #fff;

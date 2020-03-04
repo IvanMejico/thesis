@@ -1,64 +1,89 @@
-// select toggle buttons
-// var toggle1 = document.getElementById('relay1');
-var toggle2 = document.getElementById('relay2');
-var toggle3 = document.getElementById('relay3');
-var toggle4 = document.getElementById('relay4');
-var toggle5 = document.getElementById('relay5');
+// LOAD TOGGLE
+var toggleLoad1 = document.getElementById('relay1');
+var toggleLoad2 = document.getElementById('relay2');
+var toggleLoad3 = document.getElementById('relay3');
+var toggleLoad4 = document.getElementById('relay4');
+
+
+// GENERATOR TOGGLE
+var toggleTurbine = document.getElementById('relay5');
+var toggleSolar = document.getElementById('relay6');
 
 // add event listerner to toggle buttons
 // toggle1.onclick = function() {
 //     checked = toggle1.checked;
 //     saveToggle("ESN001",checked);
 // }
-toggle2.onclick = function() {
-    checked = toggle2.checked;
-    saveToggle("PSN001", checked);
+
+toggleLoad1.onclick = function() {
+    checked = toggleLoad1.checked;
+    saveToggle("PSN001-R0", checked);
 }
-toggle3.onclick = function() {
-    checked = toggle3.checked;
-    saveToggle("PSN002", checked);
+
+toggleLoad2.onclick = function() {
+    checked = toggleLoad2.checked;
+    saveToggle("PSN001-R1", checked);
 }
-toggle4.onclick = function() {
-    checked = toggle4.checked;
-    saveToggle("PSN003", checked);
+
+toggleLoad3.onclick = function() {
+    checked = toggleLoad3.checked;
+    saveToggle("PSN001-R2", checked);
 }
-// toggle5.onclick = function() {
-//     checked = toggle5.checked;
-//     saveToggle("PSN004", checked);
-// }
+
+toggleLoad4.onclick = function() {
+    checked = toggleLoad4.checked;
+    saveToggle("PSN001-R3", checked);
+}
+
+toggleTurbine.onclick = function() {
+    checked = toggleTurbine.checked;
+    saveToggle("PSN002-R0", checked);
+}
+
+toggleSolar.onclick = function() {
+    checked = toggleSolar.checked;
+    saveToggle("PSN003-R0", checked);
+}
+
+
 
 
 // TOGGLE
-var updateToggle = function(sensor_id) {
+var updateToggle = function(relay_id) {
     var relayId;
-    switch (sensor_id) {
-        // case "ESN001":
-        //     relayId = 1;
-        //     break;
-        case "PSN001":
+    switch (relay_id) {
+        case "PSN001-R0":
+            relayId = 1;
+            break;
+        case "PSN001-R1":
             relayId = 2;
             break;
-        case "PSN002":
+        case "PSN001-R2":
             relayId = 3;
             break;
-        case "PSN003":
+        case "PSN001-R3":
             relayId = 4;
             break;
-        // case "PSN004":
-        //     relayId = 5;
-        //     break;
+        case "PSN002-R0":
+            relayId = 5;
+            break;
+        case "PSN003-R0":
+            relayId = 6;
+            break;
         default:
+            break;
     }
 
     var toggle = document.getElementById('relay'+relayId); // TOGGLE BUTTON
     var led = document.getElementById('led-r'+relayId); // LED
 
     var xhr = new XMLHttpRequest();
-    // console.log(sensor_id);
-    xhr.open('GET', 'getrelaystatus.php?getid='+sensor_id,true);
+    // console.log(relay_id);
+    xhr.open('GET', 'getrelaystatus.php?getid='+relay_id,true);
     xhr.onload = function() {
         var response = JSON.parse(this.responseText);
-        // console.log(response);
+        // console.log('getrelaystatus.php?getid='+relay_id, response);
+        // console.log(relay_id,'-',response);
         if(response.status == "TR") {
             toggle.checked = true;
             
@@ -76,10 +101,10 @@ var updateToggle = function(sensor_id) {
     xhr.send();
 }
 
-var saveToggle = function(sensor_id, checked) {
+var saveToggle = function(relay_id, checked) {
     status = checked?'TR':'FL';
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'getrelaystatus.php?setid=' + sensor_id + '&setvalue='+status,true);
+    xhr.open('GET', 'getrelaystatus.php?setid=' + relay_id + '&setvalue='+status,true);
     xhr.onload = function() {
         // console.log('okay');
     }
