@@ -55,7 +55,7 @@
 		<div class="credits">
 			<h2>Proponents</h2>
 			<div class="proponents">
-				<span>Majorine P. Laracas</span>
+				<span>Majorine P. Larracas</span>
 				<span>Mark Anthony Ivan S. Mejico</span>
 				<span>Catherine A. Matining</span>
 			</div>
@@ -256,8 +256,9 @@
 	<div class="manual-control">
 		<h1>Relay Manual Control</h1>
 		<div class="relaystatus">
+			<!-- LOADS -->
 			<div class="status1">
-				<h4>Electric Sensor Node (AC Load)</h4>
+				<h4>Electric Sensor Node (Load 1)</h4>
 				<div>
 					<label class="switch">
 						<input type="checkbox" id="relay2" checked>
@@ -265,7 +266,42 @@
 					</label>
 				</div>
 			</div>
-	
+
+			<div class="status1">
+				<h4>Electric Sensor Node (Load 2)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay2" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+
+
+			<div class="status1">
+				<h4>Electric Sensor Node (Load 3)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay2" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+
+
+			<div class="status1">
+				<h4>Electric Sensor Node (Load 4)</h4>
+				<div>
+					<label class="switch">
+						<input type="checkbox" id="relay2" checked>
+						<span class="slider round"></span>
+					</label>
+				</div>
+			</div>
+
+
+
+			<!-- GENERATORS -->
 			<div class="status1">
 				<h4>Electric Sensor Node (Wind Turbine)</h4>
 				<div>

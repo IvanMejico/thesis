@@ -16,14 +16,13 @@ var updateInterval = 5000;
 
 // CHARTS RENDERING
 renderChart('chartContainer1', 'ESN001');
-setInterval(function(){updateChart("ESN001")}, updateInterval);
+envi = setInterval(function(){updateChart("ESN001")}, updateInterval);
 renderChart('chartContainer2', 'PSN001');
-setInterval(function(){updateChart("PSN001")}, updateInterval);
+acLoad = setInterval(function(){updateChart("PSN001")}, updateInterval);
 renderChart('chartContainer3', 'PSN002');
-setInterval(function(){updateChart("PSN002")}, updateInterval);
+turbine = setInterval(function(){updateChart("PSN002")}, updateInterval);
 renderChart('chartContainer4', 'PSN003');
-setInterval(function(){updateChart("PSN003")}, updateInterval);
-
+panel = setInterval(function(){updateChart("PSN003")}, updateInterval);
 
 
 // UPDATE TOGGLE BUTTONS

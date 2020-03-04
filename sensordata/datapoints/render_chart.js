@@ -190,10 +190,10 @@ var updateChart = function (sensorId, count) {
 
                     prevDateTime[sensorId] = dateTime;
 
-                    if (voltageDps.length > dataLength) {
-                        voltageDps.shift();
-                        currentDps.shift();
-                        powerDps.shift();
+                    if (voltageDps[sensorId].length > dataLength) {
+                        voltageDps[sensorId].shift();
+                        currentDps[sensorId].shift();
+                        powerDps[sensorId].shift();
                     }
                 }    
             });
@@ -233,13 +233,11 @@ var updateChart = function (sensorId, count) {
 
                     prevDateTime[sensorId] = dateTime;
 
-                    if (windSpeedDps.length > dataLength) {
-                        windSpeedDps.shift();
-                        solarIrradianceDps.shift();
+                    if (windSpeedDps[sensorId].length > dataLength) {
+                        windSpeedDps[sensorId].shift();
+                        solarIrradianceDps[sensorId].shift();
                     }
-
-                }    
-
+                }
             });
         }
         chart[sensorId].render();

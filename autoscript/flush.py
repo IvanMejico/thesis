@@ -1,7 +1,7 @@
 import pymysql
 
 # Open  database connection
-db = pymysql.connect("localhost", "pi", "root", "sensor_database")
+db = pymysql.connect("localhost", "root", "", "sensor_database")
 
 # prepare  a cursor object using cursor() method
 cursor1 = db.cursor()
