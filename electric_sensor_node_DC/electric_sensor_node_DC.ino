@@ -7,10 +7,11 @@
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
-String sensor_node_id = "PSN003";
+String sensor_node_id = "PSN003"; // CHANGE THIS
+String relay_id = "PSN003-R0"; // CHANGE THIS
 
 String relay_url = "/sensordata/relay.php?";   // SCRIPT FROR RELAY CONTROL
 String send_url = "/sensordata/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
@@ -45,11 +46,10 @@ void setup() {
   Serial.begin(9600);
   esp8266.begin(115200);
   setupESP();
-  digitalWrite(relayPin, LOW);
 }
 
 void loop() {
-  checkRelay();   // check and set relay status from the server
+  checkRelay(relay_id);   // check and set relay status from the server
 
   //*** Electrical measurements
   type = "electrical";

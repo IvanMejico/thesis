@@ -12,7 +12,7 @@ EnergyMonitor emon1;             // Create an instance
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.101";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 // CHANGE THIS
@@ -47,12 +47,14 @@ void setup() {
   pinMode(A1, INPUT);
   emon1.voltage(A0, VOLT_CAL, 1.7);  // Voltage: input pin, calibration, phase_shift
 
-  pinMode(relayPin, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
 
   Serial.begin(9600);
   esp8266.begin(115200);
   setupESP();
-  digitalWrite(relayPin, LOW);
 }
 
 void loop() {
@@ -64,11 +66,11 @@ void loop() {
 
 
   //*** Electrical measurements
-  //   type = "electrical";
-  //   voltage = getVoltage();
-  //   current = getCurrent();
-  //   reading[0] = voltage;
-  //   reading[1] = current;
+    type = "electrical";
+    voltage = getVoltage();
+    current = getCurrent();
+    reading[0] = voltage;
+    reading[1] = current;
 
   sendSensorReading(type, reading);
 

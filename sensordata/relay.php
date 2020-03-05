@@ -3,9 +3,9 @@
 include('datapoints/config.php');
 $conn = mysqli_connect($servername, $username, $password,$db);
 
-$sensor_node_id = $_REQUEST['sensor_id'];
+$relay_id = $_REQUEST['relay_id'];
 
-$sql = "SELECT `status` FROM `relay_control` WHERE `sensor_id` = '$sensor_node_id'";
+$sql = "SELECT `status` FROM `relay_control` WHERE `relay_id` = '$relay_id'";
     
 $qry = mysqli_query($conn ,$sql);
 $res = mysqli_fetch_assoc($qry);

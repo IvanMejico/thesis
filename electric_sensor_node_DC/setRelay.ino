@@ -6,13 +6,13 @@ void setRelay(String relay_status) {
 
     if(relay_status == "TR" || firstCharacter == "T" || secondCharacter == "R") {
         if(digitalRead(relayPin) == LOW) {
-            digitalWrite(relayPin, HIGH);
-            Serial.println("Relay: HIGH");
+            digitalWrite(relayPin, LOW); // LOW closes "normally open" relay terminal.
+            Serial.println("Relay: LOW");
         }
     } else if (relay_status == "FL" || firstCharacter == "F" || secondCharacter == "L") {
         if(digitalRead(relayPin) == HIGH) {
-            digitalWrite(relayPin, LOW);
-            Serial.println("Relay: LOW");
+            digitalWrite(relayPin, HIGH); // HIGH opens "normally open" relay terminal
+            Serial.println("Relay: HIGH");
         }
     } else
         Serial.println("Relay: Nothing happened");
