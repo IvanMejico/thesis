@@ -3,8 +3,9 @@
 <head>  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="styles.css"></style>
-<link rel="stylesheet" type="text/css" href="ledstyles.css"></style>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" type="text/css" href="ledstyles.css">
+<link rel="stylesheet" type="text/css" href="assets/flaticon/font/flaticon.css"></style>
 <style>
 	.header {
 		padding: 0;
@@ -47,6 +48,9 @@
 	.proponents span:last-child {
 		margin-right: 0;
 	}
+	.date {
+		margin: 0;
+	}
 </style>
 </head>
 <body>
@@ -63,46 +67,6 @@
 	</div>
 	<div class="main-content">
 		<div class="graph-group1">
-			<div id="ESN001"class="panel">
-				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
-				<div class="panel-control">
-					<div class="tab-control">
-						<input type="radio" name="filter-environment" id="day-environment" value="day" checked>
-						<label for="day-environment"><span>D</span></label>
-						<input type="radio" name="filter-environment" id="week-environment" value="week">
-						<label for="week-environment"><span>W</span></label>
-						<input type="radio" name="filter-environment" id="month-environment" value="month">
-						<label for="month-environment"><span>M</span></label>
-						<input type="radio" name="filter-environment" id="year-environment" value="year">
-						<label for="year-environment"><span>Y</span></label>
-					</div>
-					<div class="text-control">
-						<em class="date">February 24, 2020</em>
-						<em class="week-day">Monday</em>
-					</div>
-					<div class="navigation-control">
-						<span><</span>
-						<span>></span>
-					</div>
-				</div>
-				<div class="panel-body">
-		
-					<div class="numeric-group">
-						<div>
-							<i>Wind Speed</i>
-							<span class="numeric-wind_speed">0m/s</span>
-						</div>
-						<div>
-							<i>Solar Insolation</i>
-							<span class="numeric-solar_irradiance">0W/m²</span>
-						</div>
-					</div>
-					<div class="chart">
-						<div id="chartContainer1" style="height: 370px; margin: 0px auto;"></div>
-					</div>
-				</div>
-			</div>
-
 			<div class="panel relay-status">
 				<div class="panel-header"><h3>Relay Status</h3></div>
 				<div class="panel-body">
@@ -134,20 +98,134 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			<div class="panel battery-status">
+				<div class="panel-header"><h3>Battery Status</h3></div>
+				<div class="panel-body">
+					<div class="battery-panel">
+						<div class="battery">
+							<div id="battery-body">
+							<div id="charge-status-0" class="charge">Priority 1</div>
+							<div id="charge-status-1" class="charge">Priority 2</div>
+							<div id="charge-status-2" class="charge">Priority 3</div> 
+							<div id="charge-status-3" class="charge">Priority 4</div>
+							</div>
+							<div id="battery-tip"></div>
+							<span id="battery-level">98%</span>
+						</div>
+						</div>
+
+						<div class="prioritization-form">
+							<table id="battery-loads">
+								<thead>
+									<tr>
+										<td colspan="4">Load Prioritization</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>Label</td>
+										<td>Load Name</td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="priority1">
+										<td>Priority 1</td>
+										<td>Load 1</td>
+										<td>Load name 1</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority2">
+										<td>Priority 2</td>
+										<td>Load 2</td>
+										<td>Load name 2</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority3">
+										<td>Priority 3</td>
+										<td>Load 3</td>
+										<td>Load name 3</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority4">
+										<td>Priority 4</td>
+										<td>Load 4</td>
+										<td>Load name 4</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		<div class="graph-group2">
-			<div id="PSN001" class="panel">
-				<div class="panel-header"><h3>Electrical Sensor Node (AC Load)</h3></div>
+			<div id="ESN001"class="panel">
+				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
+						<input type="radio" name="filter-environment" id="live-environment" value="live" checked>
+						<label for="live-environment"><span>Live</span></label>
+						<input type="radio" name="filter-environment" id="day-environment" value="day" checked>
+						<label for="day-environment"><span>Day</span></label>
+						<input type="radio" name="filter-environment" id="week-environment" value="week">
+						<label for="week-environment"><span>Week</span></label>
+						<input type="radio" name="filter-environment" id="month-environment" value="month">
+						<label for="month-environment"><span>Month</span></label>
+						<input type="radio" name="filter-environment" id="year-environment" value="year">
+						<label for="year-environment"><span>Year</span></label>
+					</div>
+					<div class="text-control">
+						<em class="date">February 24, 2020</em>
+						<em class="week-day">Monday</em>
+					</div>
+					<div class="navigation-control">
+						<span><</span>
+						<span>></span>
+					</div>
+				</div>
+				<div class="panel-body">
+		
+					<div class="numeric-group">
+						<div>
+							<i>Wind Speed</i>
+							<span class="numeric-wind_speed">0m/s</span>
+						</div>
+						<div>
+							<i>Solar Insolation</i>
+							<span class="numeric-solar_irradiance">0W/m²</span>
+						</div>
+					</div>
+					<div class="chart">
+						<div id="chartContainer1" style="height: 370px; margin: 0px auto;"></div>
+					</div>
+				</div>
+			</div>
+			<div id="PSN001" class="panel">
+				<div class="panel-header"><h3>Electrical Sensor Node (AC Load Consumption)</h3></div>
+				<div class="panel-control">
+					<div class="tab-control">
+						<input type="radio" name="filter-ac-electrical" id="live-ac-electrical" value="live" checked>
+						<label for="live-ac-electrical"><span>Live</span></label>
 						<input type="radio" name="filter-ac-electrical" id="day-ac-electrical" value="day" checked>
-						<label for="day-ac-electrical"><span>D</span></label>
+						<label for="day-ac-electrical"><span>Day</span></label>
 						<input type="radio" name="filter-ac-electrical" id="week-ac-electrical" value="week">
-						<label for="week-ac-electrical"><span>W</span></label>
+						<label for="week-ac-electrical"><span>Week</span></label>
 						<input type="radio" name="filter-ac-electrical" id="month-ac-electrical" value="month">
-						<label for="month-ac-electrical"><span>M</span></label>
+						<label for="month-ac-electrical"><span>Month</span></label>
 						<input type="radio" name="filter-ac-electrical" id="year-ac-electrical" value="year">
-						<label for="year-ac-electrical"><span>Y</span></label>
+						<label for="year-ac-electrical"><span>Year</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -179,17 +257,19 @@
 				</div>
 			</div>
 			<div id="PSN002" class="panel">
-				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine)</h3></div>
+				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-wind-electrical" id="day-wind-electrical" value="day" checked>
-						<label for="day-wind-electrical"><span>D</span></label>
-						<input type="radio" name="filter-wind-electrical" id="week-wind-electrical" value="week">
-						<label for="week-wind-electrical"><span>W</span></label>
-						<input type="radio" name="filter-wind-electrical" id="month-wind-electrical" value="month">
-						<label for="month-wind-electrical"><span>M</span></label>
-						<input type="radio" name="filter-wind-electrical" id="year-wind-electrical" value="year">
-						<label for="year-wind-electrical"><span>Y</span></label>
+						<input type="radio" name="filter-turbine-electrical" id="live-turbine-electrical" value="live" checked>
+						<label for="live-turbine-electrical"><span>Live</span></label>
+						<input type="radio" name="filter-turbine-electrical" id="day-turbine-electrical" value="day" checked>
+						<label for="day-turbine-electrical"><span>Day</span></label>
+						<input type="radio" name="filter-turbine-electrical" id="week-turbine-electrical" value="week">
+						<label for="week-turbine-electrical"><span>Week</span></label>
+						<input type="radio" name="filter-turbine-electrical" id="month-turbine-electrical" value="month">
+						<label for="month-turbine-electrical"><span>Month</span></label>
+						<input type="radio" name="filter-turbine-electrical" id="year-turbine-electrical" value="year">
+						<label for="year-turbine-electrical"><span>Year</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -221,17 +301,19 @@
 				</div>
 			</div>
 			<div id="PSN003" class="panel">
-				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel)</h3></div>
+				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
+						<input type="radio" name="filter-solar-electrical" id="live-solar-electrical" value="live" checked>
+						<label for="live-solar-electrical"><span>Live</span></label>
 						<input type="radio" name="filter-solar-electrical" id="day-solar-electrical" value="day" checked>
-						<label for="day-solar-electrical"><span>D</span></label>
+						<label for="day-solar-electrical"><span>Day</span></label>
 						<input type="radio" name="filter-solar-electrical" id="week-solar-electrical" value="week">
-						<label for="week-solar-electrical"><span>W</span></label>
+						<label for="week-solar-electrical"><span>Week</span></label>
 						<input type="radio" name="filter-solar-electrical" id="month-solar-electrical" value="month">
-						<label for="month-solar-electrical"><span>M</span></label>
+						<label for="month-solar-electrical"><span>Month</span></label>
 						<input type="radio" name="filter-solar-electrical" id="year-solar-electrical" value="year">
-						<label for="year-solar-electrical"><span>Y</span></label>
+						<label for="year-solar-electrical"><span>Year</span></label>
 					</div>
 					<div class="text-control">
 						<em class="date">February 24, 2020</em>
@@ -345,6 +427,7 @@
 	<script src="tabs.js"></script>
 
 	<script src="update_numeric_display.js"></script> <!-- TEMPORARY -->
+	<script src="load_prioritization.js"></script>
 
 	</body>
 </html>

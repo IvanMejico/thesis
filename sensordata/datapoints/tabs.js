@@ -11,8 +11,10 @@ function assignChangeEventToTabs(tabs) {
             if(this !== prev) {
                 prev = this;
             }
+            // remove auto-execute interval
+            clearInterval(enviChart);
+
             // render chart
-            console.log(this);
         })
     }
 }

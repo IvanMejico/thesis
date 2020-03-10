@@ -1,4 +1,4 @@
-var updateInterval = 5000;
+var updateInterval = 2000;
 
 // GONNA WORK ON THIS CODE LATER ON
 // var sensorArray;
@@ -16,13 +16,13 @@ var updateInterval = 5000;
 
 // CHARTS RENDERING
 renderChart('chartContainer1', 'ESN001');
-envi = setInterval(function(){updateChart("ESN001")}, updateInterval);
+enviChart = setInterval(function(){updateChart("ESN001")}, updateInterval);
 renderChart('chartContainer2', 'PSN001');
-acLoad = setInterval(function(){updateChart("PSN001")}, updateInterval);
+acLoadChart = setInterval(function(){updateChart("PSN001")}, updateInterval);
 renderChart('chartContainer3', 'PSN002');
-turbine = setInterval(function(){updateChart("PSN002")}, updateInterval);
+turbineChart = setInterval(function(){updateChart("PSN002")}, updateInterval);
 renderChart('chartContainer4', 'PSN003');
-panel = setInterval(function(){updateChart("PSN003")}, updateInterval);
+panelChart = setInterval(function(){updateChart("PSN003")}, updateInterval);
 
 
 // UPDATE TOGGLE BUTTONS

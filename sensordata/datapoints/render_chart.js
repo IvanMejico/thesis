@@ -1,5 +1,5 @@
 var chart = [];
-var dataLength = 50;
+var dataLength = 200;
 var x = 0;
 
 // Initialyze datapoints
@@ -48,7 +48,7 @@ function renderChart(container,sensorId) {
             gridThickness: 0,
             // interval:24, 
             // intervalType: "hour",        
-            valueFormatString: "h:mm TT", 
+            valueFormatString: "h:mm:ss TT", 
             labelAngle: 0,
             labelFontSize: 13,
             labelFontColor: "#a5abb5"

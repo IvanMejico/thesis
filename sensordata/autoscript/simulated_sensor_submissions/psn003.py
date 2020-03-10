@@ -34,7 +34,7 @@ def sendData():
     #disconnected from server
     db.close()
 
-schedule.every(.05).minutes.do(sendData)
+schedule.every(0.0833).minutes.do(sendData)
 while 1:
     schedule.run_pending()
     time.sleep(1)
