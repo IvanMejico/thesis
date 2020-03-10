@@ -7,12 +7,11 @@ EnergyMonitor emon1;             // Create an instance
 
 #define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
 #define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
-#define relayPin 3
 
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 // CHANGE THIS
@@ -39,7 +38,7 @@ float power=0;
 String type;
 float reading[2];
 
-SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
+// SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
 
 void setup() {
   // SETUP ELECTRICAL SENSORS READING VALUES
@@ -52,27 +51,27 @@ void setup() {
   pinMode(5, OUTPUT);
   pinMode(6, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600);
+  Serial.begin(115200);
   setupESP();
 }
 
 void loop() {
   // check and set relay status from the server
-  checkRelay("PSN001-R0");
-  checkRelay("PSN001-R1");
-  checkRelay("PSN001-R2");
-  checkRelay("PSN001-R3");   
+  checkRelay("PSN001-R0", 3);
+  checkRelay("PSN001-R1", 4);
+  checkRelay("PSN001-R2", 5);
+  checkRelay("PSN001-R3", 6);   
 
 
   //*** Electrical measurements
-    type = "electrical";
-    voltage = getVoltage();
-    current = getCurrent();
-    reading[0] = voltage;
-    reading[1] = current;
+  //   type = "electrical";
+  //   voltage = getVoltage();
+  //   current = getCurrent();
+  //   reading[0] = voltage;
+  //   reading[1] = current;
 
-  sendSensorReading(type, reading);
+  // sendSensorReading(type, reading);
 
   //*** For debugging
   // delay(2000);

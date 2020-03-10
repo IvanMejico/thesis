@@ -7,7 +7,7 @@
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.101";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 String sensor_node_id = "ESN001";
@@ -49,14 +49,14 @@ void setup() {
 
   pinMode(relayPin, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600);
+  Serial.begin(115200);
   setupESP();
   digitalWrite(relayPin, LOW);
 }
 
 void loop() {
-  checkRelay();   // check and set relay status from the server
+  // checkRelay();   // check and set relay status from the server
 
   //*** Wind measurements
   type = "environment";
