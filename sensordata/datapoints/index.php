@@ -66,110 +66,6 @@
 		</div>
 	</div>
 	<div class="main-content">
-		<div class="graph-group1">
-			<div class="panel relay-status">
-				<div class="panel-header"><h3>Relay Status</h3></div>
-				<div class="panel-body">
-					<div class="leds">
-						<div>
-							<span>Load 1</span>
-							<div id="led-r1" class="led led-red"></div>
-						</div>
-						<div>
-							<span>Load 2</span>
-							<div id="led-r2" class="led led-yellow"></div>
-						</div>
-						<div>
-							<span>Load 3</span>
-							<div id="led-r3" class="led led-green"></div>
-						</div>
-						<div>
-							<span>Load 4</span>
-							<div id="led-r4" class="led led-blue"></div>
-						</div>
-						<div>
-							<span>Wind</span>
-							<div id="led-r5" class="led led-violet"></div>
-						</div>
-						<div>
-							<span>Solar</span>
-							<div id="led-r6" class="led led-orange"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel battery-status">
-				<div class="panel-header"><h3>Battery Status</h3></div>
-				<div class="panel-body">
-					<div class="battery-panel">
-						<div class="battery">
-							<div id="battery-body">
-							<div id="charge-status-0" class="charge">Priority 1</div>
-							<div id="charge-status-1" class="charge">Priority 2</div>
-							<div id="charge-status-2" class="charge">Priority 3</div> 
-							<div id="charge-status-3" class="charge">Priority 4</div>
-							</div>
-							<div id="battery-tip"></div>
-							<span id="battery-level">98%</span>
-						</div>
-						</div>
-
-						<div class="prioritization-form">
-							<table id="battery-loads">
-								<thead>
-									<tr>
-										<td colspan="4">Load Prioritization</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td>Label</td>
-										<td>Load Name</td>
-										<td></td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr id="priority1">
-										<td>Priority 1</td>
-										<td>Load 1</td>
-										<td>Load name 1</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority2">
-										<td>Priority 2</td>
-										<td>Load 2</td>
-										<td>Load name 2</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority3">
-										<td>Priority 3</td>
-										<td>Load 3</td>
-										<td>Load name 3</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority4">
-										<td>Priority 4</td>
-										<td>Load 4</td>
-										<td>Load name 4</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
 		<div class="graph-group2">
 			<div id="ESN001"class="panel">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
@@ -256,6 +152,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="graph-group3">
 			<div id="PSN002" class="panel">
 				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
@@ -345,6 +243,106 @@
 				</div>
 			</div>
 		</div>
+		<div class="graph-group1">
+
+			<div class="panel battery-status">
+				<div class="panel-header"><h3>Battery Status</h3></div>
+				<div class="panel-body">
+					<div class="battery-panel">
+						<div class="battery">
+							<div id="battery-body">
+							<div id="charge-status-0" class="charge">Priority 1</div>
+							<div id="charge-status-1" class="charge">Priority 2</div>
+							<div id="charge-status-2" class="charge">Priority 3</div> 
+							<div id="charge-status-3" class="charge">Priority 4</div>
+							</div>
+							<div id="battery-tip"></div>
+							<span id="battery-level">0%</span>
+						</div>
+
+						<div class="prioritization-form">
+							<table id="battery-loads">
+								<thead>
+									<tr>
+										<td colspan="4">Load Prioritization</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>Label</td>
+										<td>Load Name</td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr id="priority1">
+										<td>Priority 1</td>
+										<td>Load 1</td>
+										<td>Load name 1</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority2">
+										<td>Priority 2</td>
+										<td>Load 2</td>
+										<td>Load name 2</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority3">
+										<td>Priority 3</td>
+										<td>Load 3</td>
+										<td>Load name 3</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr>
+									<tr id="priority4">
+										<td>Priority 4</td>
+										<td>Load 4</td>
+										<td>Load name 4</td>
+										<td class="arrange-control">
+											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
+											<a class="btn-edit-name"><i class="flaticon-edit"></i>
+										</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="panel relay-status">
+				<div class="panel-header"><h3>Relay Status</h3></div>
+				<div class="panel-body">
+					<div class="leds">
+						<div>
+							<span>Load 1</span>
+							<div id="led-r1" class="led led-red"></div>
+						</div>
+						<div>
+							<span>Load 2</span>
+							<div id="led-r2" class="led led-yellow"></div>
+						</div>
+						<div>
+							<span>Load 3</span>
+							<div id="led-r3" class="led led-green"></div>
+						</div>
+						<div>
+							<span>Load 4</span>
+							<div id="led-r4" class="led led-blue"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 		
 	<div class="manual-control">
@@ -393,30 +391,6 @@
 					</label>
 				</div>
 			</div>
-
-
-
-			<!-- GENERATORS -->
-			<!-- <h3>Generators</h3> -->
-			<div class="status1">
-				<h4>Electrical Sensor Node (Wind)</h4>
-				<div>
-					<label class="switch">
-						<input type="checkbox" id="relay5" checked>
-						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-	
-			<div class="status1">
-				<h4>Electrical Sensor Node (Solar)</h4>
-				<div>
-					<label class="switch">
-						<input type="checkbox" id="relay6" checked>
-						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
 		</div>
 	</div>
 	<script src="colorsets.js"></script>
@@ -428,6 +402,5 @@
 
 	<script src="update_numeric_display.js"></script> <!-- TEMPORARY -->
 	<script src="load_prioritization.js"></script>
-
 	</body>
 </html>

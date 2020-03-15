@@ -30,5 +30,3 @@ setInterval(function(){updateToggle("PSN001-R0")}, updateInterval);
 setInterval(function(){updateToggle("PSN001-R1")}, updateInterval);
 setInterval(function(){updateToggle("PSN001-R2")}, updateInterval);
 setInterval(function(){updateToggle("PSN001-R3")}, updateInterval);
-setInterval(function(){updateToggle("PSN002-R0")}, updateInterval);
-setInterval(function(){updateToggle("PSN003-R0")}, updateInterval);

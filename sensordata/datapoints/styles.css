@@ -107,7 +107,7 @@ input:checked + .slider:before {
 
 .manual-control {
     background-color: rgb(25, 51, 45);
-    height: 580px;
+    height: 537px;
 }
 .manual-control h1 {
     color: #fff;
@@ -165,7 +165,7 @@ input:checked + .slider:before {
 
 .graph-group1 {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 3fr 2fr;
     grid-gap: 15px;
 }
 
@@ -175,6 +175,11 @@ input:checked + .slider:before {
     grid-gap: 15px;
 }
 
+.graph-group3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
 .panel .chart {
     background: rgb(238, 235, 235);
 }
@@ -236,9 +241,10 @@ input:checked + .slider:before {
     font-size: 1.6em;
     padding-right: 30px;
     display: block;
-    width: 200px;
+    width: 193px;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-left: 10px;
 }
 
 .panel .numeric-power {
@@ -258,6 +264,7 @@ input:checked + .slider:before {
 }
 .panel .numeric-solar_irradiance {
     color: rgb(196, 167, 4);
+    width: 340px;
 }
 
 .numeric-group {
@@ -269,12 +276,6 @@ input:checked + .slider:before {
     font-style: normal;
     color: #fff;
 }
-.numeric-group span {
-    margin-left: 10px;
-}
-
-
-
 
 .panel-control {
     color: #FFF;
@@ -339,97 +340,100 @@ input:checked + .slider:before {
     background-color: #4e4c4c;
 }
 #battery-level {
+    display: inline-block;
     position: absolute;
-    bottom: 0px;
-    left: 52px;
+    bottom: 0;
+    left: 0;
     font-size: 1.6em;
     color: white;
+    width: 133px;
+    text-align: center;
 }
 .battery {
-position:absolute;
-left: 70px;
-top: 42px;
-margin: 0 auto;
-width: 133px;
-height: 240px;
+    position:absolute;
+    left: 10%;
+    top: 52px;
+    margin: 0 auto;
+    width: 133px;
+    height: 240px;
 }
 #battery-body {
-position:absolute;
-left: 2px;
-top: 15px;
-margin: 0 auto;
-width: 130px;
-height: 193px;
-border:15px solid rgb(170, 162, 162); 
-border-radius: 20px;
+    position:absolute;
+    left: 2px;
+    top: 15px;
+    margin: 0 auto;
+    width: 130px;
+    height: 193px;
+    border:15px solid rgb(170, 162, 162); 
+    border-radius: 20px;
 } 
 #battery-tip {
-position: absolute;
-left: 41px;
-top: 0;
-margin: 0 auto;
-width: 50px;
-height: 13px;
-background: rgb(143, 139, 139);
-border-radius: 5px 5px 0 0;
+    position: absolute;
+    left: 41px;
+    top: 0;
+    margin: 0 auto;
+    width: 50px;
+    height: 13px;
+    background: rgb(143, 139, 139);
+    border-radius: 5px 5px 0 0;
 }
 .charge {
-position:absolute;
-margin: 0 auto;
-width: 94px;
-height: 37px;
-background:rgba(6, 233, 36, 0.842);
+    position:absolute;
+    margin: 0 auto;
+    width: 94px;
+    height: 37px;
+    background:rgba(6, 233, 36, 0.842);
 } 
 .charge {
-color: white;
-text-align: center;
-line-height: 2em;
+    color: white;
+    text-align: center;
+    line-height: 2em;
 }
 .charge:last-child {
-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 .charge:first-child {
-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
 }
 #charge-status-0 {
-visibility: visible;
+    visibility: visible;
 }
 #charge-status-1 {
-visibility: visible;
+    visibility: visible;
 }
 #charge-status-2 {
-visibility: visible;
+    visibility: visible;
 }
 #charge-status-3 {
 /* background-color: rgb(61, 60, 60); */
 }
 #charge-status-0 {
--webkit-animation:charge-0 5s linear  infinite;
--moz-animation:charge-0 5s linear  infinite;
-animation:charge-0 5s linear  infinite;
-left: 3px;
-bottom: 3px;
+    -webkit-animation:charge-0 5s linear  infinite;
+    -moz-animation:charge-0 5s linear  infinite;
+    animation:charge-0 5s linear  infinite;
+    left: 3px;
+    bottom: 3px;
 } 
 #charge-status-1 {
-left: 3px;
-bottom: 43px;
--webkit-animation:charge-1 5s linear  infinite;
--moz-animation:charge-1 5s linear  infinite;
-animation:charge-1 5s linear  infinite;
+    left: 3px;
+    bottom: 43px;
+    -webkit-animation:charge-1 5s linear  infinite;
+    -moz-animation:charge-1 5s linear  infinite;
+    animation:charge-1 5s linear  infinite;
 }
 #charge-status-2 {
-left: 3px;
-bottom: 83px;
--webkit-animation:charge-2 5s linear  infinite;
--moz-animation:charge-2 5s linear  infinite;
-animation:charge-2 5s linear  infinite;
+    left: 3px;
+    bottom: 83px;
+    -webkit-animation:charge-2 5s linear  infinite;
+    -moz-animation:charge-2 5s linear  infinite;
+    animation:charge-2 5s linear  infinite;
 }
 #charge-status-3 {
-left: 3px;
-bottom: 123px;
--webkit-animation:charge-3 5s linear  infinite;
--moz-animation:charge-3 5s linear  infinite;
-animation:charge-3 5s linear  infinite;
+    left: 3px;
+    bottom: 123px;
+    -webkit-animation:charge-3 5s linear  infinite;
+    -moz-animation:charge-3 5s linear  infinite;
+    animation:charge-3 5s linear  infinite;
 }
 .prioritization-form {
     position: absolute;
@@ -460,7 +464,7 @@ animation:charge-3 5s linear  infinite;
     font-size: 1.5em;
 }
 #battery-loads thead td {
-    background-color: rgb(59, 54, 54);
+    background-color: rgb(36, 27, 27);
     color: rgb(201, 197, 197);
     font-weight: bold;
 }
@@ -505,6 +509,7 @@ animation:charge-3 5s linear  infinite;
 }
 #battery-loads .arrange-control a:nth-child(3) {
     border-radius: 5px;
+    margin-left: 5px;
 }
 #battery-loads .arrange-control a i:before {
     margin: 0;
@@ -523,7 +528,6 @@ animation:charge-3 5s linear  infinite;
     border-bottom: 1px solid green;
     background-color: transparent;
 }
-
 
 /* responsive */
 /* @media only screen and (max-width: 980px) {

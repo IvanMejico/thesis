@@ -27,9 +27,8 @@ if(isset($_GET['getid'])) {
 if(isset($_GET['setid']) && isset($_GET['setvalue'])) {
     // set the status to TR or FL
     $relayId = $_GET['setid'];
-    $value = $_GET['setvalue'];
-    $query = "UPDATE `relay_control` SET `status` = '$value' WHERE relay_id = '$relayId';";
-    echo $query;
+    $status = $_GET['setvalue'];
+    $query = "UPDATE `relay_control` SET `status` = '$status' WHERE relay_id = '$relayId';";
     if(mysqli_query($conn, $query)) {
         echo 'successfully updated';
     } else {

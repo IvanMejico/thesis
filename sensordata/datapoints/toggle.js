@@ -4,11 +4,6 @@ var toggleLoad2 = document.getElementById('relay2');
 var toggleLoad3 = document.getElementById('relay3');
 var toggleLoad4 = document.getElementById('relay4');
 
-
-// GENERATOR TOGGLE
-var toggleTurbine = document.getElementById('relay5');
-var toggleSolar = document.getElementById('relay6');
-
 // add event listerner to toggle buttons
 // toggle1.onclick = function() {
 //     checked = toggle1.checked;
@@ -35,16 +30,6 @@ toggleLoad4.onclick = function() {
     saveToggle("PSN001-R3", checked);
 }
 
-toggleTurbine.onclick = function() {
-    checked = toggleTurbine.checked;
-    saveToggle("PSN002-R0", checked);
-}
-
-toggleSolar.onclick = function() {
-    checked = toggleSolar.checked;
-    saveToggle("PSN003-R0", checked);
-}
-
 
 
 
@@ -63,12 +48,6 @@ var updateToggle = function(relay_id) {
             break;
         case "PSN001-R3":
             relayId = 4;
-            break;
-        case "PSN002-R0":
-            relayId = 5;
-            break;
-        case "PSN003-R0":
-            relayId = 6;
             break;
         default:
             break;
@@ -106,7 +85,7 @@ var saveToggle = function(relay_id, checked) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'getrelaystatus.php?setid=' + relay_id + '&setvalue='+status,true);
     xhr.onload = function() {
-        // console.log('okay');
+        // console.log(this.responseText);
     }
     xhr.send();
 }
