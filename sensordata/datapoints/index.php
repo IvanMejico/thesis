@@ -2,7 +2,10 @@
 <html>
 <head>  
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Wind-Solar Hybrid Monitoring System Dashboard</title>
+<link rel="shortcut icon" type="image/x-icon" href="assets/logo.png">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="ledstyles.css">
 <link rel="stylesheet" type="text/css" href="assets/flaticon/font/flaticon.css"></style>
@@ -71,24 +74,31 @@
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-environment" id="live-environment" value="live" checked>
-						<label for="live-environment"><span>Live</span></label>
-						<input type="radio" name="filter-environment" id="day-environment" value="day" checked>
-						<label for="day-environment"><span>Day</span></label>
-						<input type="radio" name="filter-environment" id="week-environment" value="week">
-						<label for="week-environment"><span>Week</span></label>
-						<input type="radio" name="filter-environment" id="month-environment" value="month">
-						<label for="month-environment"><span>Month</span></label>
-						<input type="radio" name="filter-environment" id="year-environment" value="year">
-						<label for="year-environment"><span>Year</span></label>
-					</div>
-					<div class="text-control">
-						<em class="date">February 24, 2020</em>
-						<em class="week-day">Monday</em>
+						<div class="time-control">
+							<input type="radio" name="time-ctrl-environment" id="live-environment" value="live" checked>
+							<label for="live-environment"><span>Live</span></label>
+							<input type="radio" name="time-ctrl-environment" id="day-environment" value="day" checked>
+							<label for="day-environment"><span>Day</span></label>
+							<input type="radio" name="time-ctrl-environment" id="week-environment" value="week">
+							<label for="week-environment"><span>Week</span></label>
+							<input type="radio" name="time-ctrl-environment" id="month-environment" value="month">
+							<label for="month-environment"><span>Month</span></label>
+							<input type="radio" name="time-ctrl-environment" id="year-environment" value="year">
+							<label for="year-environment"><span>Year</span></label>
+						</div>
+						<div class="value-control">
+							<input type="radio" name="value-environment" id="all-environment" value="all" checked>
+							<label for="all-environment"><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" name="value-environment" id="insolation-environment" value="insolation" checked>
+							<label for="insolation-environment"><span class="flaticon-sun-1"></span></label>
+							<input type="radio" name="value-environment" id="windspeed-environment" value="windspeed" checked>
+							<label for="windspeed-environment"><span class="flaticon-wind-1"></span></label>
+						</div>
 					</div>
 					<div class="navigation-control">
-						<span><</span>
-						<span>></span>
+						<span class="flaticon-previous"></span>
+						<span >July 21, 2020</span>
+						<span i class="flaticon-next"></span>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -100,7 +110,7 @@
 						</div>
 						<div>
 							<i>Solar Insolation</i>
-							<span class="numeric-solar_irradiance">0W/m²</span>
+							<span class="numeric-solar_insolation">0W/m²</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -112,24 +122,34 @@
 				<div class="panel-header"><h3>Electrical Sensor Node (AC Load Consumption)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-ac-electrical" id="live-ac-electrical" value="live" checked>
-						<label for="live-ac-electrical"><span>Live</span></label>
-						<input type="radio" name="filter-ac-electrical" id="day-ac-electrical" value="day" checked>
-						<label for="day-ac-electrical"><span>Day</span></label>
-						<input type="radio" name="filter-ac-electrical" id="week-ac-electrical" value="week">
-						<label for="week-ac-electrical"><span>Week</span></label>
-						<input type="radio" name="filter-ac-electrical" id="month-ac-electrical" value="month">
-						<label for="month-ac-electrical"><span>Month</span></label>
-						<input type="radio" name="filter-ac-electrical" id="year-ac-electrical" value="year">
-						<label for="year-ac-electrical"><span>Year</span></label>
-					</div>
-					<div class="text-control">
-						<em class="date">February 24, 2020</em>
-						<em class="week-day">Monday</em>
+						<div class="time-control">
+							<input type="radio" name="time-ctrl-ac_electrical" id="live-ac_electrical" value="live" checked>
+							<label for="live-ac_electrical"><span>Live</span></label>
+							<input type="radio" name="time-ctrl-ac_electrical" id="day-ac_electrical" value="day" checked>
+							<label for="day-ac_electrical"><span>Day</span></label>
+							<input type="radio" name="time-ctrl-ac_electrical" id="week-ac_electrical" value="week">
+							<label for="week-ac_electrical"><span>Week</span></label>
+							<input type="radio" name="time-ctrl-ac_electrical" id="month-ac_electrical" value="month">
+							<label for="month-ac_electrical"><span>Month</span></label>
+							<input type="radio" name="time-ctrl-ac_electrical" id="year-ac_electrical" value="year">
+							<label for="year-ac_electrical"><span>Year</span></label>
+						</div>
+
+						<div class="value-control">
+							<input type="radio" name="value-ac_electrical" id="all-ac_electrical" value="all" checked>
+							<label for="all-ac_electrical"><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" name="value-ac_electrical" id="voltage-ac_electrical" value="voltage" checked>
+							<label for="voltage-ac_electrical"><span class="flaticon-high-voltage-1"></span></label>
+							<input type="radio" name="value-ac_electrical" id="current-ac_electrical" value="current" checked>
+							<label for="current-ac_electrical"><span class="flaticon-letter-a"></span></label>
+							<input type="radio" name="value-ac_electrical" id="power-ac_electrical" value="power" checked>
+							<label for="power-ac_electrical"><span class="flaticon-no-plug"></span></label>
+						</div>
 					</div>
 					<div class="navigation-control">
-						<span><</span>
-						<span>></span>
+						<span class="flaticon-previous"></span>
+						<span >July 21, 2020</span>
+						<span i class="flaticon-next"></span>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -158,24 +178,33 @@
 				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-turbine-electrical" id="live-turbine-electrical" value="live" checked>
-						<label for="live-turbine-electrical"><span>Live</span></label>
-						<input type="radio" name="filter-turbine-electrical" id="day-turbine-electrical" value="day" checked>
-						<label for="day-turbine-electrical"><span>Day</span></label>
-						<input type="radio" name="filter-turbine-electrical" id="week-turbine-electrical" value="week">
-						<label for="week-turbine-electrical"><span>Week</span></label>
-						<input type="radio" name="filter-turbine-electrical" id="month-turbine-electrical" value="month">
-						<label for="month-turbine-electrical"><span>Month</span></label>
-						<input type="radio" name="filter-turbine-electrical" id="year-turbine-electrical" value="year">
-						<label for="year-turbine-electrical"><span>Year</span></label>
-					</div>
-					<div class="text-control">
-						<em class="date">February 24, 2020</em>
-						<em class="week-day">Monday</em>
+						<div class="time-control">
+							<input type="radio" name="time-ctrl-turbine_electrical" id="live-turbine_electrical" value="live" checked>
+							<label for="live-turbine_electrical"><span>Live</span></label>
+							<input type="radio" name="time-ctrl-turbine_electrical" id="day-turbine_electrical" value="day" checked>
+							<label for="day-turbine_electrical"><span>Day</span></label>
+							<input type="radio" name="time-ctrl-turbine_electrical" id="week-turbine_electrical" value="week">
+							<label for="week-turbine_electrical"><span>Week</span></label>
+							<input type="radio" name="time-ctrl-turbine_electrical" id="month-turbine_electrical" value="month">
+							<label for="month-turbine_electrical"><span>Month</span></label>
+							<input type="radio" name="time-ctrl-turbine_electrical" id="year-turbine_electrical" value="year">
+							<label for="year-turbine_electrical"><span>Year</span></label>	
+						</div>
+						<div class="value-control">
+							<input type="radio" name="value-turbine_electrical" id="all-turbine_electrical" value="all" checked>
+							<label for="all-turbine_electrical"><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" name="value-turbine_electrical" id="voltage-turbine_electrical" value="voltage" checked>
+							<label for="voltage-turbine_electrical"><span class="flaticon-high-voltage-1"></span></label>
+							<input type="radio" name="value-turbine_electrical" id="current-turbine_electrical" value="current" checked>
+							<label for="current-turbine_electrical"><span class="flaticon-letter-a"></span></label>
+							<input type="radio" name="value-turbine_electrical" id="power-turbine_electrical" value="power" checked>
+							<label for="power-turbine_electrical"><span class="flaticon-no-plug"></span></label>
+						</div>
 					</div>
 					<div class="navigation-control">
-						<span><</span>
-						<span>></span>
+						<span class="flaticon-previous"></span>
+						<span >July 21, 2020</span>
+						<span i class="flaticon-next"></span>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -202,24 +231,33 @@
 				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
-						<input type="radio" name="filter-solar-electrical" id="live-solar-electrical" value="live" checked>
-						<label for="live-solar-electrical"><span>Live</span></label>
-						<input type="radio" name="filter-solar-electrical" id="day-solar-electrical" value="day" checked>
-						<label for="day-solar-electrical"><span>Day</span></label>
-						<input type="radio" name="filter-solar-electrical" id="week-solar-electrical" value="week">
-						<label for="week-solar-electrical"><span>Week</span></label>
-						<input type="radio" name="filter-solar-electrical" id="month-solar-electrical" value="month">
-						<label for="month-solar-electrical"><span>Month</span></label>
-						<input type="radio" name="filter-solar-electrical" id="year-solar-electrical" value="year">
-						<label for="year-solar-electrical"><span>Year</span></label>
-					</div>
-					<div class="text-control">
-						<em class="date">February 24, 2020</em>
-						<em class="week-day">Monday</em>
+						<div class="time-control">
+							<input type="radio" name="time-ctrl-solar_electrical" id="live-solar_electrical" value="live" checked>
+							<label for="live-solar_electrical"><span>Live</span></label>
+							<input type="radio" name="time-ctrl-solar_electrical" id="day-solar_electrical" value="day" checked>
+							<label for="day-solar_electrical"><span>Day</span></label>
+							<input type="radio" name="time-ctrl-solar_electrical" id="week-solar_electrical" value="week">
+							<label for="week-solar_electrical"><span>Week</span></label>
+							<input type="radio" name="time-ctrl-solar_electrical" id="month-solar_electrical" value="month">
+							<label for="month-solar_electrical"><span>Month</span></label>
+							<input type="radio" name="time-ctrl-solar_electrical" id="year-solar_electrical" value="year">
+							<label for="year-solar-electrical"><span>Year</span></label>
+						</div>
+						<div class="value-control">
+							<input type="radio" name="value-solar_electrical" id="all-solar_electrical" value="all" checked>
+							<label for="all-solar_electrical"><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" name="value-solar_electrical" id="voltage-solar_electrical" value="voltage" checked>
+							<label for="voltage-solar_electrical"><span class="flaticon-high-voltage-1"></span></label>
+							<input type="radio" name="value-solar_electrical" id="current-solar_electrical" value="current" checked>
+							<label for="current-solar_electrical"><span class="flaticon-letter-a"></span></label>
+							<input type="radio" name="value-solar_electrical" id="power-solar_electrical" value="power" checked>
+							<label for="power-solar_electrical"><span class="flaticon-no-plug"></span></label>
+						</div>
 					</div>
 					<div class="navigation-control">
-						<span><</span>
-						<span>></span>
+						<span class="flaticon-previous"></span>
+						<span >July 21, 2020</span>
+						<span i class="flaticon-next"></span>
 					</div>
 				</div>
 				<div class="panel-body">

@@ -79,7 +79,7 @@ input:checked + .slider:before {
     z-index: 100;
     top: 0;
     padding: 20px 0;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     background-color: rgb(228, 61, 10);
     opacity: 0.9;
 }
@@ -117,7 +117,7 @@ input:checked + .slider:before {
     padding: 30px 0;
 }
 .main-content {
-    width: 95%;
+    width: 98%;
     margin: 0 auto 50px;
 }
 .relaystatus {
@@ -163,20 +163,25 @@ input:checked + .slider:before {
     text-align: center;
 }
 
+/* battery status and relay status */
 .graph-group1 {
     display: grid;
     grid-template-columns: 3fr 2fr;
     grid-gap: 15px;
 }
 
+/* environment and load */
 .graph-group2 {
     display: grid;
+    grid-template-columns: 1;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
 
+/* trubine and panel */
 .graph-group3 {
-    display: grid;
+    display: grid;    
+    grid-template-columns: 1;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 }
@@ -262,7 +267,7 @@ input:checked + .slider:before {
 .panel .numeric-wind_speed {
     color: rgb(168, 12, 173);
 }
-.panel .numeric-solar_irradiance {
+.panel .numeric-solar_insolation {
     color: rgb(196, 167, 4);
     width: 340px;
 }
@@ -286,14 +291,25 @@ input:checked + .slider:before {
 .tab-control {
     margin: 0 10px 0 10px;
     display: inline-block;
+
+}
+.tab-control div {
+    display: inline-block;
+}
+.tab-control div.time-control {}
+.tab-control div.value-control {
+    margin-left: 1em;
 }
 .tab-control input[type="radio"]{
     display: none;
 }
-.tab-control input[type="radio"]:checked+label>span{
+.tab-control .time-control input[type="radio"]:checked+label>span{
     background-color: #356de7;
 }
-.panel-control span {
+.tab-control .value-control input[type="radio"]:checked+label>span{
+    background-color: #3e4141;
+}
+.panel-control .tab-control span {
     padding: 7px 11px;
     background-color: rgb(37, 35, 35);
     display: inline-block;
@@ -312,23 +328,42 @@ input:checked + .slider:before {
 }
 .panel-control span:active {
     background-color: rgb(54, 56, 58);
+
 }
-.navigation-control {
-    display: inline-block;
+
+.panel-control .value-control {
+    transform: translateY(3px);
+}
+
+.panel-control .value-control span {
+    padding: 4px 6px;
+    text-align: center;
+
+}
+.panel-control span:before {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    
+}
+.navigation-control {    
     position: absolute;
     right: 10px;
+    top: 20px;
+    margin-right: 5px;
 }
-.text-control {
+.navigation-control span {
     display: inline-block;
-    margin-left: 6px;
-    font-size: .9em;
+    text-align: center;
+    position: relative;
+    margin: 0 5px;
 }
-.text-control em:first-child {
-    margin-right: 10px;
-    font-style: normal;
+.navigation-control span:before{
+    font-size: .8em;
+    color: rgb(158, 157, 157);
+    padding: 0;
+    margin: 0;
 }
-
-
 
 
 /* Battery */

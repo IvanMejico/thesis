@@ -9,9 +9,8 @@ cursor2 = db.cursor()
 
 
 # Prepare SQL query to DELETE required records
-sql1 = "ALTER TABLE environment_reading AUTO_INCREMENT=1"
-sql2 = "ALTER TABLE energy_reading AUTO_INCREMENT=1"
-
+sql1 = "DELETE FROM environment_reading"
+sql2 = "DELETE FROM energy_reading"
 
 try:
     # Execute the SQL command

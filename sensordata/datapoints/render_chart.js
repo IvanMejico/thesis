@@ -114,7 +114,7 @@ function renderChart(container,sensorId) {
             {        
                 type: "splineArea",
                 showInLegend: true,
-                name: "Solar Irradiance",
+                name: "Solar Insolation",
                 fillOpacity: .2, 
                 color: "#c4a704",
                 lineColor: "#c4a704",
@@ -132,14 +132,14 @@ function renderChart(container,sensorId) {
 var updateChart = function (sensorId, count) {
     // console.log('executed');
     count = count || 1; // If count is not passed, default the value to 1
-
+    
     if(!prevDateTime[sensorId]) {
         prevDateTime[sensorId] = new Date( 2012, 0, 1, 0, 0 );
     }
     
     // Perform AJAX request here. Get the xVal and the yVal values
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "getTrends.php?sensor_id=" + sensorId + "&datalength=" + count, true);  
+    xhr.open('GET', "getTrends.php?sensor_id=" + sensorId + "&datalength=" + count, false);  
 
     xhr.onload = function() {
         var response = JSON.parse(this.responseText);
@@ -217,7 +217,7 @@ var updateChart = function (sensorId, count) {
                 let solarIrradiance = parseFloat(item.solar_irradiance);
 
                 updateNumeric(sensorId, 'wind_speed', windSpeed);
-                updateNumeric(sensorId, 'solar_irradiance', solarIrradiance);
+                updateNumeric(sensorId, 'solar_insolation', solarIrradiance);
                
                 if(dateTime.getTime() !== prevDateTime[sensorId].getTime()) {
                     

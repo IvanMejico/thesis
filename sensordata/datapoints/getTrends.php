@@ -60,9 +60,8 @@ if($sensorType == 'electrical') {
         }
     } else
         echo 'ERROR: '. mysqli_error($conn);
-}
-
-if($sensorType == 'environment') {
+} else if($sensorType == 'environment') {
+    // TODO: Code for solar irradiance must be added
     $windDp = [];
     $windQuery = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
     

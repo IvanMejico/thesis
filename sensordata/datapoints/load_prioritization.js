@@ -33,7 +33,7 @@ function checkBatteryLevel () {
             priority2.style.color = "#fff";
         }
 
-        if(floor(level) == 0) {
+        if(level <= 0) {
             priority1.style.backgroundColor = "#4e4c4c";
             priority1.style.color = "#a19f9c";
         } else {

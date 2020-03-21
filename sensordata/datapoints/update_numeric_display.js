@@ -13,7 +13,7 @@ function updateNumeric(sensorid, unit, value) {
         case 'wind_speed':
             u = 'm/s';
             break;
-        case 'solar_irradiance':
+        case 'solar_insolation':
             u = 'W/m²';
             break;
         default:

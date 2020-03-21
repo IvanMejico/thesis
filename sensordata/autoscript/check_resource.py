@@ -1,4 +1,4 @@
-#// TODO:
+# TODO:
 # Check the difference of the time between records.
 # if the difference is 5 minutes or less, then compare the wind speed and solar irradiance values
 # to their respective brackets. The relay on the AC Load sensor node will be turned on or off
@@ -38,7 +38,7 @@ def deactivateRelay():
     try:
         cursor.execute(sql)
         db.commit()
-    except pymysql.error:
+    except pymysql.Error:
         db.rollback()
 
     db.close()
@@ -77,7 +77,7 @@ def checkAvailable():
     time_bracket = (5, 0)   # 5minutes 0seconds
 
     # disconnect from server
-    db.close();
+    db.close()
 
     # compare the wind speed and solar irradiation from the database to their respective bracket values
     if time_difference <= time_bracket:

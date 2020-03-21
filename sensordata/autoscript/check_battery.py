@@ -5,7 +5,6 @@ import pymysql
 import schedule
 import time
 from datetime import datetime
-import math
 
 def activateRelay(relayId):
     db = pymysql.connect("localhost", "root", "", "sensor_database")
@@ -85,7 +84,7 @@ def checkBattery():
             print('PRIORITY 2:')
             activateRelay(priority2)
 
-        if(math.floor(soc) <= 0):
+        if(soc <= 0):
             print('PRIORITY 1:')
             deactivateRelay(priority1)
         else:
