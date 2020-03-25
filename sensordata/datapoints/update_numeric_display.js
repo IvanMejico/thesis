@@ -1,5 +1,5 @@
 function updateNumeric(sensorid, unit, value) {
-    n = document.querySelector("#"+sensorid+" .numeric-"+unit+"");
+    n = document.querySelector("#"+sensorid+" .numeric-"+unit);
     switch(unit) {
         case 'voltage':
             u = 'V';
@@ -21,3 +21,4 @@ function updateNumeric(sensorid, unit, value) {
     }
     n.innerText = value.toFixed(2)+u;
 }
+

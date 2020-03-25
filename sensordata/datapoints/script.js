@@ -1,11 +1,11 @@
-var updateInterval = 2000;
+var updateInterval = 4000;
 
 // GONNA WORK ON THIS CODE LATER ON
 // var sensorArray;
 // var xhr = new XMLHttpRequest();
 // xhr.open('GET', 'getSensorList.php', false)
 // xhr.onload = function() {
-//     sensorArray = JSON.parse(this.responseText);
+//      sensorArray = JSON.parse(this.responseText);
 //     sensorArray.forEach(function(item){
 //         renderChart('chartContainer1', 'PSN001');
 //         renderChart('chartContainer2', 'PSN003');
@@ -13,16 +13,50 @@ var updateInterval = 2000;
 // }
 // xhr.send();
 
+function getSelectedValue(tabs) {
+    for(var i=0; i<tabs.length; i++) {
+        if(tabs[i].checked) {
+            return tabs[i].value;
+        }
+    }
+}
 
-// CHARTS RENDERING
-renderChart('chartContainer1', 'ESN001');
-enviChart = setInterval(function(){updateChart("ESN001")}, updateInterval);
-renderChart('chartContainer2', 'PSN001');
-acLoadChart = setInterval(function(){updateChart("PSN001")}, updateInterval);
-renderChart('chartContainer3', 'PSN002');
-turbineChart = setInterval(function(){updateChart("PSN002")}, updateInterval);
-renderChart('chartContainer4', 'PSN003');
-panelChart = setInterval(function(){updateChart("PSN003")}, updateInterval);
+class SensorReading {
+    constructor(sensorId, unit='all', timeControl='live') {
+        this.sensorId = sensorId;
+        this.chartContainer = "chartContainer-"+sensorId;
+        this.unit = unit;
+        this.timeControl = timeControl;
+    }
+}
+
+interval = [];
+reading = [];
+
+
+// GET ALL TIME AND VALUE(UNIT) CONTROL TAB VALUES THEN RENDER THE CHARTS ACCORDINGLY
+tabControlGroups = document.getElementsByClassName('tab-control');
+
+for(let group of tabControlGroups) {
+    sensorId = group.dataset.sensorid
+
+    tabSubGroups = group.getElementsByTagName("div");
+    timeControl = tabSubGroups[0];
+    valueControl = tabSubGroups[1];
+
+    sensorId = group.dataset.sensorid;
+    btnTCtrl = timeControl.getElementsByTagName('input');
+    btnVCtrl = valueControl.getElementsByTagName('input');
+
+    timeControl = getSelectedValue(btnTCtrl);
+    valueControl = getSelectedValue(btnVCtrl);
+
+    reading[sensorId] = new SensorReading(sensorId, valueControl, timeControl);
+    renderChart(reading[sensorId]);
+    interval[sensorId] = setInterval(function(){
+        updateChart(reading[sensorId])
+    }, updateInterval);
+}
 
 
 // UPDATE TOGGLE BUTTONS

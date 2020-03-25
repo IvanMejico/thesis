@@ -2,32 +2,35 @@ var chart = [];
 var dataLength = 200;
 var x = 0;
 
-// Initialyze datapoints
+// Initialize datapoints
 var voltageDps = [];
 var currentDps = [];
 var powerDps = [];
 var windSpeedDps = [];
-var solarIrradianceDps = [];
+var solarInsolationDps = [];
 var prevDateTime = [];
 
-function renderChart(container,sensorId) {
-    if(!voltageDps[sensorId])
-        voltageDps[sensorId] = [];
+// *** [START] HELPER FUNCTIONS ***
+function hideNumericDisplay(sensorId, unit) {
+    n = document.querySelector("#"+sensorId+" .numeric-"+unit);
+    n.parentElement.style.display = 'none';
+}
 
-    if(!currentDps[sensorId])
-        currentDps[sensorId] = [];
-
-    if(!powerDps[sensorId])
-        powerDps[sensorId] = [];
-        
-    if(!windSpeedDps[sensorId])
-        windSpeedDps[sensorId] = [];
-
-    if(!solarIrradianceDps[sensorId])
-        solarIrradianceDps[sensorId] = [];
+function showNumericDisplay(sensorId, unit) {
+    n = document.querySelector("#"+sensorId+" .numeric-"+unit);
+    n.parentElement.style.display = 'block';
+}
+// *** [END] HELPER FUNCTIONS ***
 
 
-    chart[sensorId] = new CanvasJS.Chart(container, {
+function renderChart(readingObj) {
+    voltageDps[readingObj.sensorId] = [];
+    currentDps[readingObj.sensorId] = [];
+    powerDps[readingObj.sensorId] = [];
+    windSpeedDps[readingObj.sensorId] = [];
+    solarInsolationDps[readingObj.sensorId] = [];
+
+    chart[readingObj.sensorId] = new CanvasJS.Chart(readingObj.chartContainer, {
         zoomEnabled: true,
         fontColor: "#fff",
         zoomType: "xy",
@@ -70,7 +73,7 @@ function renderChart(container,sensorId) {
                 lineColor: "#05a4ee",
                 markerColor: "#05a4ee",
                 markerSize: 0,
-                dataPoints: powerDps[sensorId]
+                dataPoints: powerDps[readingObj.sensorId]
             },
 
             
@@ -83,7 +86,7 @@ function renderChart(container,sensorId) {
                 lineColor: "#007c1f",
                 markerColor: "#007c1f",
                 markerSize: 0,
-                dataPoints: currentDps[sensorId]
+                dataPoints: currentDps[readingObj.sensorId]
             },
 
 
@@ -96,7 +99,7 @@ function renderChart(container,sensorId) {
                 lineColor: "#ec0b0b",
                 markerColor: "#ec0b0b",
                 markerSize: 0,
-                dataPoints: voltageDps[sensorId]
+                dataPoints: voltageDps[readingObj.sensorId]
             },
 
             {        
@@ -108,7 +111,7 @@ function renderChart(container,sensorId) {
                 lineColor: "#a80cad",
                 markerColor: "#a80cad",
                 markerSize: 0,
-                dataPoints: windSpeedDps[sensorId]
+                dataPoints: windSpeedDps[readingObj.sensorId]
             },
 
             {        
@@ -120,34 +123,35 @@ function renderChart(container,sensorId) {
                 lineColor: "#c4a704",
                 markerColor: "#c4a704",
                 markerSize: 0,
-                dataPoints: solarIrradianceDps[sensorId]
+                dataPoints: solarInsolationDps[readingObj.sensorId]
             }
 
         ]  
     });
-
-    updateChart(sensorId, dataLength);
+    // Fill chart with data from the database
+    updateChart(readingObj, dataLength);
 }
 
-var updateChart = function (sensorId, count) {
-    // console.log('executed');
-    count = count || 1; // If count is not passed, default the value to 1
-    
-    if(!prevDateTime[sensorId]) {
-        prevDateTime[sensorId] = new Date( 2012, 0, 1, 0, 0 );
-    }
+var updateChart = function (readingObj, count=1) {    
+    if(!prevDateTime[readingObj.sensorId])
+        prevDateTime[readingObj.sensorId] = new Date( 2012, 0, 1, 0, 0 );
     
     // Perform AJAX request here. Get the xVal and the yVal values
+    
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "getTrends.php?sensor_id=" + sensorId + "&datalength=" + count, false);  
-
+    xhr.open('GET', "getTrends.php?sensor_id=" + readingObj.sensorId 
+        + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl, true);
+    // console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
+    // + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
     xhr.onload = function() {
+        // Do not continue if there's no value returned
+        if(!this.responseText)
+            return;
+
         var response = JSON.parse(this.responseText);
         var sensorType = response.sensor_type;
         var sensorData = response.sensor_data;
-        
-
-        
+                
         if(sensorType == 'electrical') {
             sensorData.forEach(function(item) {
                 let timeStamp = item.timestamp;
@@ -162,38 +166,66 @@ var updateChart = function (sensorId, count) {
                     dateTimeParts[4],
                     dateTimeParts[5]
                 );
-
-                let voltage = parseFloat(item.voltage);
-                let current = parseFloat(item.current);
-                let power = current * voltage;
-
-                updateNumeric(sensorId, 'voltage', voltage);
-                updateNumeric(sensorId, 'current', current);
-                updateNumeric(sensorId, 'power', power);
                 
-                if(dateTime.getTime() !== prevDateTime[sensorId].getTime()) {
-                    // console.log(prevDateTime[sensorId]);
-                    voltageDps[sensorId].push({
-                        x: dateTime,
-                        y: voltage
-                    });
+                if(dateTime.getTime() !== prevDateTime[readingObj.sensorId].getTime()) {
+                    // console.log(prevDateTime[readingObj.sensorId]);
+                    vardataBuffer = '';
+                    if(item.readings.voltage) {
+                        let unit = 'voltage';
+                        let voltageValue = parseFloat(item.readings.voltage);
+                        voltageDps[readingObj.sensorId].push({
+                            x: dateTime,
+                            y: voltageValue
+                        });
+                        showNumericDisplay(readingObj.sensorId, unit);
+                        updateNumeric(readingObj.sensorId, unit, voltageValue);
+                        dataBuffer = 'voltageDps';
+                    } else {
+                        // Hide numeric display for voltage
+                        let unit = 'voltage';
+                        hideNumericDisplay(readingObj.sensorId, unit);
+                    }
 
-                    currentDps[sensorId].push({
-                        x: dateTime,
-                        y: current
-                    });
+                    
+                    if(item.readings.current) {
+                        let unit = 'current';
+                        let currentValue = parseFloat(item.readings.current);
+                        currentDps[readingObj.sensorId].push({
+                            x: dateTime,
+                            y: currentValue
+                        });
+                        showNumericDisplay(readingObj.sensorId, unit);
+                        updateNumeric(readingObj.sensorId, unit, currentValue);
+                        dataBuffer = 'currentDps';
+                    } else {
+                        // Hide numeric display for current
+                        let unit = 'current';
+                        hideNumericDisplay(readingObj.sensorId, unit);
+                    }
 
-                    powerDps[sensorId].push({
-                        x: dateTime,
-                        y: power
-                    });
+                    if(item.readings.power) {
+                        let unit = 'power';
+                        let powerValue = parseFloat(item.readings.power);
+                        powerDps[readingObj.sensorId].push({
+                            x: dateTime,
+                            y: powerValue
+                        });
+                        showNumericDisplay(readingObj.sensorId, unit);
+                        updateNumeric(readingObj.sensorId, unit, powerValue);
+                        dataBuffer = 'powerDps';
+                    } else {
+                        // Hide numeric display for power
+                        let unit = 'power';
+                        hideNumericDisplay(readingObj.sensorId, unit);
+                    }
 
-                    prevDateTime[sensorId] = dateTime;
 
-                    if (voltageDps[sensorId].length > dataLength) {
-                        voltageDps[sensorId].shift();
-                        currentDps[sensorId].shift();
-                        powerDps[sensorId].shift();
+                    prevDateTime[readingObj.sensorId] = dateTime;
+
+                    if (window[dataBuffer][readingObj.sensorId].length > dataLength) {
+                        voltageDps[readingObj.sensorId].shift();
+                        currentDps[readingObj.sensorId].shift();
+                        powerDps[readingObj.sensorId].shift();
                     }
                 }    
             });
@@ -213,34 +245,51 @@ var updateChart = function (sensorId, count) {
                     dateTimeParts[5]
                 );
 
-                let windSpeed = parseFloat(item.wind_speed);
-                let solarIrradiance = parseFloat(item.solar_irradiance);
-
-                updateNumeric(sensorId, 'wind_speed', windSpeed);
-                updateNumeric(sensorId, 'solar_insolation', solarIrradiance);
                
-                if(dateTime.getTime() !== prevDateTime[sensorId].getTime()) {
-                    
-                    windSpeedDps[sensorId].push({
-                        x: dateTime,
-                        y: windSpeed
-                    });
+                if(dateTime.getTime() !== prevDateTime[readingObj.sensorId].getTime()) {
+                    var dataBuffer = '';
+                    if(item.readings.windSpeed) {
+                        let unit = 'wind_speed';
+                        let windSpeedValue = parseFloat(item.readings.windSpeed);
+                        windSpeedDps[readingObj.sensorId].push({
+                            x: dateTime,
+                            y: windSpeedValue
+                        });
+                        showNumericDisplay(readingObj.sensorId, unit);
+                        updateNumeric(readingObj.sensorId, unit, windSpeedValue);
+                        dataBuffer = 'windSpeedDps';
+                    } else {
+                        // Hide numeric display for wind speed
+                        let unit = 'wind_speed';
+                        hideNumericDisplay(readingObj.sensorId, unit);
+                    }
 
-                    solarIrradianceDps[sensorId].push({
-                        x: dateTime,
-                        y: solarIrradiance
-                    });
+                    if(item.readings.solarInsolation) {
+                        let unit = 'solar_insolation';
+                        let solarInsolationValue = parseFloat(item.readings.solarInsolation);
+                        solarInsolationDps[readingObj.sensorId].push({
+                            x: dateTime,
+                            y: solarInsolationValue
+                        });
+                        showNumericDisplay(readingObj.sensorId, unit)
+                        updateNumeric(readingObj.sensorId, 'solar_insolation', solarInsolationValue);
+                        dataBuffer = 'solarInsolationDps';
+                    } else {
+                        // Hide numeric display for solar insolation
+                        let unit = 'solar_insolation';
+                        hideNumericDisplay(readingObj.sensorId, unit);
+                    }     
 
-                    prevDateTime[sensorId] = dateTime;
+                    prevDateTime[readingObj.sensorId] = dateTime;
 
-                    if (windSpeedDps[sensorId].length > dataLength) {
-                        windSpeedDps[sensorId].shift();
-                        solarIrradianceDps[sensorId].shift();
+                    if (window[dataBuffer][readingObj.sensorId].length > dataLength) {
+                        windSpeedDps[readingObj.sensorId].shift();
+                        solarInsolationDps[readingObj.sensorId].shift();
                     }
                 }
             });
         }
-        chart[sensorId].render();
+        chart[readingObj.sensorId].render();
     }
     xhr.send();
 };

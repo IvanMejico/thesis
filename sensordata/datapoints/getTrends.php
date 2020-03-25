@@ -13,81 +13,171 @@
  * 3) Combine the resulting arrays into a single array.
  * 4) Echo the result.
  * 
- * [{voltage_vaules},{current_values},{power_values},{wind_speed_values}]
+ * [{voltage_values},{current_values},{power_values},{wind_speed_values}]
  */
 
 include('config.php');
-$conn = mysqli_connect($servername, $username, $password, $db);
-
-date_default_timezone_set("Asia/Manila");
-$timestamp = date("Y-m-d H:i:s");
-$arr = explode(" ", $timestamp);
-$date = $arr[0];
-
-$tempDp = [];
-$dataPoints = []; // Data to be returned
-
-$sensorId = $_GET['sensor_id'];
-$dataLength = isset($_GET['datalength']) ? $_GET['datalength'] : 50;
+$GLOBALS['connection'] = mysqli_connect($servername, $username, $password, $db);
 
 
-// Query the sensor_type
-$querySensorType = "SELECT `sensor_type` FROM `sensor` WHERE `id` = '$sensorId';";
-if($result = mysqli_query($conn, $querySensorType)) {
-    $row = $result->fetch_assoc();
-    $sensorType = $row['sensor_type'];
-} else
-    echo 'ERROR: '. mysqli_error($conn);
-
-
-// If sensor type is electrical get the voltage_reading and current_reading tables
-// if sensor type is wind get the environment_reading table
-if($sensorType == 'electrical') {
-    $voltageQuery = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
-
-    if($result = mysqli_query($conn, $voltageQuery)) {
-        while($row = $result->fetch_assoc()) {
-            array_push(
-                $tempDp, 
-                [
-                    "id" => (int)$row['id'],
-                    "sensor_id" => $row['sensor_id'],
-                    "voltage" => (float) $row['voltage'],
-                    "current" => (float) $row['current'],
-                    "timestamp" => $row['timestamp']
-                ]
-            );
-        }
+// ** [START] HELPER FUNCTIONS ***
+// GETTERS
+function getSensorType($sensorId) {
+    $querySensorType = "SELECT `sensor_type` FROM `sensor` WHERE `id` = '$sensorId';";
+    if($result = mysqli_query($GLOBALS['connection'], $querySensorType)) {
+        $row = $result->fetch_assoc();
+        $sensorType = $row['sensor_type'];
+        return $sensorType;
     } else
-        echo 'ERROR: '. mysqli_error($conn);
-} else if($sensorType == 'environment') {
-    // TODO: Code for solar irradiance must be added
-    $windDp = [];
-    $windQuery = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
-    
-    if($result = mysqli_query($conn, $windQuery)) {
-        while($row = $result->fetch_assoc()) {
-            array_push(
-                $tempDp, 
-                [
-                    "id" => (int)$row['id'], 
-                    "sensor_id" => $row['sensor_id'],
-                    "wind_speed" => (float) $row['wind_speed'],
-                    "solar_irradiance" => (float) $row['solar_irradiance'],
-                    "timestamp" => $row['timestamp']
-                ]
-            );
-        }
-    } else
-        echo 'ERROR: '. mysqli_error($conn);
+        die('ERROR: '. mysqli_error($GLOBALS['connection']));
 }
 
-sort($tempDp); // sort sensor readings in accending order per reading id
+function getTimeControl() {
+    $timeControl = isset($_GET['time_control']) ? $_GET['time_control'] : "live";
+    return $timeControl;
+}
 
-$dataPoints = array_merge(
-    Array("sensor_type"=>$sensorType),
-    Array("sensor_data"=>$tempDp)
-);
+function getUnit() {
+    $unit = isset($_GET['unit']) ? $_GET['unit'] : 'all';
+    return $unit;
+}
 
-echo json_encode($dataPoints);
+function getSensorId() {
+    return $_GET['sensor_id'];
+}
+
+function getDataLength() {
+    $dataLength = isset($_GET['data_length']) ? $_GET['data_length'] : 50;
+    return $dataLength;
+}
+
+function getCurrentDate() {
+    date_default_timezone_set("Asia/Manila");
+    $timestamp = date("Y-m-d H:i:s");
+    $arr = explode(" ", $timestamp);
+    $date = $arr[0];
+    return $date;
+}
+
+// SETTERS
+// ** [END] HELPER FUNCTIONS ***
+
+
+// *** [START] MAIN FUNCTIONS ***
+
+function getLiveTrends() {  
+    $date = getCurrentDate();
+    
+    $tempDp = []; // Temporary data buffer
+    $dataPoints = []; // Data to be returned
+    
+    $sensorId = getSensorId();
+    $dataLength = getDataLength();
+    $unit = getUnit();
+    $timeControl = getTimeControl();
+    
+     
+    // If sensor type is electrical get the voltage_reading and current_reading tables
+    // if sensor type is wind get the environment_reading table
+    $sensorType = getSensorType($sensorId);
+    if($sensorType == 'electrical') {
+        $readings = [];
+        // Get sensor readings from the current date
+        $queryString = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' " 
+            . "AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    
+        if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
+            while($row = $result->fetch_assoc()) {
+                switch($unit) {
+                    case 'all':
+                        $readings['voltage'] = $row['voltage'];
+                        $readings['current'] = $row['current'];
+                        $readings['power'] = (float)$row['voltage'] * (float)$row['current'];
+                        break;
+                    case 'voltage':
+                        $readings['voltage'] = (float)$row['voltage'];
+                        break;
+                    case 'current':
+                        $readings['current'] = (float)$row['current'];
+                        break;
+                    case 'power':
+                        $readings['power'] = (float)$row['voltage'] * (float)$row['current'];
+                        break;
+                    default:
+                        break;
+                }
+                array_push(
+                    $tempDp, 
+                    [
+                        'id' => (int)$row['id'],
+                        'sensor_id' => $row['sensor_id'],
+                        'readings' => $readings,
+                        'timestamp' => $row['timestamp']
+                    ]
+                );
+            }
+        } else
+            echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
+    } else if($sensorType == 'environment') {
+        $readings = [];
+        // TODO: Code for solar irradiance must be added
+        $queryString = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' "
+            . "AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+        
+        if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
+            while($row = $result->fetch_assoc()) {
+                switch($unit) {
+                    case 'all':
+                        $readings['windSpeed'] = $row['wind_speed'];
+                        $readings['solarInsolation'] = $row['solar_irradiance'];
+                        break;
+                    case 'wind_speed':
+                        $readings['windSpeed'] = (float)$row['wind_speed'];
+                        break;
+                    case 'solar_insolation':
+                        $readings['solarInsolation'] = (float)$row['solar_irradiance'];
+                        break;
+                }
+                array_push(
+                    $tempDp, 
+                    [
+                        'id' => (int)$row['id'], 
+                        'sensor_id' => $row['sensor_id'],
+                        'readings' => $readings,
+                        'timestamp' => $row['timestamp']
+                    ]
+                );
+            }
+        } else
+            echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
+    } else {
+        echo "Sensor type error!";
+    }
+    
+    sort($tempDp); // sort sensor readings in ascending order per reading id
+    
+    $dataPoints = array_merge(
+        Array("sensor_type"=>$sensorType),
+        Array("sensor_data"=>$tempDp)
+    );
+
+    echo json_encode($dataPoints);
+}
+
+function getSummaryTrends($timeControl) {}
+
+function main() {
+    $timeControl = getTimeControl();
+    if($timeControl == 'live')
+        getLiveTrends();
+    else
+        getSummaryTrends($timeControl);
+}
+
+// *** [END] MAIN FUNCTIONS ***
+
+
+// *** FUNCTION CALLS ***
+main();
+
 ?>

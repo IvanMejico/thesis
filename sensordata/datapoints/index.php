@@ -54,6 +54,11 @@
 	.date {
 		margin: 0;
 	}
+
+	.chart > div {
+		background-color: #1f1e1b;
+	}
+	
 </style>
 </head>
 <body>
@@ -73,26 +78,26 @@
 			<div id="ESN001"class="panel">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
 				<div class="panel-control">
-					<div class="tab-control">
+					<div class="tab-control" data-sensorid="ESN001">
 						<div class="time-control">
-							<input type="radio" name="time-ctrl-environment" id="live-environment" value="live" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="live-environment" value="live" checked>
 							<label for="live-environment"><span>Live</span></label>
-							<input type="radio" name="time-ctrl-environment" id="day-environment" value="day" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="day-environment" value="day" >
 							<label for="day-environment"><span>Day</span></label>
-							<input type="radio" name="time-ctrl-environment" id="week-environment" value="week">
+							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="week-environment" value="week">
 							<label for="week-environment"><span>Week</span></label>
-							<input type="radio" name="time-ctrl-environment" id="month-environment" value="month">
+							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="month-environment" value="month">
 							<label for="month-environment"><span>Month</span></label>
-							<input type="radio" name="time-ctrl-environment" id="year-environment" value="year">
+							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="year-environment" value="year">
 							<label for="year-environment"><span>Year</span></label>
 						</div>
 						<div class="value-control">
-							<input type="radio" name="value-environment" id="all-environment" value="all" checked>
-							<label for="all-environment"><span class="flaticon-asterisk-1"></span></label>
-							<input type="radio" name="value-environment" id="insolation-environment" value="insolation" checked>
-							<label for="insolation-environment"><span class="flaticon-sun-1"></span></label>
-							<input type="radio" name="value-environment" id="windspeed-environment" value="windspeed" checked>
-							<label for="windspeed-environment"><span class="flaticon-wind-1"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-environment" id="all-environment" value="all" checked>
+							<label for="all-environment" class="tooltip"><span class="tooltiptext">all units</span><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-environment" id="insolation-environment" value="solar_insolation">
+							<label for="insolation-environment" class="tooltip"><span class="tooltiptext">solar insolation</span><span class="flaticon-sun-1"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-environment" id="windspeed-environment" value="wind_speed">
+							<label for="windspeed-environment" class="tooltip"><span class="tooltiptext">wind speed</span><span class="flaticon-wind-1"></span></label>
 						</div>
 					</div>
 					<div class="navigation-control">
@@ -114,36 +119,36 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer1" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer-ESN001" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
 			<div id="PSN001" class="panel">
 				<div class="panel-header"><h3>Electrical Sensor Node (AC Load Consumption)</h3></div>
 				<div class="panel-control">
-					<div class="tab-control">
+					<div class="tab-control" data-sensorid="PSN001">
 						<div class="time-control">
-							<input type="radio" name="time-ctrl-ac_electrical" id="live-ac_electrical" value="live" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-ac_electrical" id="live-ac_electrical" value="live" checked>
 							<label for="live-ac_electrical"><span>Live</span></label>
-							<input type="radio" name="time-ctrl-ac_electrical" id="day-ac_electrical" value="day" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-ac_electrical" id="day-ac_electrical" value="day">
 							<label for="day-ac_electrical"><span>Day</span></label>
-							<input type="radio" name="time-ctrl-ac_electrical" id="week-ac_electrical" value="week">
+							<input type="radio" data-ctrl="time" name="time-ctrl-ac_electrical" id="week-ac_electrical" value="week">
 							<label for="week-ac_electrical"><span>Week</span></label>
-							<input type="radio" name="time-ctrl-ac_electrical" id="month-ac_electrical" value="month">
+							<input type="radio" data-ctrl="time" name="time-ctrl-ac_electrical" id="month-ac_electrical" value="month">
 							<label for="month-ac_electrical"><span>Month</span></label>
-							<input type="radio" name="time-ctrl-ac_electrical" id="year-ac_electrical" value="year">
+							<input type="radio" data-ctrl="time" name="time-ctrl-ac_electrical" id="year-ac_electrical" value="year">
 							<label for="year-ac_electrical"><span>Year</span></label>
 						</div>
 
 						<div class="value-control">
-							<input type="radio" name="value-ac_electrical" id="all-ac_electrical" value="all" checked>
-							<label for="all-ac_electrical"><span class="flaticon-asterisk-1"></span></label>
-							<input type="radio" name="value-ac_electrical" id="voltage-ac_electrical" value="voltage" checked>
-							<label for="voltage-ac_electrical"><span class="flaticon-high-voltage-1"></span></label>
-							<input type="radio" name="value-ac_electrical" id="current-ac_electrical" value="current" checked>
-							<label for="current-ac_electrical"><span class="flaticon-letter-a"></span></label>
-							<input type="radio" name="value-ac_electrical" id="power-ac_electrical" value="power" checked>
-							<label for="power-ac_electrical"><span class="flaticon-no-plug"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="all-ac_electrical" value="all" checked>
+							<label for="all-ac_electrical" class="tooltip"><span class="tooltiptext">all units</span><span class="flaticon-asterisk-1"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="voltage-ac_electrical" value="voltage">
+							<label for="voltage-ac_electrical"class="tooltip" ><span class="tooltiptext">voltage</span><span class="flaticon-high-voltage-1"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="current-ac_electrical" value="current">
+							<label for="current-ac_electrical" class="tooltip"><span class="tooltiptext">current</span><span class="flaticon-letter-a"></span></label>
+							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="power-ac_electrical" value="power">
+							<label for="power-ac_electrical" class="tooltip"><span class="tooltiptext">power</span><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
 					<div class="navigation-control">
@@ -168,7 +173,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer2" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer-PSN001" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -177,27 +182,27 @@
 			<div id="PSN002" class="panel">
 				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
-					<div class="tab-control">
+					<div class="tab-control" data-sensorid="PSN002">
 						<div class="time-control">
-							<input type="radio" name="time-ctrl-turbine_electrical" id="live-turbine_electrical" value="live" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-turbine_electrical" id="live-turbine_electrical" value="live" checked>
 							<label for="live-turbine_electrical"><span>Live</span></label>
-							<input type="radio" name="time-ctrl-turbine_electrical" id="day-turbine_electrical" value="day" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-turbine_electrical" id="day-turbine_electrical" value="day">
 							<label for="day-turbine_electrical"><span>Day</span></label>
-							<input type="radio" name="time-ctrl-turbine_electrical" id="week-turbine_electrical" value="week">
+							<input type="radio" data-ctrl="time" name="time-ctrl-turbine_electrical" id="week-turbine_electrical" value="week">
 							<label for="week-turbine_electrical"><span>Week</span></label>
-							<input type="radio" name="time-ctrl-turbine_electrical" id="month-turbine_electrical" value="month">
+							<input type="radio" data-ctrl="time" name="time-ctrl-turbine_electrical" id="month-turbine_electrical" value="month">
 							<label for="month-turbine_electrical"><span>Month</span></label>
-							<input type="radio" name="time-ctrl-turbine_electrical" id="year-turbine_electrical" value="year">
+							<input type="radio" data-ctrl="time" name="time-ctrl-turbine_electrical" id="year-turbine_electrical" value="year">
 							<label for="year-turbine_electrical"><span>Year</span></label>	
 						</div>
 						<div class="value-control">
-							<input type="radio" name="value-turbine_electrical" id="all-turbine_electrical" value="all" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-turbine_electrical" id="all-turbine_electrical" value="all" checked>
 							<label for="all-turbine_electrical"><span class="flaticon-asterisk-1"></span></label>
-							<input type="radio" name="value-turbine_electrical" id="voltage-turbine_electrical" value="voltage" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-turbine_electrical" id="voltage-turbine_electrical" value="voltage">
 							<label for="voltage-turbine_electrical"><span class="flaticon-high-voltage-1"></span></label>
-							<input type="radio" name="value-turbine_electrical" id="current-turbine_electrical" value="current" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-turbine_electrical" id="current-turbine_electrical" value="current">
 							<label for="current-turbine_electrical"><span class="flaticon-letter-a"></span></label>
-							<input type="radio" name="value-turbine_electrical" id="power-turbine_electrical" value="power" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-turbine_electrical" id="power-turbine_electrical" value="power">
 							<label for="power-turbine_electrical"><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
@@ -223,34 +228,34 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer3" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer-PSN002" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
 			<div id="PSN003" class="panel">
 				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel Power Generation)</h3></div>
 				<div class="panel-control">
-					<div class="tab-control">
+					<div class="tab-control" data-sensorid="PSN003">
 						<div class="time-control">
-							<input type="radio" name="time-ctrl-solar_electrical" id="live-solar_electrical" value="live" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="live-solar_electrical" value="live" checked>
 							<label for="live-solar_electrical"><span>Live</span></label>
-							<input type="radio" name="time-ctrl-solar_electrical" id="day-solar_electrical" value="day" checked>
+							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="day-solar_electrical" value="day">
 							<label for="day-solar_electrical"><span>Day</span></label>
-							<input type="radio" name="time-ctrl-solar_electrical" id="week-solar_electrical" value="week">
+							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="week-solar_electrical" value="week">
 							<label for="week-solar_electrical"><span>Week</span></label>
-							<input type="radio" name="time-ctrl-solar_electrical" id="month-solar_electrical" value="month">
+							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="month-solar_electrical" value="month">
 							<label for="month-solar_electrical"><span>Month</span></label>
-							<input type="radio" name="time-ctrl-solar_electrical" id="year-solar_electrical" value="year">
+							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="year-solar_electrical" value="year">
 							<label for="year-solar-electrical"><span>Year</span></label>
 						</div>
 						<div class="value-control">
-							<input type="radio" name="value-solar_electrical" id="all-solar_electrical" value="all" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-solar_electrical" id="all-solar_electrical" value="all" checked>
 							<label for="all-solar_electrical"><span class="flaticon-asterisk-1"></span></label>
-							<input type="radio" name="value-solar_electrical" id="voltage-solar_electrical" value="voltage" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-solar_electrical" id="voltage-solar_electrical" value="voltage">
 							<label for="voltage-solar_electrical"><span class="flaticon-high-voltage-1"></span></label>
-							<input type="radio" name="value-solar_electrical" id="current-solar_electrical" value="current" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-solar_electrical" id="current-solar_electrical" value="current">
 							<label for="current-solar_electrical"><span class="flaticon-letter-a"></span></label>
-							<input type="radio" name="value-solar_electrical" id="power-solar_electrical" value="power" checked>
+							<input type="radio" data-ctrl="value" name="value-ctrl-solar_electrical" id="power-solar_electrical" value="power">
 							<label for="power-solar_electrical"><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
@@ -276,7 +281,7 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chartContainer4" style="height: 370px; margin: 0px auto;"></div>
+						<div id="chartContainer-PSN003" style="height: 370px; margin: 0px auto;"></div>
 					</div>
 				</div>
 			</div>
@@ -312,50 +317,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!-- <tr id="priority1">
-										<td>Priority 1</td>
-										<td>Load 1</td>
-										<td>Load name 1</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority2">
-										<td>Priority 2</td>
-										<td>Load 2</td>
-										<td>Load name 2</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority3">
-										<td>Priority 3</td>
-										<td>Load 3</td>
-										<td>Load name 3</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr>
-									<tr id="priority4">
-										<td>Priority 4</td>
-										<td>Load 4</td>
-										<td>Load name 4</td>
-										<td class="arrange-control">
-											<a class="btn-increase-prio"><i class="flaticon-up-arrow"></i></a><a class="btn-decrease-prio"><i class="flaticon-download"></i></a>
-											<a class="btn-edit-name"><i class="flaticon-edit"></i>
-										</td>
-									</tr> -->
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 
 			<div class="panel relay-status">
 				<div class="panel-header"><h3>Relay Status</h3></div>
