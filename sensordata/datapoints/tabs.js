@@ -1,9 +1,12 @@
 function assignChangeEventHandler(tabs) {
+    
     for(var i=0; i<tabs.length; i++) {
         var prevTimeCtrl = null;
         var prevValCtrl = null;
         
-        tabs[i].addEventListener('change', function() {         
+        tabs[i].addEventListener('change', function() {  
+            // reading = [];
+            interval = [];       
             // Get the sensor id    
             sensorId = this.parentElement.parentElement.dataset.sensorid;
             clearInterval(interval[sensorId]); // Clear interval interval defined earlier
@@ -43,7 +46,7 @@ function assignChangeEventHandler(tabs) {
             }
             
             // If time control is 'live',reaassign interval to chart update
-            if(timeControl == 'live') {
+            if(timeControl != 'live') {
                 interval[sensorId] = setInterval(function(){
                     updateChart(reading[sensorId])
                 }, updateInterval);

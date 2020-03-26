@@ -141,8 +141,8 @@ var updateChart = function (readingObj, count=1) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "getTrends.php?sensor_id=" + readingObj.sensorId 
         + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl, true);
-    // console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
-    // + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
+    console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
+    + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
     xhr.onload = function() {
         // Do not continue if there's no value returned
         if(!this.responseText)

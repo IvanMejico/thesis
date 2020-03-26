@@ -1,4 +1,4 @@
-var updateInterval = 4000;
+var updateInterval = 2000;
 
 // GONNA WORK ON THIS CODE LATER ON
 // var sensorArray;
@@ -53,11 +53,17 @@ for(let group of tabControlGroups) {
 
     reading[sensorId] = new SensorReading(sensorId, valueControl, timeControl);
     renderChart(reading[sensorId]);
-    interval[sensorId] = setInterval(function(){
-        updateChart(reading[sensorId])
-    }, updateInterval);
+    // console.log(sensorId);
+    setJob(sensorId)
+    
 }
 
+
+function setJob(sensorId) {
+    interval[sensorId] = setInterval(function(){
+        updateChart(reading[sensorId]);
+    }, updateInterval);
+}
 
 // UPDATE TOGGLE BUTTONS
 setInterval(function(){updateToggle("PSN001-R0")}, updateInterval);
