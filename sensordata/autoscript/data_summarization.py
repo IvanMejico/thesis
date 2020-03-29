@@ -40,15 +40,15 @@ def getTableNames(sensorId):
 # END OF HELPER FUNCTIONS
 
 
-def deleteRecords(sensorId, range1, range2):
+def deleteRecords(sensorId, timeStamp):
     # Get sensor type to determine which table data will be deleted from database
     dbTableName = getTableNames(sensorId)[0]
 
     db = pymysql.connect("localhost", "root", "", "sensor_database")
     cursor = db.cursor()
 
-    sql = "DELETE FROM `%s` WHERE `sensor_id` = '%s' AND `timestamp` >= '%s' AND `timestamp` <= '%s';" % \
-             (dbTableName, sensorId, range1, range2)
+    sql = "DELETE FROM `%s` WHERE `sensor_id` = '%s' AND `timestamp` <= '%s';" % \
+             (dbTableName, sensorId, timeStamp)
 
     try:
         tic = time.time() # get start time
@@ -68,7 +68,7 @@ def deleteRecords(sensorId, range1, range2):
 def insertRecord(sensorId, sensorValues):
     
     dbTableNames = getTableNames(sensorId)
-    summaryTableName = dbTableNames[1]
+    summaryTableName = dbTableNames[1] # Index 0 for live table and 1 for summary table
 
     sensorId = sensorValues[0]
     value1 = sensorValues[1]
@@ -150,7 +150,7 @@ def getIntervalData(sensorId, minutes):
         print(sensorId + " ====> Data retrieval successful (Execution time: "+str(executionTime)+")")
         results = cursor.fetchall()
         print(sensorId + " ====> ROWS: " +str(len(results)))
-        return results, (strThen, strNow)
+        return results, strNow
 
     except pymysql.InternalError as error:
         code, message = error.args
@@ -163,11 +163,9 @@ def calcElectricalMean(sensorId, minsInterval):
     ## get the mean of all the return rows of data
     result = getIntervalData(sensorId, minsInterval)
     sensorReadings = result[0]
-    t0 = result[1][0] # earlier timestamp
-    t1 = result[1][1] # current timestamp
+    timeStamp = result[1] # current timestamp
     numRows = len(sensorReadings)
 
-    # print("time interval: %s - %s" %(t0, t1))
     # print("number of rows: %d" % numRows)
 
     for row in sensorReadings:
@@ -188,13 +186,13 @@ def calcElectricalMean(sensorId, minsInterval):
         sensorData.append(sensorId)
         sensorData.append(voltageAvg)
         sensorData.append(currentAvg)
-        sensorData.append(t1)
+        sensorData.append(timeStamp)
 
         # Insert interval data from live table to data summary table
         insertRecord(sensorId, sensorData)
 
         ## delete data from live data table
-        deleteRecords(sensorId, t0, t1) # Delete interval data from live table
+        deleteRecords(sensorId, timeStamp) # Delete interval data from live table
     else:
         print("No records found for sensor id: %s!" % sensorId)
 
@@ -205,11 +203,9 @@ def calcEnvironmentalMean(sensorId, minsInterval):
     ### get the mean of all the return rows of data
     result = getIntervalData(sensorId, minsInterval)
     sensorReadings = result[0]
-    t0 = result[1][0] # earlier timestamp
-    t1 = result[1][1] # current timestamp
+    timeStamp = result[1] 
     numRows = len(sensorReadings)
 
-    # print("time interval: %s - %s" %(t0, t1))
     # print("number of rows: %d" % numRows)
 
     for row in sensorReadings:
@@ -229,13 +225,13 @@ def calcEnvironmentalMean(sensorId, minsInterval):
         sensorData.append(sensorId)
         sensorData.append(speedAvg)
         sensorData.append(insolationAvg)
-        sensorData.append(t1)
+        sensorData.append(timeStamp)
         
         ## Insert interval data from live table to data summary table
         insertRecord(sensorId, sensorData) 
 
         ## Delete interval data from live table
-        deleteRecords(sensorId, t0, t1) 
+        deleteRecords(sensorId, timeStamp) 
     else:
         print("No records found for sensor id: %s!" % sensorId)
 

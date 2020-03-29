@@ -8,7 +8,12 @@
 <link rel="shortcut icon" type="image/x-icon" href="assets/logo.png">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="ledstyles.css">
-<link rel="stylesheet" type="text/css" href="assets/flaticon/font/flaticon.css"></style>
+<link rel="stylesheet" type="text/css" href="assets/flaticon/font/flaticon.css"></link>
+
+<link rel="stylesheet" type="text/css" href="assets/pikaday/css/pikaday.css"></link>
+<link rel="stylesheet" type="text/css" href="assets/pikaday/css/theme.css">
+<link rel="stylesheet" type="text/css" href="assets/pikaday/css/triangle.css">
+
 <style>
 	.header {
 		padding: 0;
@@ -101,9 +106,8 @@
 						</div>
 					</div>
 					<div class="navigation-control">
-						<span class="flaticon-previous"></span>
-						<span >July 21, 2020</span>
-						<span i class="flaticon-next"></span>
+						<input type="text" id="datepicker-envi" readonly/>
+						<button class="flaticon-calendar" id="datepicker-button-envi"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -144,7 +148,7 @@
 							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="all-ac_electrical" value="all" checked>
 							<label for="all-ac_electrical" class="tooltip"><span class="tooltiptext">all units</span><span class="flaticon-asterisk-1"></span></label>
 							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="voltage-ac_electrical" value="voltage">
-							<label for="voltage-ac_electrical"class="tooltip" ><span class="tooltiptext">voltage</span><span class="flaticon-high-voltage-1"></span></label>
+							<label for="voltage-ac_electrical" class="tooltip" ><span class="tooltiptext">voltage</span><span class="flaticon-high-voltage-1"></span></label>
 							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="current-ac_electrical" value="current">
 							<label for="current-ac_electrical" class="tooltip"><span class="tooltiptext">current</span><span class="flaticon-letter-a"></span></label>
 							<input type="radio" data-ctrl="value" name="value-ctrl-ac_electrical" id="power-ac_electrical" value="power">
@@ -152,9 +156,8 @@
 						</div>
 					</div>
 					<div class="navigation-control">
-						<span class="flaticon-previous"></span>
-						<span >July 21, 2020</span>
-						<span i class="flaticon-next"></span>
+						<input type="text" id="datepicker-load" readonly/>
+						<button class="flaticon-calendar" id="datepicker-button-load"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -207,9 +210,8 @@
 						</div>
 					</div>
 					<div class="navigation-control">
-						<span class="flaticon-previous"></span>
-						<span >July 21, 2020</span>
-						<span i class="flaticon-next"></span>
+						<input type="text" id="datepicker-turbine" readonly/>
+						<button class="flaticon-calendar" id="datepicker-button-turbine"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -260,9 +262,8 @@
 						</div>
 					</div>
 					<div class="navigation-control">
-						<span class="flaticon-previous"></span>
-						<span >July 21, 2020</span>
-						<span i class="flaticon-next"></span>
+						<input type="text" id="datepicker-panel" readonly/>
+						<button class="flaticon-calendar" id="datepicker-button-panel"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -407,5 +408,8 @@
 
 	<script src="update_numeric_display.js"></script> <!-- TEMPORARY -->
 	<script src="load_prioritization.js"></script>
+	<script src="assets/pikaday/js/moment.min.js"></script>
+	<script src="assets/pikaday/js/pikaday.js"></script>
+	<script src="assets/js/datepicker.js"></script>
 	</body>
 </html>

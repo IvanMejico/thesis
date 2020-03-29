@@ -52,7 +52,7 @@ for(let group of tabControlGroups) {
     valueControl = getSelectedValue(btnVCtrl);
 
     reading[sensorId] = new SensorReading(sensorId, valueControl, timeControl);
-    renderChart(reading[sensorId]);
+    renderChart(reading[sensorId], 'splineArea', 0.2);
     // console.log(sensorId);
     setJob(sensorId)
     

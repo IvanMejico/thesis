@@ -76,7 +76,7 @@ input:checked + .slider:before {
 
 .header {
     position: sticky;
-    z-index: 100;
+    z-index: 10000;
     top: 0;
     padding: 20px 0;
     margin-bottom: 10px;
@@ -174,7 +174,7 @@ input:checked + .slider:before {
 .graph-group2 {
     display: grid;
     grid-template-columns: 1;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 15px;
 }
 
@@ -182,7 +182,7 @@ input:checked + .slider:before {
 .graph-group3 {
     display: grid;    
     grid-template-columns: 1;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 15px;
 }
 .panel .chart {
@@ -351,8 +351,45 @@ input:checked + .slider:before {
     right: 10px;
     top: 20px;
     margin-right: 5px;
+    display: flex;
+    transform: translateY(-3px);
 }
-.navigation-control span {
+.navigation-control input {
+    background-color: #333131;
+    border: 1px solid #333131;
+    border-radius: 5px;
+    padding: 5px 7px;
+    outline: none;
+    color: white;
+    display: inline-block;
+    font-size: 1em;
+    width: 250px;
+    margin-right: 5px;
+    text-align: center;
+}
+.navigation-control button {
+    padding: 00;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    outline: none;
+    display: inline-block;
+    background-color: rgb(74, 70, 70);
+}
+.navigation-control button:active {
+    background-color: rgb(95, 90, 90);
+}
+.navigation-control button:hover {
+    cursor: pointer;
+    filter: opacity(0.8);
+}
+.navigation-control button:before {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 2em;
+}
+
+/* .navigation-control span {
     display: inline-block;
     text-align: center;
     position: relative;
@@ -363,7 +400,7 @@ input:checked + .slider:before {
     color: rgb(158, 157, 157);
     padding: 0;
     margin: 0;
-}
+} */
 
 
 /* Battery */

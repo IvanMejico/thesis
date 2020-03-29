@@ -1,5 +1,6 @@
 function assignChangeEventHandler(tabs) {
-    
+    var chartType = 'column';
+    var opacity = .4;
     for(var i=0; i<tabs.length; i++) {
         var prevTimeCtrl = null;
         var prevValCtrl = null;
@@ -24,7 +25,7 @@ function assignChangeEventHandler(tabs) {
                 valueControl = getSelectedValue(tabs);
                 // Render chart
                 reading[sensorId] = new SensorReading(sensorId, valueControl, timeControl);
-                renderChart(reading[sensorId]);
+                renderChart(reading[sensorId], chartType, opacity);
 
             } else if (this.dataset.ctrl == "value") {
                 if(this !== prevValCtrl) {
@@ -41,12 +42,12 @@ function assignChangeEventHandler(tabs) {
 
                 // Render chart
                 reading[sensorId] = new SensorReading(sensorId, valueControl, timeControl);
-                renderChart(reading[sensorId]);
+                renderChart(reading[sensorId], chartType, opacity);
                 
             }
             
-            // If time control is 'live',reaassign interval to chart update
-            if(timeControl != 'live') {
+            // If time control is 'live',reassign interval to chart update
+            if(timeControl == 'live') {
                 interval[sensorId] = setInterval(function(){
                     updateChart(reading[sensorId])
                 }, updateInterval);

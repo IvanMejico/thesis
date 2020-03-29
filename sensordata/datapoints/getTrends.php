@@ -80,8 +80,8 @@ function getLiveTrends() {
     // If sensor type is electrical get the voltage_reading and current_reading tables
     // if sensor type is wind get the environment_reading table
     $sensorType = getSensorType($sensorId);
+    $readings = [];
     if($sensorType == 'electrical') {
-        $readings = [];
         // Get sensor readings from the current date
         $queryString = "SELECT * FROM `energy_reading` WHERE `sensor_id` = '$sensorId' " 
             . "AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
@@ -119,7 +119,6 @@ function getLiveTrends() {
         } else
             echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
     } else if($sensorType == 'environment') {
-        $readings = [];
         // TODO: Code for solar irradiance must be added
         $queryString = "SELECT * FROM `environment_reading` WHERE `sensor_id` = '$sensorId' "
             . "AND `timestamp` LIKE '%$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
@@ -164,7 +163,9 @@ function getLiveTrends() {
     echo json_encode($dataPoints);
 }
 
-function getSummaryTrends($timeControl) {}
+function getSummaryTrends($timeControl) {
+    
+}
 
 function main() {
     $timeControl = getTimeControl();

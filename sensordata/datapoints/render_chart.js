@@ -1,6 +1,5 @@
 var chart = [];
-var dataLength = 200;
-var x = 0;
+var dataLength = 100;
 
 // Initialize datapoints
 var voltageDps = [];
@@ -23,7 +22,7 @@ function showNumericDisplay(sensorId, unit) {
 // *** [END] HELPER FUNCTIONS ***
 
 
-function renderChart(readingObj) {
+function renderChart(readingObj, chartType, opacity) {
     voltageDps[readingObj.sensorId] = [];
     currentDps[readingObj.sensorId] = [];
     powerDps[readingObj.sensorId] = [];
@@ -65,10 +64,10 @@ function renderChart(readingObj) {
         data: [
             
             {        
-                type: "splineArea",
+                type: chartType,
                 showInLegend: true,
                 name: "Power",
-                fillOpacity: .2, 
+                fillOpacity: opacity, 
                 color: "#05a4ee",
                 lineColor: "#05a4ee",
                 markerColor: "#05a4ee",
@@ -78,10 +77,10 @@ function renderChart(readingObj) {
 
             
             {        
-                type: "splineArea",
+                type: chartType,
                 showInLegend: true,
                 name: "Current",
-                fillOpacity: .4, 
+                fillOpacity: opacity, 
                 color: "#007c1f",
                 lineColor: "#007c1f",
                 markerColor: "#007c1f",
@@ -91,10 +90,10 @@ function renderChart(readingObj) {
 
 
             {        
-                type: "splineArea",
+                type: chartType,
                 showInLegend: true,
                 name: "Voltage",
-                fillOpacity: .2, 
+                fillOpacity: opacity, 
                 color: "#ec0b0b",
                 lineColor: "#ec0b0b",
                 markerColor: "#ec0b0b",
@@ -103,10 +102,10 @@ function renderChart(readingObj) {
             },
 
             {        
-                type: "splineArea",
+                type: chartType,
                 showInLegend: true,
                 name: "Wind Speed",
-                fillOpacity: .2, 
+                fillOpacity: opacity, 
                 color: "#a80cad",
                 lineColor: "#a80cad",
                 markerColor: "#a80cad",
@@ -115,10 +114,10 @@ function renderChart(readingObj) {
             },
 
             {        
-                type: "splineArea",
+                type: chartType,
                 showInLegend: true,
                 name: "Solar Insolation",
-                fillOpacity: .2, 
+                fillOpacity: opacity, 
                 color: "#c4a704",
                 lineColor: "#c4a704",
                 markerColor: "#c4a704",
@@ -141,8 +140,8 @@ var updateChart = function (readingObj, count=1) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "getTrends.php?sensor_id=" + readingObj.sensorId 
         + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl, true);
-    console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
-    + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
+    // console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
+    // + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
     xhr.onload = function() {
         // Do not continue if there's no value returned
         if(!this.responseText)
