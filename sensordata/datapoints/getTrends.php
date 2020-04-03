@@ -53,9 +53,14 @@ function getDataLength() {
 
 function getCurrentDate() {
     date_default_timezone_set("Asia/Manila");
-    $timestamp = date("Y-m-d H:i:s");
+    $timestamp = date("Y-m-d");
     $arr = explode(" ", $timestamp);
     $date = $arr[0];
+    return $date;
+}
+
+function getDateParams() {
+    $date = isset($_GET['date']) ? $_GET['date'] : '';
     return $date;
 }
 
@@ -74,8 +79,6 @@ function getLiveTrends() {
     $sensorId = getSensorId();
     $dataLength = getDataLength();
     $unit = getUnit();
-    $timeControl = getTimeControl();
-    
      
     // If sensor type is electrical get the voltage_reading and current_reading tables
     // if sensor type is wind get the environment_reading table
@@ -90,8 +93,8 @@ function getLiveTrends() {
             while($row = $result->fetch_assoc()) {
                 switch($unit) {
                     case 'all':
-                        $readings['voltage'] = $row['voltage'];
-                        $readings['current'] = $row['current'];
+                        $readings['voltage'] = (float)$row['voltage'];
+                        $readings['current'] = (float)$row['current'];
                         $readings['power'] = (float)$row['voltage'] * (float)$row['current'];
                         break;
                     case 'voltage':
@@ -127,8 +130,8 @@ function getLiveTrends() {
             while($row = $result->fetch_assoc()) {
                 switch($unit) {
                     case 'all':
-                        $readings['windSpeed'] = $row['wind_speed'];
-                        $readings['solarInsolation'] = $row['solar_irradiance'];
+                        $readings['windSpeed'] = (float)$row['wind_speed'];
+                        $readings['solarInsolation'] = (float)$row['solar_irradiance'];
                         break;
                     case 'wind_speed':
                         $readings['windSpeed'] = (float)$row['wind_speed'];
@@ -164,7 +167,126 @@ function getLiveTrends() {
 }
 
 function getSummaryTrends($timeControl) {
+    $readings = [];
+    $tempDp = [];
+    $dataPoints = []; // Data to be returned
+
+    $sensorId = getSensorId();
+    $sensorType = getSensorType($sensorId);    
+    $unit = getUnit();
+
+    $queryString = "";
     
+    $tableName = $sensorType == 'electrical' ? 'energy_summary' : 'environment_summary';
+    $date = getDateParams();
+    switch($timeControl) {
+        case 'day':
+            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '$date%';";
+            break;
+        case 'week':
+            $date1 = "";
+            $date2 = "";
+            if(strstr($date, "_")) {
+                $dateArr = explode("_", $date);
+                $date1 = $dateArr[0];
+                $date2 = $dateArr[1];
+            }
+            
+            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId'" 
+                . " AND `timestamp` >= '$date1' AND `timestamp` <= '$date2';";
+            // die($queryString);
+            break;
+        case 'month':
+            $month = "";
+            if($date) {
+                $dateArr = explode('-', $date);
+                $month = $dateArr[1];
+            }
+            
+            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '%-$month-%';";
+            break;
+        case 'year':
+            $year = "";
+            if($date) {
+                $dateArr = explode('-', $date);
+                $year = $dateArr[0];
+            }
+            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '$year-%';";
+            break;
+        default:
+            break;
+    }
+    
+    if($sensorType == 'electrical') {
+        // Get sensor readings from the current date
+        if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
+            while($row = $result->fetch_assoc()) {
+                switch($unit) {
+                    case 'all':
+                        $readings['voltage'] = (float)$row['average_voltage'];
+                        $readings['current'] = (float)$row['average_current'];
+                        $readings['power'] = (float)$row['average_voltage'] * (float)$row['average_current'];
+                        break;
+                    case 'voltage':
+                        $readings['voltage'] = (float)$row['average_voltage'];
+                        break;
+                    case 'current':
+                        $readings['current'] = (float)$row['average_current'];
+                        break;
+                    case 'power':
+                        $readings['power'] = (float)$row['average_voltage'] * (float)$row['average_current'];
+                        break;
+                    default:
+                        break;
+                }
+                array_push(
+                    $tempDp, 
+                    [
+                        'id' => (int)$row['id'],
+                        'sensor_id' => $row['sensor_id'],
+                        'readings' => $readings,
+                        'timestamp' => $row['timestamp']
+                    ]
+                );
+            }
+        } else
+            echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
+    } else if($sensorType == 'environment') {
+        // TODO: Code for solar irradiance must be added
+        if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
+            while($row = $result->fetch_assoc()) {
+                switch($unit) {
+                    case 'all':
+                        $readings['windSpeed'] = (float)$row['average_wind_speed'];
+                        $readings['solarInsolation'] = (float)$row['average_solar_irradiance'];
+                        break;
+                    case 'wind_speed':
+                        $readings['windSpeed'] = (float)$row['average_wind_speed'];
+                        break;
+                    case 'solar_insolation':
+                        $readings['solarInsolation'] = (float)$row['average_solar_irradiance'];
+                        break;
+                }
+                array_push(
+                    $tempDp, 
+                    [
+                        'id' => (int)$row['id'], 
+                        'sensor_id' => $row['sensor_id'],
+                        'readings' => $readings,
+                        'timestamp' => $row['timestamp']
+                    ]
+                );
+            }
+        } else
+            echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
+    }
+
+    $dataPoints = array_merge(
+        Array("sensor_type"=>$sensorType),
+        Array("sensor_data"=>$tempDp)
+    );
+
+    echo json_encode($dataPoints);
 }
 
 function main() {

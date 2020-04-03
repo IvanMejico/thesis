@@ -105,9 +105,9 @@
 							<label for="windspeed-environment" class="tooltip"><span class="tooltiptext">wind speed</span><span class="flaticon-wind-1"></span></label>
 						</div>
 					</div>
-					<div class="navigation-control">
-						<input type="text" id="datepicker-envi" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-envi"></button>
+					<div class="navigation-control" data-sensorid="ESN001">
+						<input type="text" id="datepicker-ESN001" readonly/>
+						<button class="flaticon-calendar" id="datepicker-button-ESN001"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -155,7 +155,7 @@
 							<label for="power-ac_electrical" class="tooltip"><span class="tooltiptext">power</span><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
-					<div class="navigation-control">
+					<div class="navigation-control" data-sensorid="PSN001">
 						<input type="text" id="datepicker-load" readonly/>
 						<button class="flaticon-calendar" id="datepicker-button-load"></button>
 					</div>
@@ -209,7 +209,7 @@
 							<label for="power-turbine_electrical"><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
-					<div class="navigation-control">
+					<div class="navigation-control" data-sensorid="PSN002">
 						<input type="text" id="datepicker-turbine" readonly/>
 						<button class="flaticon-calendar" id="datepicker-button-turbine"></button>
 					</div>
@@ -248,7 +248,7 @@
 							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="month-solar_electrical" value="month">
 							<label for="month-solar_electrical"><span>Month</span></label>
 							<input type="radio" data-ctrl="time" name="time-ctrl-solar_electrical" id="year-solar_electrical" value="year">
-							<label for="year-solar-electrical"><span>Year</span></label>
+							<label for="year-solar_electrical"><span>Year</span></label>
 						</div>
 						<div class="value-control">
 							<input type="radio" data-ctrl="value" name="value-ctrl-solar_electrical" id="all-solar_electrical" value="all" checked>
@@ -261,7 +261,7 @@
 							<label for="power-solar_electrical"><span class="flaticon-no-plug"></span></label>
 						</div>
 					</div>
-					<div class="navigation-control">
+					<div class="navigation-control" data-sensorid="PSN003">
 						<input type="text" id="datepicker-panel" readonly/>
 						<button class="flaticon-calendar" id="datepicker-button-panel"></button>
 					</div>
@@ -399,17 +399,19 @@
 			</div>
 		</div>
 	</div>
+	<script src="helpers.js"></script>
 	<script src="colorsets.js"></script>
 	<script src="resources/canvasjs.min.js"></script>
 	<script src="render_chart.js"></script>
 	<script src="toggle.js"></script>
-	<script src="script.js"></script>
+	<script src="assets/pikaday/js/moment.min.js"></script>
+	<script src="assets/js/datepicker.js"></script>
+	<script src="assets/pikaday/js/pikaday.js"></script>
 	<script src="tabs.js"></script>
+	<script src="script.js"></script>
 
 	<script src="update_numeric_display.js"></script> <!-- TEMPORARY -->
 	<script src="load_prioritization.js"></script>
-	<script src="assets/pikaday/js/moment.min.js"></script>
-	<script src="assets/pikaday/js/pikaday.js"></script>
-	<script src="assets/js/datepicker.js"></script>
+	
 	</body>
 </html>

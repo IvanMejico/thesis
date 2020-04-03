@@ -203,7 +203,7 @@ def calcEnvironmentalMean(sensorId, minsInterval):
     ### get the mean of all the return rows of data
     result = getIntervalData(sensorId, minsInterval)
     sensorReadings = result[0]
-    timeStamp = result[1] 
+    timeStamp = result[1]
     numRows = len(sensorReadings)
 
     # print("number of rows: %d" % numRows)

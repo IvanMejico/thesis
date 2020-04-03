@@ -22,12 +22,14 @@ function showNumericDisplay(sensorId, unit) {
 // *** [END] HELPER FUNCTIONS ***
 
 
-function renderChart(readingObj, chartType, opacity) {
+function renderChart(readingObj, chartType="area", opacity=1, intervalType="second", interval=60, xValueFormat="h:mm:ss TT") {
     voltageDps[readingObj.sensorId] = [];
     currentDps[readingObj.sensorId] = [];
     powerDps[readingObj.sensorId] = [];
     windSpeedDps[readingObj.sensorId] = [];
     solarInsolationDps[readingObj.sensorId] = [];
+    
+    // TODO: date = readingObj.date;
 
     chart[readingObj.sensorId] = new CanvasJS.Chart(readingObj.chartContainer, {
         zoomEnabled: true,
@@ -46,25 +48,46 @@ function renderChart(readingObj, chartType, opacity) {
         },
 
         axisX:{
-            // title: "time",
-            gridThickness: 0,
-            // interval:24, 
-            // intervalType: "hour",        
-            valueFormatString: "h:mm:ss TT", 
+            // title: 'Time',
+            gridThickness: 1,
+            gridColor: "#424a44",
+            interval: interval, 
+            intervalType: intervalType,        
+            valueFormatString: xValueFormat, 
             labelAngle: 0,
-            labelFontSize: 13,
-            labelFontColor: "#a5abb5"
+            labelFontSize: 12,
+            labelFontColor: "#a5abb5",
+            crosshair: {
+                enabled: true,
+                color: "#15a380",
+                labelFontColor: "#F8F8F8",
+                snapToDataPoint: false
+            }
         },
 
         axisY:{
+            // title: 'PIV',
             includeZero: false,
-            labelFontColor: "#fff"
+            gridThickness: 1,
+            gridColor: "#424a44",
+            labelFontColor: "#fff",
+            crosshair: {
+                enabled: true,
+                color: "#15a380",
+                labelFontColor: "#F8F8F8",
+                snapToDataPoint: false
+            },
+            logarithmic:  true
         },
 
         data: [
             
             {        
                 type: chartType,
+                lineThickness: 1,
+                nullDataLineDashType:  "dot",
+                xValueType: "dateTime",
+                xValueFormatString: "hh:mm:ss TT",
                 showInLegend: true,
                 name: "Power",
                 fillOpacity: opacity, 
@@ -78,6 +101,10 @@ function renderChart(readingObj, chartType, opacity) {
             
             {        
                 type: chartType,
+                lineThickness: 1,
+                nullDataLineDashType:  "dot",
+                xValueType: "dateTime",
+                xValueFormatString: "hh:mm:ss TT",
                 showInLegend: true,
                 name: "Current",
                 fillOpacity: opacity, 
@@ -91,6 +118,10 @@ function renderChart(readingObj, chartType, opacity) {
 
             {        
                 type: chartType,
+                lineThickness: 1,
+                nullDataLineDashType:  "dot",
+                xValueType: "dateTime",
+                xValueFormatString: "hh:mm:ss TT",
                 showInLegend: true,
                 name: "Voltage",
                 fillOpacity: opacity, 
@@ -103,6 +134,10 @@ function renderChart(readingObj, chartType, opacity) {
 
             {        
                 type: chartType,
+                lineThickness: 1,
+                nullDataLineDashType:  "dot",
+                xValueType: "dateTime",
+                xValueFormatString: "hh:mm:ss TT",
                 showInLegend: true,
                 name: "Wind Speed",
                 fillOpacity: opacity, 
@@ -115,6 +150,10 @@ function renderChart(readingObj, chartType, opacity) {
 
             {        
                 type: chartType,
+                lineThickness: 1,
+                nullDataLineDashType:  "dot",
+                xValueType: "dateTime",
+                xValueFormatString: "hh:mm:ss TT",
                 showInLegend: true,
                 name: "Solar Insolation",
                 fillOpacity: opacity, 
@@ -139,9 +178,12 @@ var updateChart = function (readingObj, count=1) {
     
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "getTrends.php?sensor_id=" + readingObj.sensorId 
-        + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl, true);
+        + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" 
+        + readingObj.timeControl + "&date=" + readingObj.date, true);
+    
     // console.log("getTrends.php?sensor_id=" + readingObj.sensorId 
-    // + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" + readingObj.timeControl);
+    //     + "&data_length=" + count + "&unit=" + readingObj.unit + "&time_control=" 
+    //     + readingObj.timeControl + "&date=" + readingObj.date);
     xhr.onload = function() {
         // Do not continue if there's no value returned
         if(!this.responseText)
@@ -168,7 +210,7 @@ var updateChart = function (readingObj, count=1) {
                 
                 if(dateTime.getTime() !== prevDateTime[readingObj.sensorId].getTime()) {
                     // console.log(prevDateTime[readingObj.sensorId]);
-                    vardataBuffer = '';
+                    dataBuffer = '';
                     if(item.readings.voltage) {
                         let unit = 'voltage';
                         let voltageValue = parseFloat(item.readings.voltage);
