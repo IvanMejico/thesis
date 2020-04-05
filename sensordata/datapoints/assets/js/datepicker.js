@@ -6,9 +6,9 @@ var picker = [];
 
 // But for the mean time, building date picker elements from scratch will do
 function buildDayDatePicker(sensorId) {
-    let parent = document.querySelector(".navigation-control[data-sensorid='"+sensorId+"']");
-    let field = parent.children[0];
-    let trigger = parent.children[1];
+    let field = document.getElementById('datepicker-'+sensorId);
+    let trigger = document.getElementById('datepicker-button-'+sensorId);
+    let parent = field.parentElement;
     field.remove();
     trigger.remove();
 
@@ -49,7 +49,7 @@ function buildDayDatePicker(sensorId) {
                 /**
                  * Live data configurations
                  */
-                xValueFormat = "h:mm:ss TT";
+                xValueFormat = "h:mm TT";
                 chartIntervalType = "minute";
                 chartInterval = 1;
                 chartType = 'area';
@@ -65,7 +65,7 @@ function buildDayDatePicker(sensorId) {
                     case 'day':
                         chartIntervalType = "hour";
                         chartInterval = 1;
-                        xValueFormat = "h:mm:ss TT";
+                        xValueFormat = "h:mm TT";
                         chartType = 'area';
                         break;
                     case 'month':
@@ -94,14 +94,13 @@ function buildDayDatePicker(sensorId) {
     });
 
     field.value = picker[sensorId].getMoment().format('YYYY-MM-DD');
-}
+}   
 
 function buildWeekDatePicker(sensorId) {
-
     // BUILD THE ELEMENTS
-    let parent = document.querySelector(".navigation-control[data-sensorid='"+sensorId+"']");
-    let field = parent.children[0];
-    let trigger = parent.children[1];
+    let field = document.getElementById('datepicker-'+sensorId);
+    let trigger = document.getElementById('datepicker-button-'+sensorId);
+    let parent = field.parentElement;
     let xValueFormat = "DD MMMM YYYY";
     field.remove();
     trigger.remove();
@@ -146,7 +145,6 @@ function buildWeekDatePicker(sensorId) {
 
             readingObj = new SensorReading(sensorId, valueControl, timeControl, dateString);
             clearInterval(window.interval[sensorId]);
-            console.log(chartIntervalType);
             renderChart(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
         }
     });
@@ -162,6 +160,7 @@ function buildWeekDatePicker(sensorId) {
 }
 
 
+// This code is outdated but may be useful in the future.
 function assignDatePicker() {
     pickerFields = document.querySelectorAll('input[id*="datepicker-"]');
     for(var i=0; i<pickerFields.length; i++) {

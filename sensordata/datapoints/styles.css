@@ -163,28 +163,34 @@ input:checked + .slider:before {
     text-align: center;
 }
 
-/* battery status and relay status */
-.graph-group1 {
+/* overview (comparative graph) */
+.panel-group1 {
     display: grid;
     grid-template-columns: 3fr 2fr;
     grid-gap: 15px;
 }
 
 /* environment and load */
-.graph-group2 {
+.panel-group2 {
     display: grid;
-    grid-template-columns: 1;
     grid-template-columns: 1fr;
     grid-gap: 15px;
 }
 
-/* trubine and panel */
-.graph-group3 {
+/* turbine and panel */
+.panel-group3 {
     display: grid;    
-    grid-template-columns: 1;
     grid-template-columns: 1fr;
     grid-gap: 15px;
 }
+
+/* battery status and relay status */
+.panel-group4 {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 15px;
+}
+
 .panel .chart {
     background: rgb(238, 235, 235);
 }
@@ -648,6 +654,37 @@ input:checked + .slider:before {
   }
 
 
+.chart {
+    position: relative;   
+}
+.chart div.no-data {
+    width: 126px;
+    height: 126px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.chart .no-data-icon {
+    display: block;
+}
+.chart div > span.no-data-icon:before {
+    color: rgb(45, 40, 40);
+    font-size: 6em;
+    margin: 0;
+    padding: 0;
+}
+.chart div > span.no-data-text {
+    color: rgb(68, 60, 60);
+    display: block;
+    font-size: 1.1em;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+  
 
 /* responsive */
 /* @media only screen and (max-width: 980px) {

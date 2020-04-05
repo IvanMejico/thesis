@@ -1,5 +1,5 @@
 var chart = [];
-var dataLength = 100;
+var dataLength = 200;
 
 // Initialize datapoints
 var voltageDps = [];
@@ -34,7 +34,7 @@ function renderChart(readingObj, chartType="area", opacity=1, intervalType="seco
     chart[readingObj.sensorId] = new CanvasJS.Chart(readingObj.chartContainer, {
         zoomEnabled: true,
         fontColor: "#fff",
-        zoomType: "xy",
+        // zoomType: "xy",
         backgroundColor: "#1f1e1b",
         animationEnabled: true,
         theme: "light2",
@@ -189,10 +189,12 @@ var updateChart = function (readingObj, count=1) {
         if(!this.responseText)
             return;
 
+            
         var response = JSON.parse(this.responseText);
         var sensorType = response.sensor_type;
         var sensorData = response.sensor_data;
-                
+
+        // console.log(sensorData);
         if(sensorType == 'electrical') {
             sensorData.forEach(function(item) {
                 let timeStamp = item.timestamp;
@@ -330,7 +332,26 @@ var updateChart = function (readingObj, count=1) {
                 }
             });
         }
-        chart[readingObj.sensorId].render();
+        if(sensorData.length >= 1 || readingObj.timeControl=='live') {
+            chart[readingObj.sensorId].render();
+
+            let chartContainer = document.getElementById(readingObj.chartContainer);
+            let x = chartContainer.querySelector('.no-data');
+            if(x) x.remove();
+        } else {
+            chartContainer = document.getElementById(readingObj.chartContainer);
+            div = document.createElement('div');
+            div.classList.add('no-data');
+            icon = document.createElement('span');
+            icon.classList.add('no-data-icon');
+            icon.classList.add('flaticon-report');
+            text = document.createElement('span')
+            text.classList.add('no-data-text');
+            text.innerText = 'No data found!'
+            div.appendChild(icon)
+            div.appendChild(text);
+            chartContainer.appendChild(div);
+        }
     }
     xhr.send();
 };

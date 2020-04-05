@@ -28,47 +28,48 @@ var interval = [];
 var reading = [];
 
 
-// GET ALL TIME AND VALUE(UNIT) CONTROL TAB VALUES THEN RENDER THE CHARTS ACCORDINGLY
-tabControlGroups = document.getElementsByClassName('tab-control');
+// SETUP OVERVIEW PANEL
 
-for(let group of tabControlGroups) {
+
+// SETUP OTHER PANELS
+dataPanels = document.getElementsByClassName('panel trends');
+for(let panel of dataPanels) {
     var xValueFormat;
     var dateString;
     var chartIntervalType ;
     var chartInterval;
     var chartType;
     var opacity;
-    
-    sensorId = group.dataset.sensorid
-    
-    field = document.getElementById('datepicker-'+sensorId);
-    // field.value = picker[sensorId];
 
-    tabSubGroups = group.getElementsByTagName("div");
-    timeControl = tabSubGroups[0];
-    valueControl = tabSubGroups[1];
 
-    sensorId = group.dataset.sensorid;
-    btnTCtrl = timeControl.getElementsByTagName('input');
-    btnVCtrl = valueControl.getElementsByTagName('input');
+    sensorId = panel.dataset.sensorid;
 
-    timeControl = getSelectedValue(btnTCtrl);
-    valueControl = getSelectedValue(btnVCtrl);
+    tabControls = panel.querySelector('.tab-control');
+    navigationControls = panel.querySelector('.navigation-control');
+
+    timeControlGroup = tabControls.children[0];
+    valueControlGroup = tabControls.children[1];
+
+    timeControlBtns = timeControlGroup.getElementsByTagName('input');
+    timeControl = getSelectedValue(timeControlBtns);
+    valueControlBtns = valueControlGroup.getElementsByTagName('input');
+    valueControl = getSelectedValue(valueControlBtns);
+
     if(timeControl == 'live') {
-        datePickerBtn = group.nextElementSibling.children[1]
+        datePickerBtn = navigationControls.children[1];
         datePickerBtn.disabled = true;
 
         /**
          * Live data configurations
          */
-        xValueFormat = "h:mm:ss TT";
+        xValueFormat = "h:mm TT";
         chartIntervalType = "minute";
         chartInterval = 1;
         chartType = 'area';
         dateString = '';
         opacity = 0.2;
     } else {
-        datePickerBtn = group.nextElementSibling.children[1]
+        datePickerBtn = navigationControls.children[1]
         datePickerBtn.disabled = false;
 
         /**
@@ -80,7 +81,7 @@ for(let group of tabControlGroups) {
             case 'day':
                 chartIntervalType = "hour";
                 chartInterval = 1;
-                xValueFormat = "h:mm:ss TT";
+                xValueFormat = "h:mm TT";
                 chartType = 'area';
                 buildDayDatePicker(sensorId);
                 dateString = document.getElementById('datepicker-'+sensorId).value;
@@ -143,6 +144,11 @@ function setJob(sensorId) {
         updateChart(reading[sensorId]);
     }, updateInterval);
 }
+
+
+
+
+
 // UPDATE TOGGLE BUTTONS
 setInterval(function(){updateToggle("PSN001-R0")}, updateInterval);
 setInterval(function(){updateToggle("PSN001-R1")}, updateInterval);

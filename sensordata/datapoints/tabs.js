@@ -10,11 +10,11 @@ function assignChangeEventHandler(tabs) {
             var opacity = 0.2; 
             var chartIntervalType = "second"; 
             var chartInterval = 1;
-            var xValueFormat = 'h:mm:ss TT';
+            var xValueFormat = 'h:mm TT';
             var dateString = '';
 
             // Get the sensor id    
-            sensorId = this.parentElement.parentElement.dataset.sensorid;
+            sensorId = this.parentElement.parentElement.parentElement.parentElement.dataset.sensorid;
 
             clearInterval(window.interval[sensorId]); // Clear interval for chart updates
 
@@ -59,7 +59,7 @@ function assignChangeEventHandler(tabs) {
                         case 'day':
                             chartIntervalType = "hour";
                             chartInterval = 1;
-                            xValueFormat = "h:mm:ss TT";
+                            xValueFormat = "h:mm TT";
                             buildDayDatePicker(sensorId)
                             dateString =  getDate(picker[sensorId]);
                             chartType = 'area';

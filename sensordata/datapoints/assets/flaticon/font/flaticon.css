@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 28/03/2020 07:39
+  	Creation date: 04/04/2020 07:43
   	*/
 
 @font-face {
@@ -68,3 +68,4 @@ margin-left: 20px;
 .flaticon-password:before { content: "\f123"; }
 .flaticon-user:before { content: "\f124"; }
 .flaticon-log-in:before { content: "\f125"; }
+.flaticon-calendar-empty-page-outline:before { content: "\f126"; }
