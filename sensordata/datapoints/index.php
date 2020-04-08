@@ -83,39 +83,43 @@
 
 		<!-- ////////////////////////////////////////// [START] UNDER CONSTRUCTION ////////////////////////////////////////// -->
 	
-		<!-- <div class="panel-group1">
+		<div class="panel-group1">
 			<div id="overview" class="panel overview">
 				<div class="panel-header"><h3>Energy Generation and Consumption Overview</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
 						<div class="time-control">
-							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="live-environment" value="live" checked>
-							<label for="live-environment"><span>Live</span></label>
-							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="day-environment" value="day" >
-							<label for="day-environment"><span>Day</span></label>
-							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="week-environment" value="week">
-							<label for="week-environment"><span>Week</span></label>
-							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="month-environment" value="month">
-							<label for="month-environment"><span>Month</span></label>
-							<input type="radio" data-ctrl="time" name="time-ctrl-environment" id="year-environment" value="year">
-							<label for="year-environment"><span>Year</span></label>
+							<input type="radio" data-ctrl="time" name="time-ctrl-overview" id="live-overview" value="live" checked>
+							<label for="live-overview"><span>Live</span></label>
+							<input type="radio" data-ctrl="time" name="time-ctrl-overview" id="day-overview" value="day" >
+							<label for="day-overview"><span>Day</span></label>
+							<input type="radio" data-ctrl="time" name="time-ctrl-overview" id="week-overview" value="week">
+							<label for="week-overview"><span>Week</span></label>
+							<input type="radio" data-ctrl="time" name="time-ctrl-overview" id="month-overview" value="month">
+							<label for="month-overview"><span>Month</span></label>
+							<input type="radio" data-ctrl="time" name="time-ctrl-overview" id="year-overview" value="year">
+							<label for="year-overview"><span>Year</span></label>
 						</div>
 					</div>
 					<div class="navigation-control">
 						<input type="text" id="datepicker-overview" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-ESN001"></button>
+						<button class="flaticon-calendar" id="datepicker-button-overview"></button>
 					</div>
 				</div>
 				<div class="panel-body">
 		
 					<div class="numeric-group">
 						<div>
-							<i>Generation</i>
-							<span class="numeric-wind_speed">0W</span>
+							<i>Solar Power</i>
+							<span class="numeric-solargeneration">0W</span>
+						</div>
+						<div>
+							<i>Wind Power</i>
+							<span class="numeric-windgeneration">0W</span>
 						</div>
 						<div>
 							<i>Consumption</i>
-							<span class="numeric-solar_insolation">0W</span>
+							<span class="numeric-consumption">0W</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -123,7 +127,7 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<!-- ////////////////////////////////////////// [END] UNDER CONSTRUCTION ////////////////////////////////////////// -->
 

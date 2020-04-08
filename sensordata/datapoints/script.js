@@ -23,6 +23,13 @@ class SensorReading {
     }
 }
 
+class overviewReading {
+    constructor(unit='all', timeControl='live', dateString='') {
+        this.unit = unit;
+        this.timeControl = timeControl;
+        this.dateString = dateString;
+    }
+}
 
 var interval = [];
 var reading = [];

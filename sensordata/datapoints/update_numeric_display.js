@@ -21,4 +21,3 @@ function updateNumeric(sensorid, unit, value) {
     }
     n.innerText = value.toFixed(2)+u;
 }
-
