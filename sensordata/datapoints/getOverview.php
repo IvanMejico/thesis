@@ -18,51 +18,119 @@
 
 
 include('config.php');
+include('helpers.php');
 $GLOBALS['connection'] = mysqli_connect($servername, $username, $password, $db);
 
 /**
  * Function definitions
  */
 
-function getValueControl() {
-}
-
-function getTimecontrol() {
-}
-
-function getDateString() {
-}
-
-function getDataLength() {
-    $dataLength = isset($_GET['data_length']) ? $_GET['data_length'] : 50;
-    return $dataLength;
-}
-
-function getFromTimeStamp($sensorId, $timeStamp) {
-    $readings = null;
-    $dataLength = getDataLength();
-    $sql = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary`"
-        . "WHERE `sensor_id`='$sensorId' AND `timestamp`='$timeStamp' "
-        . "ORDER BY `timestamp` DESC LIMIT $dataLength;";
-    if($result = mysqli_query($GLOBALS['connection'], $sql))
-        $readings = $result->fetch_assoc();
-    else
-        echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
- 
-    return $readings;
-}
-
-
 function getLiveOverview() {
+    $date = getCurrentDate();
+    $dataPoints = [];
+    $dataLength = getDataLength();
+    
+    $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE `sensor_id` = 'PSN001' " 
+        . "AND `timestamp` LIKE '$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
+
+
+    if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
+        while($row = $result->fetch_assoc()) {
+            // load power
+
+            $loadReadings = $row;
+            $timeStamp = $row['timestamp'];
+
+            if($loadReadings != null) {
+                $loadVoltage = (float)$loadReadings['average_voltage'];
+                $loadCurrent = (float)$loadReadings['average_current'];
+                $loadPower = $loadVoltage * $loadCurrent;
+            } else {
+                $loadPower = null;
+            }
+
+            // turbine power
+            $turbineReadings = getFromTimeStamp('PSN002', $timeStamp);
+            if($turbineReadings != null) {
+                $turbineVoltage = (float)$turbineReadings['average_voltage'];
+                $turbineCurrent = (float)$turbineReadings['average_current'];
+                $turbinePower = $turbineVoltage * $turbineCurrent;
+            } else {
+                $turbinePower = null;
+            }
+
+            // solar power
+            $solarReadings = getFromTimeStamp('PSN003', $timeStamp);
+            if($solarReadings != null) {
+                $solarVoltage = (float)$solarReadings['average_voltage'];
+                $solarCurrent = (float)$solarReadings['average_current'];
+                $solarPower = $solarVoltage * $solarCurrent;
+            } else {
+                $turbinePower = null;
+            }
+            
+            array_push($dataPoints, Array(
+                'timestamp' => $timeStamp,
+                'load' => $loadPower, 
+                'turbine' => $turbinePower,
+                'panel' => $solarPower
+            ));
+        }
+    }   else {
+        echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
+    }
+
+    echo json_encode(array_reverse($dataPoints));
 }
 
-function getSummaryOverview() {
-    $readingBuffer = Array();
-    $dataLength = getDataLength();
+function getSummaryOverview($timeControl) {
+    $dataPoints = [];
+
+    $queryString = "";
+    $date = getDateParams();
+    switch($timeControl) {
+        case 'day':
+            $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001'"
+                . "AND `timestamp` LIKE '$date%' ORDER BY `timestamp` DESC;";
+            break;
+        case 'week':
+            $date1 = "";
+            $date2 = "";
+            if(strstr($date, "_")) {
+                $dateArr = explode("_", $date);
+                $date1 = $dateArr[0];
+                $date2 = $dateArr[1];
+            }
+
+            $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001'"
+                . "AND `timestamp` >= '$date1' AND `timestamp` <= '$date2' ORDER BY `timestamp` DESC;";
+            break;
+        case 'month':
+            $month = "";
+            if($date) {
+                $dateArr = explode('-', $date);
+                $month = $dateArr[1];
+            }
+
+            $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001'"
+                . "AND `timestamp` LIKE '%-$month-%' ORDER BY `timestamp` DESC;";
+            break;
+        case 'year':
+            $year = "";
+            if($date) {
+                $dateArr = explode('-', $date);
+                $year = $dateArr[0];
+            }
+
+            $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001'"
+                . "AND `timestamp` LIKE '$year-%' ORDER BY `timestamp` DESC;";
+            break;
+        default:
+            echo '<script>console.log("No time control matches the available options.")</script>';
+    }
 
     // Get load reading data
-    $sql = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001' ORDER BY `timestamp` DESC LIMIT $dataLength;";
-    if($result = mysqli_query($GLOBALS['connection'], $sql)) {
+    if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
         // For every timestamp on results get PSN002(turbine) and PSN003(panel)
         while($row = $result->fetch_assoc()) {
             $timeStamp = $row['timestamp'];
@@ -104,37 +172,32 @@ function getSummaryOverview() {
              * {psn002 : power},
              * {psn003 : power]]
              */
-            array_push($readingBuffer, Array(
+
+            array_push($dataPoints, Array(
                 'timestamp' => $timeStamp,
                 'load' => $loadPower, 
                 'turbine' => $turbinePower,
                 'panel' => $solarPower
             ));
-
-
-            // FOR DEBUGGING
-            // echo '<br>';
-            // print_r($row);
-            // echo '<br>';
-
-            // print_r($turbineReadings);
-            // echo '<br>';
-
-            // print_r($solarReadings);
-            // echo '<br>---------------<br>';
         }
     } else {
         echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
     }
 
-    echo json_encode(array_reverse($readingBuffer));
+    echo json_encode(array_reverse($dataPoints));
 }
 
+function main() {
+    $timeControl = getTimeControl();
+    if($timeControl == 'live')
+        getLiveOverview();
+    else
+        getSummaryOverview($timeControl);
+}
 
 
 /**
  * Function calls
  */
-
- getSummaryOverview();
+main();
 ?>

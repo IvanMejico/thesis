@@ -29,7 +29,7 @@ function parseWeek(dateString) {
 }
 
 function getSensorId(trigger) {
-    sensorId = trigger.parentElement.parentElement.parentElement.dataset.sensorid;
+    sensorId = trigger.parentElement.parentElement.parentElement.dataset.key;
     return sensorId;
 }
 

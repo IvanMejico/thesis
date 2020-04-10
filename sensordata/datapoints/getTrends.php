@@ -17,58 +17,8 @@
  */
 
 include('config.php');
+include('helpers.php');
 $GLOBALS['connection'] = mysqli_connect($servername, $username, $password, $db);
-
-
-// ** [START] HELPER FUNCTIONS ***
-// GETTERS
-function getSensorType($sensorId) {
-    $querySensorType = "SELECT `sensor_type` FROM `sensor` WHERE `id` = '$sensorId';";
-    if($result = mysqli_query($GLOBALS['connection'], $querySensorType)) {
-        $row = $result->fetch_assoc();
-        $sensorType = $row['sensor_type'];
-        return $sensorType;
-    } else
-        die('ERROR: '. mysqli_error($GLOBALS['connection']));
-}
-
-function getTimeControl() {
-    $timeControl = isset($_GET['time_control']) ? $_GET['time_control'] : "live";
-    return $timeControl;
-}
-
-function getUnit() {
-    $unit = isset($_GET['unit']) ? $_GET['unit'] : 'all';
-    return $unit;
-}
-
-function getSensorId() {
-    return $_GET['sensor_id'];
-}
-
-function getDataLength() {
-    $dataLength = isset($_GET['data_length']) ? $_GET['data_length'] : 50;
-    return $dataLength;
-}
-
-function getCurrentDate() {
-    date_default_timezone_set("Asia/Manila");
-    $timestamp = date("Y-m-d");
-    $arr = explode(" ", $timestamp);
-    $date = $arr[0];
-    return $date;
-}
-
-function getDateParams() {
-    $date = isset($_GET['date']) ? $_GET['date'] : '';
-    return $date;
-}
-
-// SETTERS
-// ** [END] HELPER FUNCTIONS ***
-
-
-// *** [START] MAIN FUNCTIONS ***
 
 function getLiveTrends() {  
     $date = getCurrentDate();
@@ -194,7 +144,6 @@ function getSummaryTrends($timeControl) {
             
             $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId'" 
                 . " AND `timestamp` >= '$date1' AND `timestamp` <= '$date2';";
-            // die($queryString);
             break;
         case 'month':
             $month = "";
@@ -296,9 +245,6 @@ function main() {
     else
         getSummaryTrends($timeControl);
 }
-
-// *** [END] MAIN FUNCTIONS ***
-
 
 // *** FUNCTION CALLS ***
 main();

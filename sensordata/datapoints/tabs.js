@@ -1,3 +1,6 @@
+// TODO: reuse assignChangeEventHandler (Make it more flexible)
+// TODO: Change dataset.sensorid to dataset.key
+
 function assignChangeEventHandler(tabs) {
     for(var i=0; i<tabs.length; i++) {
         
@@ -5,8 +8,9 @@ function assignChangeEventHandler(tabs) {
             var prevTimeCtrl = null;
             var prevValCtrl = null;
             
+            // Default/temporary values
             var reading;
-            var chartType = 'bar';
+            var chartType = 'line';
             var opacity = 0.2; 
             var chartIntervalType = "second"; 
             var chartInterval = 1;
@@ -14,9 +18,9 @@ function assignChangeEventHandler(tabs) {
             var dateString = '';
 
             // Get the sensor id    
-            sensorId = this.parentElement.parentElement.parentElement.parentElement.dataset.sensorid;
+            key = this.parentElement.parentElement.parentElement.parentElement.dataset.key;
 
-            clearInterval(window.interval[sensorId]); // Clear interval for chart updates
+            clearInterval(window.interval[key]); // Clear interval for chart updates
 
             if(this.dataset.ctrl == "time") {
                 // Updates the selected tab
@@ -25,51 +29,47 @@ function assignChangeEventHandler(tabs) {
                 }    
 
                 // Get selected time control
-                timeControl = this.value;
+                var timeControl = this.value;
 
                 // Get the value control
-                grpValueCtrl = this.parentElement.nextElementSibling;
-                tabs = grpValueCtrl.querySelectorAll("input");
-                valueControl = getSelectedValue(tabs);
+                var grpValueCtrl = this.parentElement.nextElementSibling;
+                if(grpValueCtrl) {
+                    var tabs = grpValueCtrl.querySelectorAll("input");
+                    var valueControl = getSelectedValue(tabs);
+                } else {
+                    valueControl = '';
+                }
                 
                 trigger = this.parentElement.parentElement.nextElementSibling.children[1];
-                
                 if(this.value == 'live') {
                     /**
-                     * Live data configurations
+                     * Live data parameters
                      */
-
-                    // ### These values are temporary
-                    chartIntervalType = "minute";
+                    chartIntervalType = key=='overview' ? "hour" : "minute";
                     chartInterval = 1;
-                    // ###
-                    
                     opacity = 0.2;
                     chartType = 'area';
-                    
                     trigger.disabled = true;
 
                 } else {
                     /**
-                     * Historic data configurations
+                     * Summarized data parameters
                      */
-
-                    // ### These values are temporary
                     switch(this.value) {
                         case 'day':
                             chartIntervalType = "hour";
                             chartInterval = 1;
                             xValueFormat = "h:mm TT";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                         case 'week':
                             chartIntervalType = "day";
                             chartInterval = 1;
                             xValueFormat = "DD MMMM YYYY";
-                            buildWeekDatePicker(sensorId);
-                            dateString = document.getElementById('datepicker-'+sensorId).value;
+                            buildWeekDatePicker(key);
+                            dateString = document.getElementById('datepicker-'+key).value;
                             dateString = parseWeek(dateString);
                             chartType = 'area';
                             break;
@@ -77,23 +77,21 @@ function assignChangeEventHandler(tabs) {
                             chartIntervalType = "day";
                             chartInterval = 1;
                             xValueFormat = "DD MMMM YYYY";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                         case 'year':
                             chartIntervalType = "month";
                             chartInterval = 1;
                             xValueFormat = "MMMM";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                     }
-                    // ###
                     
                     opacity = 0.2;
-
                     trigger.disabled = false;                   
                 }
 
@@ -112,37 +110,31 @@ function assignChangeEventHandler(tabs) {
                 
                 if(timeControl == 'live') {
                     /**
-                     * Live data configurations
+                     * Live data parameters
                      */
-
-                    // ### These values are temporary
                     chartIntervalType = "minute";
                     chartInterval = 1;
-                    // ###
-                    
                     opacity = 0.2;
                     chartType = 'area';
                 } else {
                     /**
-                     * Historic data configurations
+                     * Summarized data parameters
                      */
-
-                    // ### These values are temporary
                     switch(timeControl) {
                         case 'day':
                             chartIntervalType = "hour";
                             chartInterval = 1;
                             xValueFormat = "h:mm:ss TT";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                         case 'week':
                             chartIntervalType = "day";
                             chartInterval = 1;
                             xValueFormat = "DD MMMM YYYY";
-                            buildWeekDatePicker(sensorId);
-                            dateString = document.getElementById('datepicker-'+sensorId).value;
+                            buildWeekDatePicker(key);
+                            dateString = document.getElementById('datepicker-'+key).value;
                             dateString = parseWeek(dateString);
                             chartType = 'area';
                             break;
@@ -150,49 +142,67 @@ function assignChangeEventHandler(tabs) {
                             chartIntervalType = "day";
                             chartInterval = 1;
                             xValueFormat = "DD MMMM YYYY";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                         case 'year':
                             chartIntervalType = "month";
                             chartInterval = 1;
                             xValueFormat = "DD MMMM YYYY";
-                            buildDayDatePicker(sensorId)
-                            dateString =  getDate(picker[sensorId]);
+                            buildDayDatePicker(key)
+                            dateString =  getDate(picker[key]);
                             chartType = 'area';
                             break;
                     }
-                    // ###
-                    
                     opacity = 0.2;
                 }
             }
 
-
             // Render chart
-            reading = new SensorReading(
-                sensorId, 
-                valueControl, 
-                timeControl, 
-                dateString
-            );
-            
-            renderChart(
-                reading, 
-                chartType, 
-                opacity, 
-                chartIntervalType, 
-                chartInterval,
-                xValueFormat
-            );
+            if(valueControl) {
+                reading = new SensorReading(
+                    key, 
+                    valueControl,
+                    timeControl, 
+                    dateString
+                );
+                renderTrends(
+                    reading, 
+                    chartType, 
+                    opacity, 
+                    chartIntervalType, 
+                    chartInterval,
+                    xValueFormat
+                );
+            } else {
+                reading = new OverviewReading(
+                    key,
+                    timeControl,
+                    dateString
+                );
+                renderOverview(
+                    reading,
+                    chartType,
+                    opacity,
+                    chartIntervalType,
+                    chartInterval,
+                    xValueFormat
+                );
+            }
 
 
             // If time control is 'live',reassign interval to chart update
             if(timeControl == 'live') {
-                interval[sensorId] = setInterval(function(){
-                    updateChart(reading)
-                }, updateInterval);
+                if(key=='overview') {
+                    interval[key] = setInterval(function(){
+                        updateOverview(reading)
+                    }, 900000);
+                } else {
+                    interval[key] = setInterval(function(){
+                        updateTrends(reading)
+                    }, updateInterval);
+                }
             }
         });
     }
@@ -216,3 +226,6 @@ assignChangeEventHandler(document.getElementsByName("value-ctrl-turbine_electric
 // PANEL READING CHART
 assignChangeEventHandler(document.getElementsByName("time-ctrl-solar_electrical"));
 assignChangeEventHandler(document.getElementsByName("value-ctrl-solar_electrical"));
+
+// OVERVIEW CHART
+assignChangeEventHandler(document.getElementsByName("time-ctrl-overview"));

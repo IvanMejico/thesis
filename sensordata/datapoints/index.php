@@ -84,7 +84,7 @@
 		<!-- ////////////////////////////////////////// [START] UNDER CONSTRUCTION ////////////////////////////////////////// -->
 	
 		<div class="panel-group1">
-			<div id="overview" class="panel overview">
+			<div id="overview" class="panel overview" data-key="overview">
 				<div class="panel-header"><h3>Energy Generation and Consumption Overview</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -132,9 +132,9 @@
 		<!-- ////////////////////////////////////////// [END] UNDER CONSTRUCTION ////////////////////////////////////////// -->
 
 
-
+		<!-- TODO: Change 'data-sensorid' to 'data-key' -->
 		<div class="panel-group2">
-			<div id="ESN001"class="panel trends" data-sensorid="ESN001">
+			<div id="ESN001" class="panel trends" data-key="ESN001">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -181,7 +181,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="PSN001" class="panel trends" data-sensorid="PSN001">
+			<div id="PSN001" class="panel trends" data-key="PSN001">
 				<div class="panel-header"><h3>Electrical Sensor Node (AC Load Consumption)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -236,7 +236,7 @@
 			</div>
 		</div>
 		<div class="panel-group3">
-			<div id="PSN002" class="panel trends" data-sensorid="PSN002">
+			<div id="PSN002" class="panel trends" data-key="PSN002">
 				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -288,7 +288,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="PSN003" class="panel trends" data-sensorid="PSN003">
+			<div id="PSN003" class="panel trends" data-key="PSN003">
 				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">

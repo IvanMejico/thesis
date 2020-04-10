@@ -29,7 +29,7 @@ function showNumericDisplay(sensorId, unit) {
  * TRENDS CHART
  */
 
-function renderChart(readingObj, chartType="area", opacity=1, intervalType="second", interval=60, xValueFormat="h:mm:ss TT") {
+function renderTrends(readingObj, chartType="area", opacity=1, intervalType="second", interval=60, xValueFormat="h:mm:ss TT") {
     voltageDps[readingObj.sensorId] = [];
     currentDps[readingObj.sensorId] = [];
     powerDps[readingObj.sensorId] = [];
@@ -174,10 +174,10 @@ function renderChart(readingObj, chartType="area", opacity=1, intervalType="seco
         ]  
     });
     // Fill chart with data from the database
-    updateChart(readingObj, dataLength);
+    updateTrends(readingObj, dataLength);
 }
 
-var updateChart = function(readingObj, count=1) {
+var updateTrends= function(readingObj, count=1) {
     if(!prevDateTime[readingObj.sensorId])
         prevDateTime[readingObj.sensorId] = new Date( 2012, 0, 1, 0, 0 );
     
@@ -200,7 +200,6 @@ var updateChart = function(readingObj, count=1) {
         var sensorType = response.sensor_type;
         var sensorData = response.sensor_data;
 
-        // console.log(sensorData);
         if(sensorType == 'electrical') {
             sensorData.forEach(function(item) {
                 let timeStamp = item.timestamp;
@@ -374,14 +373,12 @@ var loadPowerDps = [];
 var windPowerDps = [];
 var solarPowerDps = [];
 
-function renderOverview(chartType="area", opacity=1, intervalType="second", interval=60, xValueFormat="hh:mm:ss TT") {
+function renderOverview(readingObj, chartType="area", opacity=1, intervalType="second", interval=60, xValueFormat="hh:mm:ss TT") {
+    loadPowerDps = [];
+    windPowerDps = [];
+    solarPowerDps = [];
 
-    // Re-initialize datapoints (This code produces invalid datetime error. I'm not sure why. Deleting it seems to be okay though. I'll probably get back to this later.)
-    // var loadPowerDps = [];
-    // var windPowerDps = [];
-    // var solarPowerDps = [];
-
-    chart['overview'] = new CanvasJS.Chart('chartContainer-overview', {
+    chart[readingObj.name] = new CanvasJS.Chart(readingObj.chartContainer, {
         zoomEnabled: true,
         fontColor: "#fff",
         backgroundColor: "#1f1e1b",
@@ -484,17 +481,17 @@ function renderOverview(chartType="area", opacity=1, intervalType="second", inte
         ]  
     });
     // Fill chart with data from the database
-    updateOverview('live', dataLength);
+    updateOverview(readingObj, 1000);
 }
 
-var updateOverview = function(timeControl='live', count=1) {
+var updateOverview = function(readingObj, count=1) {
     let arrIndex = 'overview';
 
     if(!prevDateTime[arrIndex])
         prevDateTime[arrIndex] = new Date( 2012, 0, 1, 0, 0 );
     
     // Setup AJAX Request
-    var qString = "getOverview.php?timecontrol="+timeControl+"&data_length="+count;
+    var qString = "getOverview.php?time_control="+readingObj.timeControl+"&date="+readingObj.dateString+"&data_length="+dataLength;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', qString, true);
     xhr.onload = function() {
@@ -555,15 +552,15 @@ var updateOverview = function(timeControl='live', count=1) {
                 }
             }  
         });
-
-        if(powerReadings.length >= 1 || timeControl=='live') {
+        
+        if(powerReadings.length >= 1 || readingObj.timeControl=='live') {
             chart[arrIndex].render();
             containerId = 'chartContainer-overview';
             let chartContainer = document.getElementById(containerId);
             let x = chartContainer.querySelector('.no-data');
             if(x) x.remove();
         } else {
-            chartContainer = document.getElementById(containerName);
+            chartContainer = document.getElementById(readingObj.chartContainer);
             div = document.createElement('div');
             div.classList.add('no-data');
             icon = document.createElement('span');
@@ -581,4 +578,3 @@ var updateOverview = function(timeControl='live', count=1) {
 }
 
 
-renderOverview('area', 0.2, 'day', '1', 'DD MMMM YYYY');

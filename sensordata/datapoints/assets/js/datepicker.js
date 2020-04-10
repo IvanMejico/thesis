@@ -5,27 +5,27 @@ function createDayDatePicker() {}
 var picker = [];
 
 // But for the mean time, building date picker elements from scratch will do
-function buildDayDatePicker(sensorId) {
-    let field = document.getElementById('datepicker-'+sensorId);
-    let trigger = document.getElementById('datepicker-button-'+sensorId);
+function buildDayDatePicker(key) {
+    let field = document.getElementById('datepicker-'+key);
+    let trigger = document.getElementById('datepicker-button-'+key);
     let parent = field.parentElement;
     field.remove();
     trigger.remove();
 
     field = document.createElement('input');
     field.type = 'text';    
-    field.id = 'datepicker-'+sensorId;
+    field.id = 'datepicker-'+key;
     field.readOnly = true;
 
     trigger = document.createElement('button');
     trigger.classList.add('flaticon-calendar');
-    trigger.id = 'datepicker-button-'+sensorId;
+    trigger.id = 'datepicker-button-'+key;
 
     parent.appendChild(field);
     parent.appendChild(trigger);
 
     // CREATE DATEPICKER OBJECT
-    picker[sensorId] = new Pikaday({
+    picker[key] = new Pikaday({
         field: field,
         trigger: trigger,
         theme: 'dark-theme',
@@ -34,7 +34,7 @@ function buildDayDatePicker(sensorId) {
         firstDay: 1,
         pickWholeWeek: false,
         onSelect: function () {
-            var sensorId = getSensorId(trigger);
+            var key = getSensorId(trigger);
             var xValueFormat;
             var dateString;
             var chartIntervalType ;
@@ -42,7 +42,7 @@ function buildDayDatePicker(sensorId) {
             var chartType;
             var opacity;
 
-            valueControl = getValueControl(trigger);
+            valueControl = key!='overview' ? getValueControl(trigger) : null;
             timeControl = getTimeControl(trigger);
 
             if(timeControl == 'live') {
@@ -57,10 +57,9 @@ function buildDayDatePicker(sensorId) {
                 opacity = 0.2;
             } else {
                 /**
-                 * Historic data configurations
+                 * Summarized data configurations
                  */
 
-                // ### These values are temporary
                 switch(timeControl) {
                     case 'day':
                         chartIntervalType = "hour";
@@ -81,25 +80,30 @@ function buildDayDatePicker(sensorId) {
                         chartType = 'area';
                         break;
                 }
-                // ###
                 opacity = 0.2;
             }
             
             field.value = this.getMoment().format('YYYY-MM-DD');
             dateString = field.value;
-            readingObj = new SensorReading(sensorId, valueControl, timeControl, dateString);
-            clearInterval(window.interval[sensorId]);
-            renderChart(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            clearInterval(window.interval[key]);
+
+            if(key=='overview') {
+                readingObj = new OverviewReading(key, timeControl, dateString);
+                renderOverview(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            } else {
+                readingObj = new SensorReading(key, valueControl, timeControl, dateString);
+                renderTrends(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            }
         }
     });
 
-    field.value = picker[sensorId].getMoment().format('YYYY-MM-DD');
+    field.value = picker[key].getMoment().format('YYYY-MM-DD');
 }   
 
-function buildWeekDatePicker(sensorId) {
+function buildWeekDatePicker(key) {
     // BUILD THE ELEMENTS
-    let field = document.getElementById('datepicker-'+sensorId);
-    let trigger = document.getElementById('datepicker-button-'+sensorId);
+    let field = document.getElementById('datepicker-'+key);
+    let trigger = document.getElementById('datepicker-button-'+key);
     let parent = field.parentElement;
     let xValueFormat = "DD MMMM YYYY";
     field.remove();
@@ -107,18 +111,18 @@ function buildWeekDatePicker(sensorId) {
 
     field = document.createElement('input');
     field.type = 'text';
-    field.id = 'datepicker-'+sensorId;
+    field.id = 'datepicker-'+key;
     field.readOnly = true;
 
     trigger = document.createElement('button');
     trigger.classList.add('flaticon-calendar');
-    trigger.id = 'datepicker-button-'+sensorId;
+    trigger.id = 'datepicker-button-'+key;
 
     parent.appendChild(field);
     parent.appendChild(trigger);
 
     // ASSIGN DATEPICKER TO ELEMENTS
-    picker[sensorId] = new Pikaday({
+    picker[key] = new Pikaday({
         field: field,
         trigger: trigger,
         theme: 'dark-theme',
@@ -132,7 +136,7 @@ function buildWeekDatePicker(sensorId) {
             chartType = "area"
             opacity = 0.2;
             
-            valueControl = getValueControl(trigger);
+            valueControl = key!='overview' ? getValueControl(trigger) : null;
             timeControl = getTimeControl(trigger);
 
             var day = date.getDay();
@@ -143,14 +147,19 @@ function buildWeekDatePicker(sensorId) {
             field.value = parseDate(sundayDate.toLocaleDateString()) + ' - ' + parseDate(saturdayDate.toLocaleDateString());
             dateString = parseWeek(field.value);
 
-            readingObj = new SensorReading(sensorId, valueControl, timeControl, dateString);
-            clearInterval(window.interval[sensorId]);
-            renderChart(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            clearInterval(window.interval[key]);
+            if(key=='overview') {
+                readingObj = new OverviewReading(key, timeControl, dateString);
+                renderOverview(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            } else {
+                readingObj = new SensorReading(key, valueControl, timeControl, dateString);
+                renderTrends(readingObj, chartType, opacity, chartIntervalType, chartInterval, xValueFormat);
+            }
         }
     });
 
     // SHOW CURRENT WEEK TO THE FIELD
-    var date = picker[sensorId].getMoment()._d;
+    var date = picker[key].getMoment()._d;
     var day = date.getDay();
     var days = 0-day;
     var sundayDate = new Date(date.getTime()+(days*24*60*60*1000));
@@ -164,11 +173,11 @@ function buildWeekDatePicker(sensorId) {
 function assignDatePicker() {
     pickerFields = document.querySelectorAll('input[id*="datepicker-"]');
     for(var i=0; i<pickerFields.length; i++) {
-        sensorId = pickerFields[i].parentElement.dataset.sensorid;
+        key = pickerFields[i].parentElement.dataset.key;
         field = pickerFields[i];
         trigger = field.nextElementSibling;
         
-        picker[sensorId] = new Pikaday({
+        picker[key] = new Pikaday({
             field: field,
             trigger: trigger,
             theme: 'dark-theme',
@@ -176,21 +185,19 @@ function assignDatePicker() {
             showWeekNumber: true,
             // firstDay: 1,
             onSelect: function() {
-                // ### These values are temporary
                 chartIntervalType = "hour";
                 chartInterval = 1;
                 chartType = "column"
-                // ###
                 
-                valueControl = getValueControl(trigger);
+                valueControl = key!='overview' ? getValueControl(trigger) : null;
                 timeControl = getTimeControl(trigger);
                 dateString = getDate(this);
-                readingObj = new SensorReading(sensorId, valueControl, timeControl, dateString);
-                clearInterval(window.interval[sensorId]);
-                renderChart(readingObj, chartType, 0.6, chartIntervalType, chartInterval);
+                readingObj = new SensorReading(key, valueControl, timeControl, dateString);
+                clearInterval(window.interval[key]);
+                renderTrends(readingObj, chartType, 0.6, chartIntervalType, chartInterval);
             }
         })
-        field.value = picker[sensorId].getMoment().format('YYYY-MM-DD');
+        field.value = picker[key].getMoment().format('YYYY-MM-DD');
     }
 }
 
