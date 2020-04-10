@@ -270,7 +270,7 @@ var updateTrends= function(readingObj, count=1) {
 
                     prevDateTime[readingObj.sensorId] = dateTime;
 
-                    if (window[dataBuffer][readingObj.sensorId].length > dataLength) {
+                    if (window[dataBuffer][readingObj.sensorId].length > count) {
                         voltageDps[readingObj.sensorId].shift();
                         currentDps[readingObj.sensorId].shift();
                         powerDps[readingObj.sensorId].shift();
@@ -329,7 +329,7 @@ var updateTrends= function(readingObj, count=1) {
 
                     prevDateTime[readingObj.sensorId] = dateTime;
 
-                    if (window[dataBuffer][readingObj.sensorId].length > dataLength) {
+                    if (window[dataBuffer][readingObj.sensorId].length > count) {
                         windSpeedDps[readingObj.sensorId].shift();
                         solarInsolationDps[readingObj.sensorId].shift();
                     }
@@ -485,13 +485,11 @@ function renderOverview(readingObj, chartType="area", opacity=1, intervalType="s
 }
 
 var updateOverview = function(readingObj, count=1) {
-    let arrIndex = 'overview';
-
-    if(!prevDateTime[arrIndex])
-        prevDateTime[arrIndex] = new Date( 2012, 0, 1, 0, 0 );
+    if(!prevDateTime[readingObj.name])
+        prevDateTime[readingObj.name] = new Date( 2012, 0, 1, 0, 0 );
     
     // Setup AJAX Request
-    var qString = "getOverview.php?time_control="+readingObj.timeControl+"&date="+readingObj.dateString+"&data_length="+dataLength;
+    var qString = "getOverview.php?time_control="+readingObj.timeControl+"&date="+readingObj.dateString+"&data_length="+count;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', qString, true);
     xhr.onload = function() {
@@ -514,8 +512,9 @@ var updateOverview = function(readingObj, count=1) {
                 dateTimeParts[5]
             );
 
-
-            if(dateTime.getTime() !== prevDateTime[arrIndex].getTime()) {
+            
+            if(dateTime.getTime() !== prevDateTime[readingObj.name].getTime()) {
+                console.log('executed', readingObj.name, prevDateTime[readingObj.name].getTime());
                 // Load power
                 let loadPower = parseFloat(item.load);
                 loadPowerDps.push({
@@ -543,9 +542,9 @@ var updateOverview = function(readingObj, count=1) {
                 n = document.querySelector(".numeric-solargeneration");
                 n.innerText = solarPower.toFixed(2)+"W";
 
-                prevDateTime[arrIndex] = dateTime;
+                prevDateTime[readingObj.name] = dateTime;
 
-                if (loadPowerDps.length > dataLength) {
+                if (loadPowerDps.length > count) {
                     loadPowerDps.shift();
                     windPowerDps.shift();
                     solarPowerDps.shift();
@@ -554,7 +553,7 @@ var updateOverview = function(readingObj, count=1) {
         });
         
         if(powerReadings.length >= 1 || readingObj.timeControl=='live') {
-            chart[arrIndex].render();
+            chart[readingObj.name].render();
             containerId = 'chartContainer-overview';
             let chartContainer = document.getElementById(containerId);
             let x = chartContainer.querySelector('.no-data');

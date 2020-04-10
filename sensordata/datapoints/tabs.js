@@ -197,7 +197,7 @@ function assignChangeEventHandler(tabs) {
                 if(key=='overview') {
                     interval[key] = setInterval(function(){
                         updateOverview(reading)
-                    }, 900000);
+                    }, 1000);
                 } else {
                     interval[key] = setInterval(function(){
                         updateTrends(reading)
