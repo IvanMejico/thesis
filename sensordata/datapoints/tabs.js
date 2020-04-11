@@ -1,6 +1,3 @@
-// TODO: reuse assignChangeEventHandler (Make it more flexible)
-// TODO: Change dataset.sensorid to dataset.key
-
 function assignChangeEventHandler(tabs) {
     for(var i=0; i<tabs.length; i++) {
         

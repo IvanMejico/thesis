@@ -80,9 +80,6 @@
 	</div>
 	<div class="main-content">
 		
-
-		<!-- ////////////////////////////////////////// [START] UNDER CONSTRUCTION ////////////////////////////////////////// -->
-	
 		<div class="panel-group1">
 			<div id="overview" class="panel overview" data-key="overview">
 				<div class="panel-header"><h3>Energy Generation and Consumption Overview</h3></div>
@@ -129,10 +126,6 @@
 			</div>
 		</div>
 
-		<!-- ////////////////////////////////////////// [END] UNDER CONSTRUCTION ////////////////////////////////////////// -->
-
-
-		<!-- TODO: Change 'data-sensorid' to 'data-key' -->
 		<div class="panel-group2">
 			<div id="ESN001" class="panel trends" data-key="ESN001">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
