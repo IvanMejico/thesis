@@ -329,7 +329,7 @@ var updateTrends= function(readingObj, count=1) {
 
                     prevDateTime[readingObj.sensorId] = dateTime;
 
-                    if (window[dataBuffer][readingObj.sensorId].length > count) {
+                    if (window[dataBuffer][readingObj.sensorId].length > dataLength) {
                         windSpeedDps[readingObj.sensorId].shift();
                         solarInsolationDps[readingObj.sensorId].shift();
                     }
@@ -481,7 +481,7 @@ function renderOverview(readingObj, chartType="area", opacity=1, intervalType="s
         ]  
     });
     // Fill chart with data from the database
-    updateOverview(readingObj, 1000);
+    updateOverview(readingObj, dataLength);
 }
 
 var updateOverview = function(readingObj, count=1) {
@@ -514,7 +514,6 @@ var updateOverview = function(readingObj, count=1) {
 
             
             if(dateTime.getTime() !== prevDateTime[readingObj.name].getTime()) {
-                console.log('executed', readingObj.name, prevDateTime[readingObj.name].getTime());
                 // Load power
                 let loadPower = parseFloat(item.load);
                 loadPowerDps.push({
@@ -544,14 +543,13 @@ var updateOverview = function(readingObj, count=1) {
 
                 prevDateTime[readingObj.name] = dateTime;
 
-                if (loadPowerDps.length > count) {
+                if (loadPowerDps.length > dataLength) {
                     loadPowerDps.shift();
                     windPowerDps.shift();
                     solarPowerDps.shift();
                 }
             }  
         });
-        
         if(powerReadings.length >= 1 || readingObj.timeControl=='live') {
             chart[readingObj.name].render();
             containerId = 'chartContainer-overview';

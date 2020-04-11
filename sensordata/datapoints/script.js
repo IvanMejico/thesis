@@ -1,4 +1,4 @@
-var updateInterval = 2000;
+var updateInterval = 3000;
 var interval = [];
 var reading = [];
 
@@ -176,7 +176,7 @@ for(let panel of dataPanels) {
          * Live chart parameters
          */
         xValueFormat = "h:mm TT";
-        chartIntervalType = "hour";
+        chartIntervalType = "minute";
         chartInterval = 1;
         chartType = 'area';
         dateString = '';
@@ -242,7 +242,7 @@ for(let panel of dataPanels) {
         xValueFormat
     );
 
-    if(timeControl == 'live') setJob(reading[index].name, 900000);
+    if(timeControl == 'live') setJob(reading[index].name, updateInterval);
 }
 
 function setJob(index, interval) {

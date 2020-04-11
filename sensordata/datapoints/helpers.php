@@ -44,13 +44,24 @@ function getDateParams() {
     return $date;
 }
 
-function getFromTimeStamp($sensorId, $timeStamp) {
+function getFromTimeStamp($sensorId, $timeStamp, $mode) {
     //Results are returned from newest to oldest
     $readings = null;
     $dataLength = getDataLength();
-    $sql = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary`"
-        . "WHERE `sensor_id`='$sensorId' AND `timestamp`='$timeStamp' "
+
+    if($mode) {
+        $tableName = 'energy_reading';
+        $sql = "SELECT `sensor_id`, `timestamp`, `voltage`, `current` FROM `$tableName` "
+        . "WHERE `sensor_id`='$sensorId' AND `timestamp` LIKE '$timeStamp%' "
         . "ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    } else {
+        $tableName = 'energy_summary';
+        $sql = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `$tableName`"
+            . "WHERE `sensor_id`='$sensorId' AND `timestamp` LIKE '$timeStamp%' "
+            . "ORDER BY `timestamp` DESC LIMIT $dataLength;";
+    }
+    // echo $sensorId.' ';
+    // echo $sql;
     if($result = mysqli_query($GLOBALS['connection'], $sql))
         $readings = $result->fetch_assoc();
     else

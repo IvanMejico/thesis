@@ -42,7 +42,7 @@ function assignChangeEventHandler(tabs) {
                     /**
                      * Live data parameters
                      */
-                    chartIntervalType = key=='overview' ? "hour" : "minute";
+                    chartIntervalType = "minute";
                     chartInterval = 1;
                     opacity = 0.2;
                     chartType = 'area';
@@ -194,7 +194,7 @@ function assignChangeEventHandler(tabs) {
                 if(key=='overview') {
                     interval[key] = setInterval(function(){
                         updateOverview(reading)
-                    }, 1000);
+                    }, updateInterval);
                 } else {
                     interval[key] = setInterval(function(){
                         updateTrends(reading)
