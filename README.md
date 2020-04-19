@@ -7,4 +7,4 @@
 ![](screenshots/sc002.png)
 
 # IoT Dashboard Home
-![](screenshots/sc003.PNG)
+![](screenshots/sc003.png)
