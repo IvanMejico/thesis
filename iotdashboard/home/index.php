@@ -1,9 +1,9 @@
 <?php
-	session_start();
-	$msg = "";
-	if(!isset($_SESSION['logged_in_user'])) {
-		header('Location: ../');
-	}
+session_start();
+$msg = "";
+if(!isset($_SESSION['logged_in_user'])) {
+	header('Location: ../');
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -20,100 +20,24 @@
 <link rel="stylesheet" type="text/css" href="assets/pikaday/css/pikaday.css"></link>
 <link rel="stylesheet" type="text/css" href="assets/pikaday/css/theme.css">
 <link rel="stylesheet" type="text/css" href="assets/pikaday/css/triangle.css">
-
+<link rel="stylesheet" type="text/css" href="assets/css/loader.css"></link>
 <style>
-	.header {
-		padding: 0;
-		width: 100%;
-	}
-	.header h1 {
-		padding: 10px 0;
-		font-size: 1em;
-		color: #3dc9ff;
-	}
-	.header h1 span {
-		color: rgb(135, 231, 115);
-		display: inline;
-	}
-	.header .credits {
-		padding: 4px 0;
-		background-color: rgb(54, 51, 77);
-	}
-	.credits .proponents{
-		display: flex;
-		margin: 2px 22%;
-	}
-	.credits h2 {
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 1em;
-		color: #fff;
-		text-align: center;
-		margin: 0;
-		padding: 0;
-	}
-	.proponents span {
-		font-size: .9em;
-		display: inline-block;
-		margin: 0 20px;
-		width: 33.33%;
-
-	}
-	.proponents span:first-child {
-		margin-left: 0;
-	}
-	.proponents span:last-child {
-		margin-right: 0;
-	}
-	.date {
-		margin: 0;
-	}
-
-	.chart > div {
-		background-color: #1f1e1b;
-	}
-	.btn-logout {
-		background-color: #ca1010;
-		display: block;
-		position: absolute;
-		padding: 10px 15px;
-		border: 2px solid #ca1010;
-		border-radius: 5px;
-		text-decoration: none;
-		right: 40px;
-		top: 20px;
-		color: #fff;
-		text-transform: uppercase;
-		font-size: 0.8em;
-	}
-	.btn-logout:hover {
-		filter: brightness(90%);
-	}
-	.btn-logout:active {
-		filter: brightness(120%);
-	}
-	.btn-logout:before {
-		font-size: 1.2em;
-		margin: 0;
-		margin-right: 10px;
-		padding: 0;
-		color: #fff;
-	}
-	.display-relative {
-		display: relative;
-	}
+	
 </style>
 </head>
 <body>
 	
-	<?php
-	// echo $_SESSION['logged_in_user']
-	?>
-	<div class="header">
-		<div class="display-relative">
-			<h1>RaspberryPi <span>IoT Dashboard</span></h1>
-			<a href="logout.php" class="flaticon-logout btn-logout">log out</a>
+	<div id="loader">
+		<div class="battery-loader">
+			<span class="battery-loader_item"></span>
+			<span class="battery-loader_item"></span>
+			<span class="battery-loader_item"></span>
 		</div>
+	</div>
+
+	<div class="header">
 		<div class="credits">
+			<h1>Monitoring for Off-grid Solar-Wind Hybrid Energy With Controlling of Direct Current Loads Using Arduino</h1>
 			<h2>Proponents</h2>
 			<div class="proponents">
 				<span>Majorine P. Larracas</span>
@@ -122,6 +46,12 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="app-bar">
+			<h1>RaspberryPi <span>IoT Dashboard</span></h1>
+			<a href="logout.php" class="flaticon-logout btn-logout">log out</a>
+		</div>
+
 	<div class="main-content">
 		
 		<div class="panel-group1">
@@ -502,6 +432,13 @@
 
 	<script src="assets/js/update_numeric_display.js"></script> <!-- TEMPORARY -->
 	<script src="assets/js/load_prioritization.js"></script>
-	
+
+	<script>
+		window.onload = function() {
+			setTimeout(function() {
+				document.getElementsByTagName('body')[0].className= 'loaded';	
+			}, 3000);
+		}
+	</script>
 	</body>
 </html>

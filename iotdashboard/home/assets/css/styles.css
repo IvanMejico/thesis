@@ -74,36 +74,125 @@ input:checked + .slider:before {
 * CUSTOM STYLES
 */
 
-.header {
-    position: sticky;
-    z-index: 10000;
-    top: 0;
-    padding: 20px 0;
-    margin-bottom: 10px;
-    background-color: rgb(228, 61, 10);
-    opacity: 1;
-}
 
-.header h1 {
-    margin: 0;
-    color: #fff;
-    font-size: 1.5em;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
+.header {
+    z-index: 1000;
+    padding: 20px 0;
+    opacity: 1;
+    padding: 0;
+    width: 100%;
 }
 
 .header span {
-    color: #fff;
-    display: block;
-}
-
-.header h4, .header span {
     color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     margin: 0;
     line-height: 1.3em;
 }
+
+.app-bar {
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+
+    background-color: rgb(228, 61, 10);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 10px;
+}
+
+.app-bar h1 {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1em;
+    color: #3dc9ff;
+}
+
+.app-bar span {
+    color: rgb(135, 231, 115);
+    display: inline;
+}
+
+
+
+.header .credits {
+    padding: 4px 0;
+    background-color: rgb(54, 51, 77);
+    height: 150px;
+}
+.header .credits h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    font-size: 1.6em;
+}
+.credits .proponents{
+    display: flex;
+    margin: 2px 22%;
+}
+.credits h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.proponents span {
+    font-size: .9em;
+    display: inline-block;
+    margin: 0 20px;
+    width: 33.33%;
+
+}
+.proponents span:first-child {
+    margin-left: 0;
+}
+.proponents span:last-child {
+    margin-right: 0;
+}
+.date {
+    margin: 0;
+}
+
+.chart > div {
+    background-color: #1f1e1b;
+}
+
+
+.btn-logout {
+    background-color: #ca1010;
+    display: block;
+    position: absolute;
+    padding: 6px 7px;
+    border: 2px solid #ca1010;
+    border-radius: 5px;
+    text-decoration: none;
+    right: 8px;
+    top: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: .9em;
+    line-height: .9em;
+}
+.btn-logout:hover {
+    filter: brightness(90%);
+}
+.btn-logout:active {
+    filter: brightness(120%);
+}
+.btn-logout:before {
+    font-size: 1em !important;
+    margin: 2px 5px 0 0 !important;
+    padding: 0;
+    color: #fff;
+}
+
+
 
 .manual-control {
     background-color: rgb(25, 51, 45);
