@@ -22,7 +22,39 @@ if(!isset($_SESSION['logged_in_user'])) {
 <link rel="stylesheet" type="text/css" href="assets/pikaday/css/triangle.css">
 <link rel="stylesheet" type="text/css" href="assets/css/loader.css"></link>
 <style>
-	
+	#myBtn {
+		display: none;
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		z-index: 99;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		background-color: red;
+		color: white;
+		cursor: pointer;
+		padding: 15px;
+		border-radius: 5px;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+	}
+
+	#myBtn:before {
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+		line-height: 0.2em;
+	}
+
+	#myBtn:hover {
+		background-color: #555;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
 </style>
 </head>
 <body>
@@ -34,6 +66,8 @@ if(!isset($_SESSION['logged_in_user'])) {
 			<span class="battery-loader_item"></span>
 		</div>
 	</div>
+
+	<button onclick="topFunction()" id="myBtn" class="flaticon-up-arrow"title="Go to top"></button>
 
 	<div class="header">
 		<div class="credits">
@@ -437,7 +471,27 @@ if(!isset($_SESSION['logged_in_user'])) {
 		window.onload = function() {
 			setTimeout(function() {
 				document.getElementsByTagName('body')[0].className= 'loaded';	
-			}, 3000);
+			}, 2000);
+		}
+
+		//Get the button
+		var mybutton = document.getElementById("myBtn");
+
+		// When the user scrolls down 20px from the top of the document, show the button
+		window.onscroll = function() {scrollFunction()};
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 1500 || document.documentElement.scrollTop > 1500) {
+				mybutton.style.display = "block";
+			} else {
+				mybutton.style.display = "none";
+			}
+		}
+
+		// When the user clicks on the button, scroll to the top of the document
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
 		}
 	</script>
 	</body>
