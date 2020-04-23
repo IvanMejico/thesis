@@ -195,25 +195,31 @@ var updateTrends= function(readingObj, count=1) {
         if(!this.responseText)
             return;
 
-
         var response = JSON.parse(this.responseText);
         var sensorType = response.sensor_type;
         var sensorData = response.sensor_data;
 
-        if(sensorType == 'electrical') {
-            sensorData.forEach(function(item) {
-                let timeStamp = item.timestamp;
-                let dateTimeParts = timeStamp.split(/[- :]/);
-                dateTimeParts[1]--;
+        let len = sensorData.length;
 
-                let dateTime = new Date(
-                    dateTimeParts[0],
-                    dateTimeParts[1],
-                    dateTimeParts[2],
-                    dateTimeParts[3],
-                    dateTimeParts[4],
-                    dateTimeParts[5]
-                );
+        if(sensorType == 'electrical') {
+            sensorData.forEach(function(item, index) {
+                let timeStamp = item.timestamp;
+                let dateTime = new Date(timeStamp);
+                if(len > 1 && readingObj.timeControl == 'live') {
+                    let tBracket = ((len - index) * 7) * 1000; //number of seconds that corresponds to the length of data retrieved.
+                    let l = sensorData[index].timestamp;
+                    let dtLowerLimit = new Date(l)
+                    let u = sensorData[len-1].timestamp;
+                    let dtUpperLimit = new Date(u)
+                    let diff = dtUpperLimit.getTime() - dtLowerLimit.getTime();
+    
+                    // console.log(tBracket, len, diff, l, u);
+    
+                    if(diff > tBracket) {
+                        // console.log('skipped', diff);
+                        return;
+                    }
+                }
                 
                 if(dateTime.getTime() !== prevDateTime[readingObj.sensorId].getTime()) {
                     dataBuffer = '';
@@ -278,19 +284,25 @@ var updateTrends= function(readingObj, count=1) {
                 }    
             });
         } else if (sensorType == 'environment') {
-            sensorData.forEach(function(item) {
+            sensorData.forEach(function(item, index) {
                 let timeStamp = item.timestamp;
-                let dateTimeParts = timeStamp.split(/[- :]/);
-                dateTimeParts[1]--;
+                let dateTime = new Date(timeStamp);
 
-                let dateTime = new Date(
-                    dateTimeParts[0],
-                    dateTimeParts[1],
-                    dateTimeParts[2],
-                    dateTimeParts[3],
-                    dateTimeParts[4],
-                    dateTimeParts[5]
-                );
+                if(len > 1 && readingObj.timeControl == 'live') {
+                    let tBracket = ((len - index) * 7) * 1000; //number of seconds that corresponds to the lenght of data retrieved.
+                    let l = sensorData[index].timestamp;
+                    let dtLowerLimit = new Date(l)
+                    let u = sensorData[len-1].timestamp;
+                    let dtUpperLimit = new Date(u)
+                    let diff = dtUpperLimit.getTime() - dtLowerLimit.getTime();
+
+                    // console.log(tBracket, len, diff, l, u);
+
+                    if(diff > tBracket) {
+                        // console.log('skipped', diff);
+                        return;
+                    }
+                }
 
                
                 if(dateTime.getTime() !== prevDateTime[readingObj.sensorId].getTime()) {
@@ -498,20 +510,33 @@ var updateOverview = function(readingObj, count=1) {
             return;
 
         var powerReadings = JSON.parse(this.responseText);
-        powerReadings.forEach(function(item) {
+        let len = powerReadings.length;
+
+        powerReadings.forEach(function(item, index) {
             let timeStamp = item.timestamp;
-            let dateTimeParts = timeStamp.split(/[- :]/);
-            dateTimeParts[1]--;
+            let dateTime = new Date(timeStamp);
 
-            let dateTime = new Date(
-                dateTimeParts[0],
-                dateTimeParts[1],
-                dateTimeParts[2],
-                dateTimeParts[3],
-                dateTimeParts[4],
-                dateTimeParts[5]
-            );
+            // 1) Get the length of the dataset.
+            // 2) Calculate the number of seconds that corresponds to the length of the retrieved data
+            // 3) Compute the time interval between the current data on the loop and the last data on the dataset.
+            // 4) If the interval is greater than the supposed time bracket, skip to the next data;
+            if(len > 1 && readingObj.timeControl == 'live') {
+                let tBracket = ((len - index) * 7)*1000; //number of seconds that corresponds to the lenght of data retrieved.
+                
+                // Get the timestamp of the latest reading on the database
+                let l = powerReadings[index].timestamp;
+                let dtLowerLimit = new Date(l)
+                let u = powerReadings[len-1].timestamp;
+                let dtUpperLimit = new Date(u)
+                let diff = dtUpperLimit.getTime() - dtLowerLimit.getTime();
 
+                // console.log(tBracket, len, diff, l, u);
+
+                if(diff > tBracket) {
+                    // console.log('skipped', diff);
+                    return;
+                }
+            }
             
             if(dateTime.getTime() !== prevDateTime[readingObj.name].getTime()) {
                 // Load power
