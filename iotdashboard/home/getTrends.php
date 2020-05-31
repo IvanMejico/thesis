@@ -23,7 +23,7 @@ $GLOBALS['connection'] = mysqli_connect($servername, $username, $password, $db);
 function getLiveTrends() {  
     $date = getCurrentDate();
     
-    $tempDp = []; // Temporary data buffer
+    $dataPoints = []; // Temporary data buffer
     $dataPoints = []; // Data to be returned
     
     $sensorId = getSensorId();
@@ -60,7 +60,7 @@ function getLiveTrends() {
                         break;
                 }
                 array_push(
-                    $tempDp, 
+                    $dataPoints, 
                     [
                         'id' => (int)$row['id'],
                         'sensor_id' => $row['sensor_id'],
@@ -80,18 +80,18 @@ function getLiveTrends() {
             while($row = $result->fetch_assoc()) {
                 switch($unit) {
                     case 'all':
-                        $readings['windSpeed'] = (float)$row['wind_speed'];
-                        $readings['solarInsolation'] = (float)$row['solar_irradiance'];
+                        $readings['wind_speed'] = (float)$row['wind_speed'];
+                        $readings['solar_insolation'] = (float)$row['solar_irradiance'];
                         break;
                     case 'wind_speed':
-                        $readings['windSpeed'] = (float)$row['wind_speed'];
+                        $readings['wind_speed'] = (float)$row['wind_speed'];
                         break;
                     case 'solar_insolation':
-                        $readings['solarInsolation'] = (float)$row['solar_irradiance'];
+                        $readings['solar_insolation'] = (float)$row['solar_irradiance'];
                         break;
                 }
                 array_push(
-                    $tempDp, 
+                    $dataPoints, 
                     [
                         'id' => (int)$row['id'], 
                         'sensor_id' => $row['sensor_id'],
@@ -106,24 +106,19 @@ function getLiveTrends() {
         echo "Sensor type error!";
     }
     
-    sort($tempDp); // sort sensor readings in ascending order per reading id
-    
-    $dataPoints = array_merge(
-        Array("sensor_type"=>$sensorType),
-        Array("sensor_data"=>$tempDp)
-    );
-
+    sort($dataPoints); // sort sensor readings in ascending order per reading id
     echo json_encode($dataPoints);
 }
 
 function getSummaryTrends($timeControl) {
     $readings = [];
-    $tempDp = [];
+    $dataPoints = [];
     $dataPoints = []; // Data to be returned
 
     $sensorId = getSensorId();
-    $sensorType = getSensorType($sensorId);    
+    $sensorType = getSensorType($sensorId);
     $unit = getUnit();
+    $dataLength = getDataLength();
 
     $queryString = "";
     
@@ -131,7 +126,7 @@ function getSummaryTrends($timeControl) {
     $date = getDateParams();
     switch($timeControl) {
         case 'day':
-            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '$date%';";
+            $queryString = "SELECT * FROM `$tableName` WHERE `sensor_id` = '$sensorId' AND `timestamp` LIKE '$date%' LIMIT $dataLength;";
             break;
         case 'week':
             $date1 = "";
@@ -165,6 +160,7 @@ function getSummaryTrends($timeControl) {
         default:
             break;
     }
+    // echo $queryString;
     
     if($sensorType == 'electrical') {
         // Get sensor readings from the current date
@@ -189,7 +185,7 @@ function getSummaryTrends($timeControl) {
                         break;
                 }
                 array_push(
-                    $tempDp, 
+                    $dataPoints, 
                     [
                         'id' => (int)$row['id'],
                         'sensor_id' => $row['sensor_id'],
@@ -205,18 +201,18 @@ function getSummaryTrends($timeControl) {
             while($row = $result->fetch_assoc()) {
                 switch($unit) {
                     case 'all':
-                        $readings['windSpeed'] = (float)$row['average_wind_speed'];
-                        $readings['solarInsolation'] = (float)$row['average_solar_irradiance'];
+                        $readings['wind_speed'] = (float)$row['average_wind_speed'];
+                        $readings['solar_insolation'] = (float)$row['average_solar_irradiance'];
                         break;
                     case 'wind_speed':
-                        $readings['windSpeed'] = (float)$row['average_wind_speed'];
+                        $readings['wind_speed'] = (float)$row['average_wind_speed'];
                         break;
                     case 'solar_insolation':
-                        $readings['solarInsolation'] = (float)$row['average_solar_irradiance'];
+                        $readings['solar_insolation'] = (float)$row['average_solar_irradiance'];
                         break;
                 }
                 array_push(
-                    $tempDp, 
+                    $dataPoints, 
                     [
                         'id' => (int)$row['id'], 
                         'sensor_id' => $row['sensor_id'],
@@ -228,11 +224,6 @@ function getSummaryTrends($timeControl) {
         } else
             echo 'ERROR: '. mysqli_error($GLOBALS['connection']);
     }
-
-    $dataPoints = array_merge(
-        Array("sensor_type"=>$sensorType),
-        Array("sensor_data"=>$tempDp)
-    );
 
     echo json_encode($dataPoints);
 }

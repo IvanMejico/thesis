@@ -59,13 +59,13 @@ if(!isset($_SESSION['logged_in_user'])) {
 </head>
 <body>
 	
-	<div id="loader">
+	<!-- <div id="loader">
 		<div class="battery-loader">
 			<span class="battery-loader_item"></span>
 			<span class="battery-loader_item"></span>
 			<span class="battery-loader_item"></span>
 		</div>
-	</div>
+	</div> -->
 
 	<button onclick="topFunction()" id="myBtn" class="flaticon-up-arrow"title="Go to top"></button>
 
@@ -107,8 +107,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 						</div>
 					</div>
 					<div class="navigation-control">
-						<input type="text" id="datepicker-overview" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-overview"></button>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -116,15 +114,15 @@ if(!isset($_SESSION['logged_in_user'])) {
 					<div class="numeric-group">
 						<div>
 							<i>Solar Power</i>
-							<span class="numeric-solargeneration">0W</span>
+							<span class="numeric-panel_power">0.00</span>
 						</div>
 						<div>
 							<i>Wind Power</i>
-							<span class="numeric-windgeneration">0W</span>
+							<span class="numeric-turbine_power">0.00</span>
 						</div>
 						<div>
 							<i>Consumption</i>
-							<span class="numeric-consumption">0W</span>
+							<span class="numeric-load_power">0.00</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -135,7 +133,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 		</div>
 
 		<div class="panel-group2">
-			<div id="ESN001" class="panel trends" data-key="ESN001">
+			<div id="env_readings" class="panel trends" data-key="ESN001">
 				<div class="panel-header"><h3>Environment Sensor Node</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -161,8 +159,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 						</div>
 					</div>
 					<div class="navigation-control">
-						<input type="text" id="datepicker-ESN001" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-ESN001"></button>
+						
 					</div>
 				</div>
 				<div class="panel-body">
@@ -170,11 +167,11 @@ if(!isset($_SESSION['logged_in_user'])) {
 					<div class="numeric-group">
 						<div>
 							<i>Wind Speed</i>
-							<span class="numeric-wind_speed">0m/s</span>
+							<span class="numeric-wind_speed">0.00</span>
 						</div>
 						<div>
 							<i>Solar Insolation</i>
-							<span class="numeric-solar_insolation">0W/m²</span>
+							<span class="numeric-solar_insolation">0.00</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -182,7 +179,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 					</div>
 				</div>
 			</div>
-			<div id="PSN001" class="panel trends" data-key="PSN001">
+			<div id="wind_readings" class="panel trends" data-key="PSN001">
 				<div class="panel-header"><h3>Electrical Sensor Node (Load Consumption)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -211,23 +208,21 @@ if(!isset($_SESSION['logged_in_user'])) {
 						</div>
 					</div>
 					<div class="navigation-control">
-						<input type="text" id="datepicker-PSN001" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-PSN001"></button>
 					</div>
 				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">0W</span>
+							<span class="numeric-power">0.00</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">0V</span>
+							<span class="numeric-voltage">0.00</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">0A</span>
+							<span class="numeric-current">0.00</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -237,7 +232,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 			</div>
 		</div>
 		<div class="panel-group3">
-			<div id="PSN002" class="panel trends" data-key="PSN002">
+			<div id="solar_readings" class="panel trends" data-key="PSN002">
 				<div class="panel-header"><h3>Electrical Sensor Node (Wind Turbine Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -265,23 +260,21 @@ if(!isset($_SESSION['logged_in_user'])) {
 						</div>
 					</div>
 					<div class="navigation-control">
-						<input type="text" id="datepicker-PSN002" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-PSN002"></button>
 					</div>
 				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">0W</span>
+							<span class="numeric-power">0.00</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">0V</span>
+							<span class="numeric-voltage">0.00</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">0A</span>
+							<span class="numeric-current">0.00</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -289,7 +282,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 					</div>
 				</div>
 			</div>
-			<div id="PSN003" class="panel trends" data-key="PSN003">
+			<div id="load_readings" class="panel trends" data-key="PSN003">{}
 				<div class="panel-header"><h3>Electrical Sensor Node (Solar Panel Power Generation)</h3></div>
 				<div class="panel-control">
 					<div class="tab-control">
@@ -317,23 +310,21 @@ if(!isset($_SESSION['logged_in_user'])) {
 						</div>
 					</div>
 					<div class="navigation-control">
-						<input type="text" id="datepicker-PSN003" readonly/>
-						<button class="flaticon-calendar" id="datepicker-button-PSN003"></button>
 					</div>
 				</div>
 				<div class="panel-body">
 					<div class="numeric-group">
 						<div>
 							<i>Power</i>
-							<span class="numeric-power">0W</span>
+							<span class="numeric-power">0.00</span>
 						</div>
 						<div>
 							<i>Voltage</i>
-							<span class="numeric-voltage">0V</span>
+							<span class="numeric-voltage">0.00</span>
 						</div>
 						<div>
 							<i>Current</i>
-							<span class="numeric-current">0A</span>
+							<span class="numeric-current">0.00</span>
 						</div>
 					</div>
 					<div class="chart">
@@ -456,16 +447,16 @@ if(!isset($_SESSION['logged_in_user'])) {
 	<script src="assets/js/helpers.js"></script>
 	<script src="assets/js/colorsets.js"></script>
 	<script src="resources/canvasjs.min.js"></script>
-	<script src="assets/js/render_chart.js"></script>
-	<script src="assets/js/toggle.js"></script>
+	<!-- <script src="assets/js/render_chart.js"></script> -->
+	<!-- <script src="assets/js/toggle.js"></script> -->
 	<script src="assets/pikaday/js/moment.min.js"></script>
-	<script src="assets/js/datepicker.js"></script>
+	<!-- <script src="assets/js/datepicker.js"></script> -->
 	<script src="assets/pikaday/js/pikaday.js"></script>
-	<script src="assets/js/tabs.js"></script>
+	<!-- <script src="assets/js/tabs.js"></script> -->
 	<script src="assets/js/main.js"></script>
 
-	<script src="assets/js/update_numeric_display.js"></script> <!-- TEMPORARY -->
-	<script src="assets/js/load_prioritization.js"></script>
+	<!-- <script src="assets/js/update_numeric_display.js"></script> TEMPORARY -->
+	<!-- <script src="assets/js/load_prioritization.js"></script> -->
 
 	<script>
 		window.onload = function() {

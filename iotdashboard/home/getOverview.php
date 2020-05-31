@@ -28,6 +28,7 @@ $GLOBALS['connection'] = mysqli_connect($servername, $username, $password, $db);
 function getLiveOverview() {
     $date = getCurrentDate();
     $dataPoints = [];
+    $readings = [];
     $dataLength = getDataLength();
     
     $queryString = "SELECT `sensor_id`, `timestamp`, `voltage`, `current` FROM `energy_reading` WHERE `sensor_id` = 'PSN001' " 
@@ -47,9 +48,9 @@ function getLiveOverview() {
             if($loadReadings != null) {
                 $loadVoltage = (float)$loadReadings['voltage'];
                 $loadCurrent = (float)$loadReadings['current'];
-                $loadPower = $loadVoltage * $loadCurrent;
+                $readings['load_power'] = $loadVoltage * $loadCurrent;
             } else {
-                $loadPower = null;
+                $readings['load_power'] = null;
             }
 
             // turbine power
@@ -57,9 +58,9 @@ function getLiveOverview() {
             if($turbineReadings != null) {
                 $turbineVoltage = (float)$turbineReadings['voltage'];
                 $turbineCurrent = (float)$turbineReadings['current'];
-                $turbinePower = $turbineVoltage * $turbineCurrent;
+                $readings['turbine_power'] = $turbineVoltage * $turbineCurrent;
             } else {
-                $turbinePower = null;
+                $readings['turbine_power'] = null;
             }
 
             // solar power
@@ -67,16 +68,14 @@ function getLiveOverview() {
             if($solarReadings != null) {
                 $solarVoltage = (float)$solarReadings['voltage'];
                 $solarCurrent = (float)$solarReadings['current'];
-                $solarPower = $solarVoltage * $solarCurrent;
+                $readings['panel_power'] = $solarVoltage * $solarCurrent;
             } else {
-                $solarPower = null;
+                $readings['panel_power'] = null;
             }
             
             array_push($dataPoints, Array(
-                'timestamp' => $timeStamp,
-                'load' => $loadPower, 
-                'turbine' => $turbinePower,
-                'panel' => $solarPower
+                'readings' => $readings,
+                'timestamp' => $timeStamp
             ));
         }
     }   else {
@@ -88,13 +87,14 @@ function getLiveOverview() {
 
 function getSummaryOverview($timeControl) {
     $dataPoints = [];
+    $dataLength = getDataLength();
 
     $queryString = "";
     $date = getDateParams();
     switch($timeControl) {
         case 'day':
             $queryString = "SELECT `sensor_id`, `timestamp`, `average_voltage`, `average_current` FROM `energy_summary` WHERE sensor_id='PSN001'"
-                . "AND `timestamp` LIKE '$date%' ORDER BY `timestamp` DESC;";
+                . "AND `timestamp` LIKE '$date%' ORDER BY `timestamp` DESC LIMIT $dataLength;";
             break;
         case 'week':
             $date1 = "";
@@ -131,7 +131,7 @@ function getSummaryOverview($timeControl) {
         default:
             echo '<script>console.log("No time control matches the available options.")</script>';
     }
-
+    // echo $queryString;
     // Get load reading data
     if($result = mysqli_query($GLOBALS['connection'], $queryString)) {
         // For every timestamp on results get PSN002(turbine) and PSN003(panel)
@@ -143,9 +143,9 @@ function getSummaryOverview($timeControl) {
             if($loadReadings != null) {
                 $loadVoltage = (float)$loadReadings['average_voltage'];
                 $loadCurrent = (float)$loadReadings['average_current'];
-                $loadPower = $loadVoltage * $loadCurrent;
+                $readings['load_power'] = $loadVoltage * $loadCurrent;
             } else {
-                $loadPower = null;
+                $readings['load_power'] = null;
             }
 
             // turbine power
@@ -153,9 +153,9 @@ function getSummaryOverview($timeControl) {
             if($turbineReadings != null) {
                 $turbineVoltage = (float)$turbineReadings['average_voltage'];
                 $turbineCurrent = (float)$turbineReadings['average_current'];
-                $turbinePower = $turbineVoltage * $turbineCurrent;
+                $readings['turbine_power'] = $turbineVoltage * $turbineCurrent;
             } else {
-                $turbinePower = null;
+                $readings['turbine_power'] = null;
             }
 
             // solar power
@@ -163,24 +163,15 @@ function getSummaryOverview($timeControl) {
             if($solarReadings != null) {
                 $solarVoltage = (float)$solarReadings['average_voltage'];
                 $solarCurrent = (float)$solarReadings['average_current'];
-                $solarPower = $solarVoltage * $solarCurrent;
+                $readings['panel_power'] = $solarVoltage * $solarCurrent;
             } else {
-                $turbinePower = null;
+                $readings['panel_power'] = null;
             }
 
 
-            /**
-             * JSON Format:
-             * [{psn001 : power},
-             * {psn002 : power},
-             * {psn003 : power]]
-             */
-
             array_push($dataPoints, Array(
-                'timestamp' => $timeStamp,
-                'load' => $loadPower, 
-                'turbine' => $turbinePower,
-                'panel' => $solarPower
+                'readings' => $readings,
+                'timestamp' => $timeStamp
             ));
         }
     } else {

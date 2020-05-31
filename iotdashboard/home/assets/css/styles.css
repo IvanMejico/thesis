@@ -367,13 +367,13 @@ input:checked + .slider:before {
     width: 340px;
 }
 
-.panel .numeric-solargeneration {
+.panel .numeric-panel_power {
     color: #38ff00;
 }
-.panel .numeric-windgeneration {
+.panel .numeric-turbine_power {
     color: #e8073c;
 }
-.panel .numeric-consumption {
+.panel .numeric-load_power {
     color: #0004ff;
 }
 

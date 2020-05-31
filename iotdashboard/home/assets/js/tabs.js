@@ -1,3 +1,5 @@
+const INTERVAL = 3000; // Temporary code
+
 function assignChangeEventHandler(tabs) {
     for(var i=0; i<tabs.length; i++) {
         
@@ -194,11 +196,11 @@ function assignChangeEventHandler(tabs) {
                 if(key=='overview') {
                     interval[key] = setInterval(function(){
                         updateOverview(reading)
-                    }, updateInterval);
+                    }, INTERVAL);
                 } else {
                     interval[key] = setInterval(function(){
                         updateTrends(reading)
-                    }, updateInterval);
+                    }, INTERVAL);
                 }
             }
         });
