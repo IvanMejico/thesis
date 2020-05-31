@@ -1,26 +1,26 @@
 boolean sendCommand(String command, int maxTime, char readReply[]) {
     unsigned long timeout_start_val;
     
-    Serial.print("at command => ");
-    Serial.print(command);
-    Serial.print(" ");
+    // Serial.print("at command => "); // x
+    Serial.print(command); // o
+    Serial.print(" "); // o
 
     timeout_start_val = millis();
     
     // LOOP UNTIL FOUND OR TIMEOUT
     while(true){        
-        esp8266.println(command);
-        if(esp8266.find(readReply)) {
-            Serial.println(" SUCCESS");
+        Serial.println(command); // >
+        if(Serial.find(readReply)) { // >
+            // Serial.println(" SUCCESS"); // x
             return 1;
         }
 
         if((millis()-timeout_start_val) > maxTime) {
-            Serial.println(" Timeout: Fail");
+            // Serial.println(" Timeout: Fail"); // x
             return 0;
         }
         
-        Serial.print(".");
+        // Serial.print("."); // x
     }// end of infinite loop
     
 }  

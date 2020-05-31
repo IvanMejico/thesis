@@ -1,6 +1,6 @@
 void sendSensorReading(String type, float reading[]) {
     String getData;
-    Serial.println("\n>> SENDING SENSOR READING...\n");
+    // Serial.println("\n>> SENDING SENSOR READING...\n"); // x
 
     /**
      * SEND SENSOR DATA
@@ -17,7 +17,6 @@ void sendSensorReading(String type, float reading[]) {
             + "&current=" + String(current);
 
     } else if (type == "environment") {
-        // Serial.println('ok');
         float windSpeed = reading[0];
         float solarIrradiance = reading[1];
 
@@ -33,6 +32,6 @@ void sendSensorReading(String type, float reading[]) {
     sendCommand("AT+CIPMUX=1",2000,"OK");
     sendCommand("AT+CIPSTART=0,\"TCP\",\""+ HOST +"\","+ PORT,2000,"OK");
     sendCommand("AT+CIPSEND=0," +String(getData.length()+4),5000,">");
-    esp8266.println(getData);delay(1500);
+    Serial.println(getData);delay(1500); // >
     sendCommand("AT+CIPCLOSE=0",2000,"OK");
 }

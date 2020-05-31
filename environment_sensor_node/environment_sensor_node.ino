@@ -1,19 +1,18 @@
-#include <SoftwareSerial.h>
+// #include <SoftwareSerial.h> // x
 
-#define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
-#define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
+// #define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
+// #define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
 #define relayPin 3
 
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
-String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.101";        // HOST NAME (Raspberry Pi IP ord DNS)
+String SSID_KEY = "YM1A429R4YQ";         // WIFI PASSWORD
+String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 String sensor_node_id = "ESN001";
 
-String relay_url = "/sensordata/relay.php?";   // SCRIPT FROR RELAY CONTROL
-String send_url = "/sensordata/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
+String send_url = "/iotdashboard/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
 String nodeIp;                                    // IP ANDRESS OF THE SENSOR NODE
 String espResponseString = "";      // RESPONSE STRING FROM THE DATABASE
 
@@ -37,7 +36,7 @@ float wind_speed;
 float solar_irradiance = 0;
 float reading[2];
 
-SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
+// SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX); // x
 
 void setup() {
   pinMode(A0, INPUT);
@@ -49,15 +48,13 @@ void setup() {
 
   pinMode(relayPin, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600); // x
+  Serial.begin(115200); // >
   setupESP();
   digitalWrite(relayPin, LOW);
 }
 
 void loop() {
-  checkRelay();   // check and set relay status from the server
-
   //*** Wind measurements
   type = "environment";
   wind_speed = getWindSpeed();    // gather wind sensor data

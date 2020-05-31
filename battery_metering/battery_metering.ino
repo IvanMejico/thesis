@@ -1,4 +1,4 @@
-#include <SoftwareSerial.h>
+// #include <SoftwareSerial.h>
 
 #define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
 #define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
@@ -7,7 +7,7 @@
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
 String SSID_KEY = "YM1A429R4YQ";         // WIFI PASSWORD
-String HOST = "192.168.254.102";        // HOST NAME (Raspberry Pi IP ord DNS)
+String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 String sensor_node_id = "PSN003"; // CHANGE THIS
@@ -20,21 +20,17 @@ String espResponseString = "";      // RESPONSE STRING FROM THE DATABASE
 //Define the used function later in the code.
 boolean setupESP();   
 boolean sendCommand(String command, int maxTime, String readReply);
-SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
+// SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX); // x
 
-const int voltageSensor = A0;
 
 void setup() {
   pinMode(A0, INPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600);
+  Serial.begin(115200); // >
   setupESP();
 }
 
 void loop() {
   sendSoc(getSoc());
-  // *** For debugging
-  // Serial.println(" ---> SOC:"+String(percent)+"%");
-  delay(2000);
 }

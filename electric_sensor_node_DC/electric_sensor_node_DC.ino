@@ -1,4 +1,4 @@
-#include <SoftwareSerial.h>
+// #include <SoftwareSerial.h>
 
 #define ESP8266_RX 10  // Connect the TX pin from the ESP to this RX pin of the Arduino
 #define ESP8266_TX 11  // Connect the TX pin from the Arduino to the RX pin of ESP
@@ -6,19 +6,18 @@
 
 //NETWORK INFORMATION
 String SSID_ESP = "B315_E2741";         // WIFI SSID
-String SSID_KEY = "LEMNISCATE";         // WIFI PASSWORD
-String HOST = "192.168.254.100";        // HOST NAME (Raspberry Pi IP ord DNS)
+String SSID_KEY = "YM1A429R4YQ";         // WIFI PASSWORD
+String HOST = "192.168.254.120";        // HOST NAME (Raspberry Pi IP ord DNS)
 String PORT = "80";
 
 String sensor_node_id = "PSN003"; // CHANGE THIS
 String relay_id = "PSN003-R0"; // CHANGE THIS
 
-String relay_url = "/sensordata/relay.php?";   // SCRIPT FROR RELAY CONTROL
-String send_url = "/sensordata/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
+String send_url = "/iotdashboard/submit.php?";   // SCRIPT FOR SENDING SENSOR READINGS
 String nodeIp;                                    // IP ANDRESS OF THE SENSOR NODE
 String espResponseString = "";      // RESPONSE STRING FROM THE DATABASE
 
-//Define the used function later in the code.
+//Define the used function lat.er in the code.
 boolean setupESP();   
 boolean sendCommand(String command, int maxTime, String readReply);
 boolean sendToServer();
@@ -34,23 +33,20 @@ float power=0;
 String type;
 float reading[2];
 
-SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
+// SoftwareSerial esp8266(ESP8266_RX, ESP8266_TX);
 
 void setup() {
   // SETUP ELECTRICAL SENSORS READING VALUES
   pinMode(A0, INPUT); // voltage
   pinMode(A1, INPUT); // current
 
-  pinMode(relayPin, OUTPUT);
 
-  Serial.begin(9600);
-  esp8266.begin(115200);
+  // Serial.begin(9600); // x
+  Serial.begin(115200); // >
   setupESP();
 }
 
 void loop() {
-  checkRelay(relay_id);   // check and set relay status from the server
-
   //*** Electrical measurements
   type = "electrical";
   voltage = getVoltage();
