@@ -1,0 +1,33 @@
+{
+  "name": "rxjs-boilerplate",
+  "version": "1.0.0",
+  "description": "If you want to start building RxJS-based applications in a Webpack  environment, then this boilerplate is for you.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode=development",
+    "prod": "webpack --mode=production",
+    "watch": "webpack --watch --progress --mode=development",
+    "start": "live-server ."
+  },
+  "keywords": [
+    "rxjs",
+    "reactivex",
+    "rxjs boilerplate",
+    "rxjs start"
+  ],
+  "author": "Alex Arriaga <alex.arriaga@webtraining.world>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-command": "^0.5.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "rxjs": "^6.6.0",
+    "socket.io": "^2.3.0",
+    "winston": "^3.3.3"
+  }
+}

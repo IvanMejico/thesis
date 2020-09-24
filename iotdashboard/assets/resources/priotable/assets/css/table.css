@@ -1,0 +1,136 @@
+/* // TODO: Make this table responsive */ 
+table.priotable {
+    border-collapse: collapse !important;
+    width: 100%;
+}
+
+table.priotable thead th {
+    color: #fff;
+    text-transform: capitalize;
+    background-color: #353637;
+    padding: 15px 0;
+    max-height: 19px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+table.priotable th:first-child {
+    background-color: #252323;
+}
+
+table.priotable tr {
+    width: 100%;
+}
+
+table.priotable thead tr:first-child th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+table.priotable thead tr:first-child th:last-child {
+    text-align: right;
+    border-radius: 0 10px 0 0;
+}
+
+table.priotable tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+
+table.priotable tbody tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+table.priotable tbody tr:nth-child(odd) td {
+    background-color: #454343;
+}
+
+table.priotable tbody tr:nth-child(even) td {
+    background-color: #403e3e;
+}
+
+table.priotable td {
+    padding: 5px 4px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-height: 31px;
+    width: 100%;
+}
+
+table.priotable tbody tr td:first-child {
+    background-color: #252323;
+    text-align: right;
+    width: 100px;
+    min-width: 100px;
+}
+
+table.priotable tbody tr td:first-child span {
+    display: block;
+    text-align: right;
+    font-size: .8em;
+    font-weight: 900;
+    color: rgb(203, 223, 203);
+    margin: 0 5px;
+    padding: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+table.priotable tbody tr td:last-child {
+    width: 130px;
+    height:50px !important;
+    overflow: visible;
+}
+
+table.priotable tbody tr td:nth-child(2) {
+    width: 10%;
+}
+
+table.priotable tbody tr td:nth-child(3) {
+    width: 28%;
+    min-width: 86px;
+}
+
+table.priotable tbody tr td:nth-child(4) {
+    width: 48%;
+    min-width: 86px;
+}
+
+table.priotable tbody tr td:last-child div {
+    margin-right: 5px;
+}
+
+table.priotable tr.active-row {
+    border-top: 1px solid rgb(74, 95, 87);
+}
+
+table.priotable tbody tr.active-row:hover {
+    background-color: unset;
+}
+
+table.priotable tbody tr.active-row td {
+    background-color: #2d4049;
+}
+
+table.priotable tbody tr.active-row:hover td {
+    background-color: #2d4049;
+}
+
+table.priotable tbody tr.active-row td div > div:last-child,
+    tbody tr.active-row td .switch {
+    filter: opacity(.5);
+    pointer-events: none;
+}
+
+table.priotable tbody tr:hover td {
+    background: #252323;
+}
+
+.display-flex {
+    display: flex;
+    flex-direction: row-reverse;
+}

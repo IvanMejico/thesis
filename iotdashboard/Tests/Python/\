@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+
+import pymysql
+import math
+from random import seed, gauss
+from datetime import datetime, timedelta
+
+class ReadingsTable:
+    def __init__(self, name, columns = []):
+        self.name = name
+        self.columns = columns
+
+    def DBConnect(self, server, username, password, database):
+        self.db = pymysql.connect(server, username, password, database)
+
+    def _buildInsertSQL(self, operation):
+        if operation.lower() == "insert":
+            s1 = "INSERT INTO %s(" % self.name
+            s2 = ' VALUES('
+            for column in self.columns:
+                s1 += column + ','
+                s2 += "%s,"
+            s1 = s1.rstrip(",")
+            s2 = s2.rstrip(",")
+            s1 += ")"
+            s2 += ")"
+            sql = s1 + s2
+        else:
+            sql = "DELETE FROM %s WHERE node_id = %s AND timestamp >= %s AND timestamp <= %s"
+
+        return sql
+
+    def _getLastTimestamp(self):
+        sql = "SELECT timestamp FROM %s ORDER BY timestamp DESC LIMIT 1" % self.name
+        cursor = self.db.cursor()
+        nRows = cursor.execute(sql)
+
+        return cursor.fetchone()[0] if nRows > 0 else False
+
+    def bulkDelete(self, startDate, endDate):
+        sql = "DELETE FROM %s WHERE timestamp >= %s AND timestamp <= %s" % (self.name, startDate, endDate)
+        cursor = self.db.cursor()
+        try:
+            cursor.execute(sql, datalist)
+            self.db.commit()
+        except pymysql.error:
+            self.db.rollback()
+
+
+    def bulkInsertFromLatest(numRows):
+        latest = self._getLastTimestamp()
+        if not latest:
+            print("No record found from the database")
+            return
+        timestamp = latest
+        print("Inserting data...")
+        for x in range(numRows):
+            timestamp += timedelta(seconds=interval)
+            datalist = []
+            for column in self.columns:
+                if column == "node_id":
+                    datalist.append(node_id)
+                elif column == "timestamp":
+                    datalist.append(timestamp.strftime("%Y-%m-%d %H:%M:%S"))
+                else:
+                    datalist.append(round(abs(gauss(0, 50)), 2))
+            datalist = tuple(datalist)
+            cursor = self.db.cursor()
+            try:
+                cursor.execute(sql, datalist)
+                self.db.commit()
+            except pymysql.Error:
+                self.db.rollback()
+        d_from = latest.strftime("%Y-%m-%d %H:%M:%S")
+        d_to = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        print("DONE: Inserted %s rows from %s to %s" % (numRows, d_from, d_to))
+
+
+    def bulkInsert(self, node_id, startDate=None, endDate=None, interval=60):
+        if not startDate:
+            raise Exception("startDate must be provided")
+        if not endDate:
+            raise Exception("endDate must be provided")
+        sql = self._buildSQL()
+        timestamp = startDate
+        while timestamp <= endDate :
+            datalist = []
+            for column in self.columns:
+                if column == "node_id":
+                    datalist.append(node_id)
+                elif column == "timestamp":
+                    datalist.append(timestamp.strftime("%Y-%m-%d %H:%M:%S"))
+                else:
+                    datalist.append(round(abs(gauss(0, 50)), 2))
+            datalist = tuple(datalist)
+            cursor = self.db.cursor()
+            try:
+                cursor.execute(sql, datalist)
+                self.db.commit()
+                print("INSERTED:", datalist)
+            except pymysql.Error:
+                self.db.rollback()
+
+            timestamp += timedelta(seconds=interval)
+
+    def postData():
+        pass

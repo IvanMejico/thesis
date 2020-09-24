@@ -1,5 +1,6 @@
-/autoscript/venv
+./autoscript
 .vscode
 .jshintrc
 package-lock.json
 node_modules
+*.vis

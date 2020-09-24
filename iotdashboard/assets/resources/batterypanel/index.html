@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Component</title>
+    <link rel="stylesheet" href="assets/css/battery.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="battery-container" id="bc1" style="width: 200px; padding: 10px; margin-bottom: 20px;">
+        <div class="battery">
+            <div class="battery-body">
+                <div class="charge-cell discharged" data-load_name="Bulb 1">Priority 7</div>
+                <div class="charge-cell discharged" data-load_name="Fan 2">Priority 6</div>
+                <div class="charge-cell charged" data-load_name="Charger 1">Priority 5</div>
+                <div class="charge-cell charged" data-load_name="Emergency Light 1">Priority 4</div>
+                <div class="charge-cell charged" data-load_name="Fan 1">Priority 3</div> 
+                <div class="charge-cell charged" data-load_name="Bulb 2">Priority 2</div>
+                <div class="charge-cell charged" data-load_name="Bulb 3">Priority 1</div>
+            </div>
+            <div class="battery-tip"></div>
+            <div class="level-text">60%</div>
+        </div>
+    </div>
+
+
+    <div class="battery-container" id="bat-container" style="width: 200px; padding: 10px"></div>
+    <script src="assets/js/batterypanel.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

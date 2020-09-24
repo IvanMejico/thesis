@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include('home/config.php');
+	include('config/config.php');
 	$msg = "";
 	if(isset($_POST['username']) && isset($_POST['password'])) {
 		$conn = mysqli_connect($servername, $username, $password, $db);
@@ -33,9 +33,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="shortcut icon" type="image/x-icon" href="home/assets/logo.png">
-	<title>Wind-Solar Hybrid Monitoring System Dashboard</title>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png">
 	<link rel="stylesheet" href="assets/css/login.css">
+	<title>Wind-Solar Hybrid Monitoring System Dashboard</title>
 	<style>
 		.form-message {
 			background-color: #f21c1c;

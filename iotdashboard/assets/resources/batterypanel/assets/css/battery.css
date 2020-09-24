@@ -1,0 +1,78 @@
+.battery {
+    position: relative;
+    width: 126px; 
+    margin: 0 auto;
+}
+
+.battery-tip {
+    background-color: white;
+    width: 50px;
+    height: 15px;
+    border-radius: 5px 5px 0 0;
+    position: absolute;
+    top: -15px;
+    left: 30%;
+}
+
+.battery-body {
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 2px;
+    border-radius: 10px;
+    border: 7px solid white;
+    text-align: center;
+    color: rgb(95, 89, 89);
+    padding: 5px;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.charge-cell {
+    padding: 8px 3px;
+    user-select: none;
+    position: relative;
+}
+
+.charge-cell:hover {
+    background-color: rgb(123, 189, 23);
+    color: white;
+    font-weight: 600;
+}
+
+.charge-cell:hover::after {
+    content: attr(data-load_name);
+    width: 100px;
+    padding: 5px 10px 5px 15px;
+    font-weight: 100;
+    font-size: .7em;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 5px;
+    left: 100px;
+    background: linear-gradient(90deg, rgb(13, 107, 131) 1%, rgb(33, 101, 139) 36%, rgb(15, 103, 153) 68%);
+    border: 1px solid rgb(13, 68, 114);
+    border-radius: 100% 1px 1px 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.charge-cell.discharged:hover {
+    background-color: rgb(82, 76, 76);
+}
+.charged {
+    background-color: greenyellow;
+}
+
+.discharged {
+    color: rgb(129, 126, 126);
+    background-color: transparent;
+}
+
+.level-text {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1.4em;
+    color: white;
+}

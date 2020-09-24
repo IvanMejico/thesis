@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #635e5e;
+    background-image: url(../images/Wood-OS-X-Wallpaper.jpg);
+    background-size: auto;
+    display: flex;
+    font-family: "Arial";
+    justify-content: center;
+    padding: 4rem;
+}
+
+.data-table-container {
+    width: 560px;
+}
+
+.display-grid {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
