@@ -4,7 +4,7 @@ class Visualization {
 		this.chartContainer = options.chartContainer || null;
 		this.display = options.display;
 		this.readingType = options.readingType;
-		this.datapoints = {};
+		this.datapoints = {}; 
 	}
 
 	getDateTimeDifference(earlier, later) {
@@ -27,11 +27,31 @@ class Visualization {
 	_clearDatapoints() {
 		for (var datapoint in this.datapoints)
 			this.datapoints[datapoint] = [];
+	} 
+
+	_getDataLength(data) {
+		var length = data.length; 
+		if (this.readingType === 'overview' && Array.isArray(data[0])) {
+			var lens = Array();
+			data.forEach(function(i) {
+				lens.push(i.length);
+			});
+			length = Math.max(...lens);
+		}
+		return length; 
 	}
 
 	drawChart(data) {
-		if(data.length > 0) {
-			this.pushToChartDatapoints(data, true);
+		if(this._getDataLength(data) > 0) {
+			if (this.readingType === 'overview' && Array.isArray(data[0])) { 
+				var isReset = true;
+				data.forEach((d) => {
+					this.pushToChartDatapoints(d, isReset);
+					if (isReset) isReset = false;
+				});
+			} else { 
+				this.pushToChartDatapoints(data, true);
+			}
 			this.createChart().renderChart();
 		} else {
 			this.showNoDataMessage();
@@ -39,7 +59,7 @@ class Visualization {
 	}
 
 	updateChart(data) {
-		if(data.length > 0) {
+		if(this._getDataLength(data) > 0) {
 			this.pushToChartDatapoints(data, false);
 			try {
 				this.renderChart();
@@ -49,7 +69,7 @@ class Visualization {
 		} else {
 			this.showNoDataMessage();
 		}
- }
+	}
 
 	destroyChart() {
 		if(!this.chart) return; this.chart.destroy();
@@ -58,31 +78,28 @@ class Visualization {
 	pushToChartDatapoints(datasetArr, isReset=false) {
 		if (typeof(isReset) != 'boolean')
 			throw new Error("isReset should be boolean");
-		if (isReset || !this._previousTimestamp) {
-			this._clearDatapoints(); 
-			this._previousTimestamp = new Date(0);
-		}
+
+		if (isReset) this._clearDatapoints(); 
+		
 		datasetArr.forEach((item) => {
 			let timeStamp = new Date(item.timestamp); 
 			delete item.timestamp;
 
-			if (this._previousTimestamp.getTime() !== timeStamp.getTime()) {
-				for (let [key,value] of Object.entries(item)) { 
-					if (key == 'node_id') continue; 
-					if (this.readingType == "overview" && key == 'power')
-						key = node_config[item.node_id] + '_' +key; 
-					if (!this.datapoints[key])
-						this.datapoints[key] = Array(); 
-					this.datapoints[key].push({
-						x: new Date(timeStamp),
-						y: value === null ? null : parseFloat(value)
-					});
-				}
-				this._previousTimestamp = timeStamp;
-				var x = this.hasExeededMaxAllowedLength();
-				if (x && typeof x === "number") this.shiftDatapoints(x);
-			}
+			for (let [key,value] of Object.entries(item)) { 
+				if (key == 'node_id') continue; 
 
+				if (this.readingType == "overview" && key == 'power')
+					key = node_config[item.node_id] + '_' + key; 
+
+				if (!this.datapoints[key])
+					this.datapoints[key] = Array(); 
+				this.datapoints[key].push({
+					x: new Date(timeStamp),
+					y: value === null ? null : parseFloat(value)
+				});
+			}
+			if (this.hasExeededMaxAllowedLength() && typeof x === "number")
+				this.shiftDatapoints(x); 
 		});
 	}
 
@@ -165,7 +182,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Power",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#05a4ee",
 					lineColor: "#05a4ee",
 					markerColor: "#05a4ee",
@@ -181,7 +198,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Voltage",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#ec0b0b",
 					lineColor: "#ec0b0b",
 					markerColor: "#ec0b0b",
@@ -197,7 +214,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Current",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#007c1f",
 					lineColor: "#007c1f",
 					markerColor: "#007c1f",
@@ -213,7 +230,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Wind Speed",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#a80cad",
 					lineColor: "#a80cad",
 					markerColor: "#a80cad",
@@ -229,7 +246,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Solar Insolation",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#c4a704",
 					lineColor: "#c4a704",
 					markerColor: "#c4a704",
@@ -245,7 +262,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Solar Power",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#38ff00",
 					lineColor: "#38ff00",
 					markerColor: "#38ff00",
@@ -261,7 +278,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Wind Power",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#e8073c",
 					lineColor: "#e8073c",
 					markerColor: "#e8073c",
@@ -277,7 +294,7 @@ class Visualization {
 					xValueFormatString: "hh:mm:ss TT",
 					showInLegend: true,
 					name: "Load Consumption",
-					fillOpacity: 0.1,
+					fillOpacity: this.display.fillOpacity,
 					color: "#0004ff",
 					lineColor: "#0004ff",
 					markerColor: "#0004ff",

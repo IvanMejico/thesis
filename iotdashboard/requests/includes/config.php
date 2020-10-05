@@ -10,7 +10,7 @@ define('DB_HOST', '127.0.0.1');
 define('DEFAULT_CONTROLLER', 'Home');
 define('DEFAULT_LAYOUT', 'default');
 
-DEFINE('PROOT', '/iotdashboard/');
+define('PROOT', '/iotdashboard/');
 
 define('SITE_TITLE', 'IOT Dashboard');
 define('MENU_BRAND', 'IOT Dashboard');

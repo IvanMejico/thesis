@@ -1,6 +1,14 @@
-./autoscript
 .vscode
 .jshintrc
 package-lock.json
-node_modules
 *.vis
+note.MD
+*.lock
+__pycache__
+*.pyc
+*.MD
+node_modules
+./node_modules
+*.log
+package-lock.json
+

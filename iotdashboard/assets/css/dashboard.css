@@ -250,10 +250,22 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     margin-left: 10px;
-}
+} 
 
 .panel .numeric-power {
     color: rgb(5, 164, 238);
+}
+
+.panel .numeric-load_power {
+    color: rgb(50, 168, 82);
+}
+
+.panel .numeric-wind_power {
+    color: rgb(232, 7, 60);
+}
+
+.panel .numeric-solar_power {
+    color: rgb(56, 255, 0);
 }
 
 .panel .numeric-voltage {
@@ -289,7 +301,8 @@ body {
     display: block;
     font-size: .8em;
     font-style: normal;
-    color: #fff;
+    color: #fff; 
+		text-transform: capitalize;
 }
 
 .panel-control {

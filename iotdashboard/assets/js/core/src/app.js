@@ -20,6 +20,10 @@ import ioClient from 'socket.io-client';
 		return (' ' + el.className + ' ').indexOf(' ' + cn + ' ') !== -1;
 	},
 
+	isObjectLiteral = function(object) {
+
+	},
+
 	last = function (arr) {
 		if (arr instanceof Array && arr.length>0)
 			return arr[arr.length - 1];
@@ -39,7 +43,7 @@ import ioClient from 'socket.io-client';
 							to[prop] = new Date(from[prop].getTime());
 					}
 				}
-				else if (isArray(from[prop])) {
+				else if (Array.isArray(from[prop])) {
 					if (overwrite) {
 							to[prop] = from[prop].slice(0);
 					}
@@ -77,7 +81,7 @@ import ioClient from 'socket.io-client';
 		wind_speed: 'm/s<sup>2</sup>',
 		solar_insolation: 'W/m<sup>2</sup>',
 		solar_power: 'W',
-		turbine_power: 'W',
+		wind_power: 'W',
 		load_power: 'W'
 	
 	},
@@ -91,25 +95,29 @@ import ioClient from 'socket.io-client';
 			chartInterval: 1,
 			chartIntervalType: "hour",
 			chartType: "area",
-			xValueFormat: "HH:mm"
+			xValueFormat: "HH:mm",
+			fillOpacity: 0.1
 		},
 		week: {
 			chartInterval: 1,
 			chartIntervalType: "day",
 			chartType: "area",
-			xValueFormat: "DDDD"
+			xValueFormat: "DDDD",
+			fillOpacity: 0.1
 		},
 		month: {
 			chartInterval: 1,
 			chartIntervalType: "day",
 			chartType: "area",
-			xValueFormat: "DD"
+			xValueFormat: "DD",
+			fillOpacity: 0.1
 		},
 		year: {
 			chartInterval: 1,
 			chartIntervalType: "month",
 			chartType: "area",
-			xValueFormat: "MMMM"
+			xValueFormat: "MMMM",
+			fillOpacity: 0.1
 		}
 	},
 
@@ -143,29 +151,50 @@ import ioClient from 'socket.io-client';
 			return res; 
 		};
 
-		self.refreshNumericalDisplays = function (dataArr) {
-			self.hideAllNumericals();
-			var d = last(dataArr);
-			if (typeof d !== 'object') return;
-			for (let key in d) {
-				let value = d[key];
-				self.writeNumerical(key, value);
+		self.clearAllNumericals = function () {
+			var el = opts.container.querySelector('.numeric-group');
+			el.innerHTML = '';
+		};
+
+		self.drawNumericalDisplays = function (dataArr) {
+			var container = opts.container.querySelector('.numeric-group'); 
+
+			if (Array.isArray(dataArr[0])) { 
+				dataArr.forEach(function(i) {
+					self.renderNumbers(container, i);
+				});
+			} else if(dataArr[0].constructor === Object) { 
+				self.renderNumbers(container, dataArr);
+			} 
+		};
+
+		self.renderNumbers = function (container, array) {
+			var d = last(array);
+			if (typeof d !== 'object') return; 
+
+			for (let [key, value] of Object.entries(d)) {
+				if (key == 'node_id') continue; 
+				if (opts.reading_type == 'overview' && key == 'power')
+					key = node_config[d.node_id] + '_' + key; 
+
+				var existing = opts.container.querySelector('.numeric-'+key);
+				if (existing) {
+					existing.innerHTML = value !== null ? value.toFixed(2) : '0.00';
+					existing.innerHTML += suffix[key]; 
+				} else { 
+					var div = document.createElement('div'),
+							i = document.createElement('i'),
+							span = document.createElement('span');
+					
+					i.innerText = key.replace('_', ' ');
+					span.className = "numeric-" + key;
+					span.innerHTML = value !== null ? value.toFixed(2) : '0.00';
+					span.innerHTML += suffix[key];
+					div.append(i);
+					div.append(span); 
+					container.append(div); 
+				}
 			}
-		};
-
-		self.hideAllNumericals = function () {
-			var numbers = opts.container.querySelectorAll('.numeric-group span');
-			numbers.forEach(function (el) {
-					el.parentElement.style.display = 'none';
-			});
-		};
-
-		self.writeNumerical = function (key, value) {
-			var el = opts.container.querySelector('span.numeric-' + key);
-			if (!el) return;
-			el.parentElement.style.display = 'block';
-			el.innerHTML = value !== null ? value.toFixed(2) : '0.00';
-			el.innerHTML += suffix[key];
 		};
 
 		self.getSelectedTimeCtrl = function() {
@@ -181,7 +210,7 @@ import ioClient from 'socket.io-client';
 
 		self.getSelectedValueCtrl = function() {
 			let selected = null,
-				tabs = opts.container.querySelectorAll('div.value-control > input');
+					tabs = opts.container.querySelectorAll('div.value-control > input');
 			if (tabs.length === 0) return;
 			tabs.forEach((tab) => {
 				if(tab.checked) selected = tab.value;
@@ -232,10 +261,7 @@ import ioClient from 'socket.io-client';
 			url.searchParams.append('unit', self.state.reading_unit || 'all');
 			url.searchParams.append('scope', self.state.reading_scope || 'day');
 			url.searchParams.append('date', dateStr);
-			url.searchParams.append('access_token', access_token);
-
-			console.log(url.href);
-
+			url.searchParams.append('access_token', access_token); 
 			return url;
 		};
 
@@ -288,7 +314,7 @@ import ioClient from 'socket.io-client';
 					obs$.subscribe((ajaxObservable) => {
 						// console.log('AJAX response (picker):', ajaxObservable.response);
 						self.visualization.drawChart(ajaxObservable.response);
-						self.refreshNumericalDisplays(ajaxObservable.response);
+						self.drawNumericalDisplays(ajaxObservable.response);
 					});
 				}
 			});
@@ -306,7 +332,7 @@ import ioClient from 'socket.io-client';
 						obs$ = ajax(url.href).pipe(map(resp => resp));
 					obs$.subscribe((ajaxObservable) => {
 						self.visualization.drawChart(ajaxObservable.response);
-						self.refreshNumericalDisplays(ajaxObservable.response);
+						self.drawNumericalDisplays(ajaxObservable.response);
 					});
 				}
 			});
@@ -322,11 +348,10 @@ import ioClient from 'socket.io-client';
 		});
 		self.obs$.subscribe((ajaxObservable) => {
 			let data = ajaxObservable.response ;
-			console.log("response data", data);
-			console.log('STATE: ',self.state);
 			self.visualization.display = chartParams[self.state.reading_scope];
 			self.visualization.drawChart(data);
-			self.refreshNumericalDisplays(data);
+			self.clearAllNumericals();
+			self.drawNumericalDisplays(data);
 			self.renderPicker(opts.container.querySelector('.navigation-control'));
 		}); 
 
@@ -335,52 +360,49 @@ import ioClient from 'socket.io-client';
 			reading_date: new Date('2020-01-01'),
 			reading_scope: self.getSelectedTimeCtrl(), 
 			reading_unit: self.getSelectedValueCtrl(),
-		};
+		}; 
+
+		var display = Object.create(chartParams[self.state.reading_scope]); 
+		if (opts.reading_type === 'overview') {
+			display.chartType = 'line'; 
+			display.fillOpacity = 1;
+		}
 
 		self.visualization = new Visualization({
-			display: chartParams[self.state.reading_scope],
+			display: display,
 			dataLength: opts.data_length,
 			chartContainer: self.getChartContainer(),
 			readingType: opts.reading_type
-		});
+		}); 
 
 		var socket = io.connect('http://localhost:3000');
 		socket.on("new_feed", function(data) { 
-			console.log(data); 
-			if (self.hasExceededScope(new Date(data.timestamp)) || data.node_id !== opts.node_id) return; 
-			if (self.state.reading_unit != "all") { 
+			if (self.hasExceededScope(new Date(data.timestamp))) return; 
+			if (opts.reading_type !== "overview" && data.node_id !== opts.node_id) return;
+
+			if (opts.reading_type !== 'overview' && self.state.reading_unit != "all") { 
 				for(const key of Object.keys(data)) {
 					if(key !== "node_id" && key !== "timestamp" && key !== self.state.reading_unit)
 							delete data[key]; 
 				}
 			} 
 
-			/********************************
-			 * TODO: build url
-			 * TODO: render overview chart
-			 * TODO: update overview chart
-			 ********************************/
-			var d = [];
-			if (opts.reading_type === "overview") { 
-				if (data.power) {
-						// updateChart(data.power)
-				} 
-				if (data.solar_insolation) {
-						// updateChart(data.solar_insolation)
-				} 
-				if (data.wind_speed) {
-						// updateChart(data.wind_speed)
-				}
-			} else { 
-					d = Array(data);
+			if (opts.reading_type === "overview" && data.power) { 
+				var d = {},
+						type = node_config[data.node_id] + '_power'; 
+				d.node_id = data.node_id;
+				d.timestamp = data.timestamp;
+				d[type] = data.power;
+				data = d; 
 			} 
+
+			data = [data];
+
 			if(self.visualization.datapoints.length === 0)
-				// TODO: reading type check here to determine how to processs feedData
-				self.visualization.drawChart(d);
+				self.visualization.drawChart(data);
 			else
-				// TODO: reading type check here to determine how to processs feedData
-				self.visualization.updateChart(d);
-			self.refreshNumericalDisplays(d);
+				self.visualization.updateChart(data); 
+			self.drawNumericalDisplays(data);
 		}); 
 
 		self.renderPicker(opts.container.querySelector('.navigation-control'));
@@ -388,26 +410,18 @@ import ioClient from 'socket.io-client';
 		// Initial feed request
 		var url = self.buildFeedRequestURL(),
 			xhr = new XMLHttpRequest();
-		fetch(url.href,{
+		fetch(url.href, {
 			method: 'GET',
 			mode: 'same-origin',
 			credentials: 'same-origin',
 			headers: {
-					'Content-Type': 'application/json'
+				'Content-Type': 'application/json'
 			}
 		})
 		.then(res => res.json())
 		.then((feedData) => {
-			// console.log(feedData);
-			if (opts.reading_type === 'overview') {
-				feedData.forEach(function(dataset) {
-					self.visualization.pushToChartDatapoints(dataset, false); 
-				});
-				self.visualization.createChart().renderChart(); 
-			} else {
-				self.visualization.drawChart(feedData);
-			}
-			self.refreshNumericalDisplays(feedData);
+			self.visualization.drawChart(feedData); 
+			self.drawNumericalDisplays(feedData);
 		});
 	};
 
@@ -422,37 +436,38 @@ import ioClient from 'socket.io-client';
 	};
 
 	return ChartPanel;
-});
+}); 
 
-new Panel({
+// THESE CAN BE ITERATED
+self.overviewPanel = new Panel({
 	node_id: 'all', 
 	reading_type: 'overview',
 	container: document.getElementById('cpanel1'),
 	data_length: 300000
 }); 
 
-new Panel({
+self.envPanel = new Panel({
     node_id: 'esn001', 
     reading_type: 'environment',
     container: document.getElementById('cpanel2'),
     data_length: 300000
 });
 
-new Panel({
+self.loadPanel = new Panel({
     node_id: 'psn001', 
     reading_type: 'load',
     container: document.getElementById('cpanel3'),
     data_length: 300000
 });
 
-new Panel({
+self.windPanel = new Panel({
     node_id: 'psn002', 
     reading_type: 'wind',
     container: document.getElementById('cpanel4'),
     data_length: 300000
 });
 
-new Panel({
+self.solarPanel = new Panel({
     node_id: 'psn003', 
     reading_type: 'solar',
     container: document.getElementById('cpanel5'),

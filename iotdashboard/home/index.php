@@ -35,50 +35,42 @@ if(!isset($_SESSION['logged_in_user'])) {
 
 <style>
     #scrollBtn {
-	display: none;
-	position: fixed;
-	bottom: 20px;
-	right: 30px;
-	z-index: 99;
-	font-size: 18px;
-	border: none;
-	outline: none;
-	background-color: red;
-	color: white;
-	cursor: pointer;
-	padding: 15px;
-	border-radius: 5px;
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
+			display: none;
+			position: fixed;
+			bottom: 20px;
+			right: 30px;
+			z-index: 99;
+			font-size: 18px;
+			border: none;
+			outline: none;
+			background-color: red;
+			color: white;
+			cursor: pointer;
+			padding: 15px;
+			border-radius: 5px;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
     }
 
     #scrollBtn:before {
-	margin: 0;
-	padding: 0;
-	font-weight: 700;
-	line-height: 0.2em;
+			margin: 0;
+			padding: 0;
+			font-weight: 700;
+			line-height: 0.2em;
     }
 
     #scrollBtn:hover {
-	background-color: #555;
+			background-color: #555;
     }
 
     html {
-	scroll-behavior: smooth;
+			scroll-behavior: smooth;
     }
 </style>
 </head>
 <body>
 	
-	<!-- <div id="loader">
-		<div class="battery-loader">
-			<span class="battery-loader_item"></span>
-			<span class="battery-loader_item"></span>
-			<span class="battery-loader_item"></span>
-		</div>
-	</div> -->
-
 	<button onclick="topFunction()" id="scrollBtn" class="flaticon-up-arrow" title="Go to top"></button>
 
 	<div class="header">
@@ -120,21 +112,8 @@ if(!isset($_SESSION['logged_in_user'])) {
 						<div class="navigation-control">
 						</div>
 					</div>
-					<div class="panel-body">
-			
-						<div class="numeric-group">
-							<div>
-								<i>Solar Power</i>
-								<span class="numeric-panel_power">0.00</span>
-							</div>
-							<div>
-								<i>Wind Power</i>
-								<span class="numeric-turbine_power">0.00</span>
-							</div>
-							<div>
-								<i>Consumption</i>
-								<span class="numeric-load_power">0.00</span>
-							</div>
+					<div class="panel-body"> 
+						<div class="numeric-group"> 
 						</div>
 						<div class="chart">
 							<div class="chart-container" style="height: 370px; margin: 0px auto;"></div>
@@ -176,14 +155,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 					<div class="panel-body">
 			
 						<div class="numeric-group">
-							<div>
-								<i>Wind Speed</i>
-								<span class="numeric-wind_speed">0.00</span>
-							</div>
-							<div>
-								<i>Solar Insolation</i>
-								<span class="numeric-solar_insolation">0.00</span>
-							</div>
 						</div>
 						<div class="chart">
 							<div class="chart-container" style="height: 370px; margin: 0px auto;"></div>
@@ -223,18 +194,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 					</div>
 					<div class="panel-body">
 						<div class="numeric-group">
-							<div>
-								<i>Power</i>
-								<span class="numeric-power">0.00</span>
-							</div>
-							<div>
-								<i>Voltage</i>
-								<span class="numeric-voltage">0.00</span>
-							</div>
-							<div>
-								<i>Current</i>
-								<span class="numeric-current">0.00</span>
-							</div>
 						</div>
 						<div class="chart">
 							<div class="chart-container" style="height: 370px; margin: 0px auto;"></div>
@@ -276,18 +235,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 					</div>
 					<div class="panel-body">
 						<div class="numeric-group">
-							<div>
-								<i>Power</i>
-								<span class="numeric-power">0.00</span>
-							</div>
-							<div>
-								<i>Voltage</i>
-								<span class="numeric-voltage">0.00</span>
-							</div>
-							<div>
-								<i>Current</i>
-								<span class="numeric-current">0.00</span>
-							</div>
 						</div>
 						<div class="chart">
 							<div class="chart-container" style="height: 370px; margin: 0px auto;"></div>
@@ -326,18 +273,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 					</div>
 					<div class="panel-body">
 						<div class="numeric-group">
-							<div>
-								<i>Power</i>
-								<span class="numeric-power">0.00</span>
-							</div>
-							<div>
-								<i>Voltage</i>
-								<span class="numeric-voltage">0.00</span>
-							</div>
-							<div>
-								<i>Current</i>
-								<span class="numeric-current">0.00</span>
-							</div>
 						</div>
 						<div class="chart">
 							<div class="chart-container" style="height: 370px; margin: 0px auto;"></div>
@@ -389,41 +324,44 @@ if(!isset($_SESSION['logged_in_user'])) {
 	
 	<script>
 	    var node_config = {
-		'esn001': 'environment',
-		'psn001': 'load',
-		'psn002': 'wind',
-		'psn003': 'solar',
+				'esn001': 'environment',
+				'psn001': 'load',
+				'psn002': 'wind',
+				'psn003': 'solar',
 	    };
+
 	    window.onload = function() {
-		setTimeout(function() {
-		    document.getElementsByTagName('body')[0].className= 'loaded';	
-		}, 2000);
-	    }
-	    var mybutton = document.getElementById("scrollBtn");
-	    window.onscroll = function() {scrollFunction()};
-	    function scrollFunction() {
-		if (document.body.scrollTop > 1500 || document.documentElement.scrollTop > 1500) {
-		    mybutton.style.display = "block";
-		} else {
-		    mybutton.style.display = "none";
-		}
-	    }
-	    function topFunction() {
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0;
-	    }
+				setTimeout(function() {
+						document.getElementsByTagName('body')[0].className= 'loaded';	
+				}, 2000);
+			}
 
-	    var ledpanel = new LedPanel({
-		container: document.getElementById('indicators-panel')
-	    });
+			var mybutton = document.getElementById("scrollBtn");
+			window.onscroll = function() {scrollFunction()};
+			function scrollFunction() {
+				if (document.body.scrollTop > 1500 || document.documentElement.scrollTop > 1500) {
+						mybutton.style.display = "block";
+				} else {
+						mybutton.style.display = "none";
+				}
+			}
 
-	    var ptable = new Priotable({
-		container: document.getElementById('asf23fsd')
-	    });
+			function topFunction() {
+				document.body.scrollTop = 0;
+				document.documentElement.scrollTop = 0;
+			}
 
-	    var batpanel = new BatteryPanel({
-		container: document.getElementById('bat-container')
-	    })
-	</script>
+			var ledpanel = new LedPanel({
+				container: document.getElementById('indicators-panel')
+			});
+
+			var ptable = new Priotable({
+				container: document.getElementById('asf23fsd')
+			});
+
+			var batpanel = new BatteryPanel({
+				container: document.getElementById('bat-container')
+			})
+		</script>
 	</body>
 </html>

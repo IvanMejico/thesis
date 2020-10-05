@@ -13,14 +13,14 @@ class EnergyFeed extends Feed {
         $data["power"] = round($data["voltage"] * $data["current"], 2); 
         unset($data['id']);
         $this->emitSocketEvent('new_feed', $data);
-	echo "Data successfully saved.";
+				echo "Data successfully saved.";
     }
 
     public function findAllReadings($params = []) {
         $params = $this->_softDeleteParams($params);
         $resultsQuery = $this->_db->find($this->_table, $params);
         if(!$resultsQuery) return [];
-	foreach($resultsQuery as $r)
+				foreach($resultsQuery as $r)
             $r->power = round($r->voltage * $r->current, 2); 
         return $resultsQuery; 
     }

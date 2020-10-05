@@ -24,7 +24,7 @@ class Feed extends Model {
     public function findAllReadings($params = []) {
         $params = $this->_softDeleteParams($params);
         $resultsQuery = $this->_db->find($this->_table, $params);
-	return $resultsQuery ? $resultsQuery : [];
+				return $resultsQuery ? $resultsQuery : [];
     }
     
     public function emitSocketEvent($eventName, $data) {
