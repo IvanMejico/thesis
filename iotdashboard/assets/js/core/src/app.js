@@ -157,6 +157,7 @@ import ioClient from 'socket.io-client';
 		};
 
 		self.drawNumericalDisplays = function (dataArr) {
+			if(dataArr.length === 0) return;
 			var container = opts.container.querySelector('.numeric-group'); 
 
 			if (Array.isArray(dataArr[0])) { 
@@ -348,7 +349,13 @@ import ioClient from 'socket.io-client';
 		});
 		self.obs$.subscribe((ajaxObservable) => {
 			let data = ajaxObservable.response ;
-			self.visualization.display = chartParams[self.state.reading_scope];
+
+			var display = Object.create(chartParams[self.state.reading_scope]); 
+			if (opts.reading_type === 'overview') {
+				display.chartType = 'line'; 
+				display.fillOpacity = 1;
+			} 
+			self.visualization.display = display;
 			self.visualization.drawChart(data);
 			self.clearAllNumericals();
 			self.drawNumericalDisplays(data);
@@ -366,8 +373,7 @@ import ioClient from 'socket.io-client';
 		if (opts.reading_type === 'overview') {
 			display.chartType = 'line'; 
 			display.fillOpacity = 1;
-		}
-
+		} 
 		self.visualization = new Visualization({
 			display: display,
 			dataLength: opts.data_length,
@@ -409,7 +415,7 @@ import ioClient from 'socket.io-client';
 		
 		// Initial feed request
 		var url = self.buildFeedRequestURL(),
-			xhr = new XMLHttpRequest();
+				xhr = new XMLHttpRequest();
 		fetch(url.href, {
 			method: 'GET',
 			mode: 'same-origin',
