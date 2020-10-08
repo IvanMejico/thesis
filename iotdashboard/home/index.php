@@ -71,6 +71,14 @@ if(!isset($_SESSION['logged_in_user'])) {
 </head>
 <body>
 	
+	<div id="loader">
+		<div class="battery-loader">
+			<span class="battery-loader_item"></span>
+			<span class="battery-loader_item"></span>
+			<span class="battery-loader_item"></span>
+		</div>
+	</div>
+
 	<button onclick="topFunction()" id="scrollBtn" class="flaticon-up-arrow" title="Go to top"></button>
 
 	<div class="header">
@@ -95,7 +103,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 		<div class="panel-group1">
 			<div id="cpanel1">
 				<div id="overview" class="panel overview" data-key="overview">
-					<div class="panel-header"><h3>Energy Generation and Consumption Overview</h3></div>
+					<div class="panel-header"><h3>Readings Overview</h3></div>
 					<div class="panel-control">
 						<div class="tab-control">
 							<div class="time-control">
@@ -307,7 +315,6 @@ if(!isset($_SESSION['logged_in_user'])) {
 
 	</div>
 	<div class="footer">
-		This part will be reserved for info about tech that was used. Period. Maybe not.
 	</div>
 	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 	<script src="../assets/js/dateformatter.js"></script>
