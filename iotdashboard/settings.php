@@ -1,7 +1,7 @@
 <?php
 $msg = '';
 
-include('home/config.php');
+include('requests/includes/config.php');
 if(isset($_POST['new-username']) && isset($_POST['new-password'])) {
     // No password hashing yet
     $conn = mysqli_connect($servername, $username, $password, $db);

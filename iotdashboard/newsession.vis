@@ -1,0 +1,231 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd /opt/lampp/htdocs/iotdashboard
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +175 assets/js/core/src/app.js
+badd +201 assets/js/visualization.js
+badd +1 requests/requests.php
+badd +29 requests/includes/Feed.php
+badd +25 requests/EnergyFeed.php
+badd +15 requests/EnvironmentFeed.php
+badd +3 requests/includes/nodeconfig.php
+badd +25 requests/includes/config.php
+badd +138 home/index.php
+badd +283 assets/css/dashboard.css
+badd +46 requests/includes/Model.php
+badd +197 tests/python/data_sumbissions/RandomDataSubmitter.py
+badd +1 .git/config
+badd +1 assets/resources/priotable/assets/css/table.css
+badd +64 assets/resources/priotable/assets/js/priotable.js
+argglobal
+%argdel
+$argadd assets/js/core/src/app.js
+edit assets/js/core/src/app.js
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=7
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+11
+normal! zo
+37
+normal! zo
+39
+normal! zo
+41
+normal! zo
+42
+normal! zo
+43
+normal! zo
+126
+normal! zo
+130
+normal! zo
+134
+normal! zo
+160
+normal! zo
+163
+normal! zo
+172
+normal! zo
+176
+normal! zo
+201
+normal! zo
+212
+normal! zo
+213
+normal! zo
+223
+normal! zo
+224
+normal! zo
+238
+normal! zo
+346
+normal! zo
+380
+normal! zo
+let s:l = 134 - ((32 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+134
+normal! 019|
+tabedit requests/requests.php
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 93 + 92) / 185)
+exe 'vert 2resize ' . ((&columns * 91 + 92) / 185)
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+17
+normal! zo
+18
+normal! zo
+21
+normal! zo
+24
+normal! zo
+40
+normal! zo
+49
+normal! zo
+52
+normal! zo
+54
+normal! zo
+57
+normal! zo
+65
+normal! zo
+68
+normal! zo
+69
+normal! zo
+73
+normal! zo
+76
+normal! zo
+86
+normal! zo
+87
+normal! zo
+94
+normal! zo
+96
+normal! zo
+97
+normal! zo
+let s:l = 37 - ((36 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+37
+normal! 0
+wincmd w
+argglobal
+if bufexists("requests/includes/Feed.php") | buffer requests/includes/Feed.php | else | edit requests/includes/Feed.php | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+let s:l = 100 - ((54 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+100
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 93 + 92) / 185)
+exe 'vert 2resize ' . ((&columns * 91 + 92) / 185)
+tabedit home/index.php
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=4
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+95
+normal! zo
+97
+normal! zo
+100
+normal! zo
+128
+normal! zo
+131
+normal! zo
+133
+normal! zc
+let s:l = 135 - ((41 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+135
+normal! 01|
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToO
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

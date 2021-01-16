@@ -70,8 +70,8 @@
     defaults = {},
 
     url = {
-        loads: "http://localhost/iotdashboard/requests/Loads.php",
-        soc: "http://localhost/iotdashboard/requests/Battery.php",
+        loads: "http://192.168.254.10/iotdashboard/requests/relay.php?type=client",
+        soc: "http://192.168.254.10/iotdashboard/requests/socstatus.php",
     },
 
     BatteryPanel = function(options) {
@@ -101,9 +101,9 @@
                     soc = self.soc = socdata.level,
                     cpc = 100/arr.length;
                 let nodes = arr.map(function(value, index) {
-                    let c = 100-(cpc*(index+1));
-                    return renderCell(value, soc > c);
-                });
+                                let c = 100-(cpc*(index+1));
+                                return renderCell(value, soc > c);
+                            });
                 level.innerText = soc + '%';
                 body.append(...nodes);
             });
@@ -115,26 +115,17 @@
         };
 
         self.refreshCells = function() {
-            fetch(url.loads, {
-                method: 'GET',
-                mode: 'same-origin',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            fetch(url.loads)
             .then((res) => res.json())
             .then((data) => {
                 let cells = opts.container.querySelectorAll('.battery .battery-body div.charge-cell');
-                console.log(cells, data);
                 cells.forEach(function(cell, index) {
                     var priolevel = parseInt(cell.dataset.priority_level),
                         n = data.length,
                         arr = data.reverse(),
-                        chargePerCell = 100/n,
-                        leftCharge = 100-(chargePerCell*(index+1));
+                        cpc = 100/n,
+                        leftCharge = 100-(cpc*(index+1));
                     cell.dataset.load_name = arr[index].load_name;
-                    console.log(chargePerCell, leftCharge);
                     if(self.soc > leftCharge)  {
                         removeClass(cell, 'discharged');
                         addClass(cell, 'charged');
@@ -143,7 +134,8 @@
                         addClass(cell, 'discharged');
                     }
                 });
-            });
+            })
+            .catch((error) => console.log("Battery Panel(refreshCells) Error:", error));
         };
 
         self.addCell = function(data) {
@@ -169,7 +161,7 @@
             self.refreshCells();
         };
 
-        var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('http://192.168.254.10:3000');
         socket.on('loadlist_insert', self.addCell);
         socket.on('loadlist_update', self.updateCellData);
         socket.on('loadlist_delete', self.deleteCell);
@@ -188,21 +180,15 @@
         },
 
         draw: function() {
-            fetch(url.loads, {
-                method: 'GET',
-                mode: 'same-origin',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            fetch(url.loads)
             .then((res) => res.json())
             .then((data) => {
                 // console.log('batterypanel request(draw method)', data);
                 let el = this._renderBattery(data);
                 this._o.container.append(el);
                 this._panel = el;
-            });
+            })
+            .catch((error) => console.log("Battery Panel (draw) Error:", error)); 
         }
     };
 

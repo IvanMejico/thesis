@@ -43,6 +43,7 @@ function emitNewOrder(http_server) {
             console.log('record deleted from loadlist.');
             io.emit('loadlist_delete', data);
         });
+
         // Battery events
         socket.on('battery_update', function(data) {
             console.log('battery updated');

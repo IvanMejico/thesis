@@ -246,7 +246,7 @@ body {
     font-size: 1.6em;
     padding-right: 30px;
     display: block;
-    width: 193px;
+    width: 160px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin-left: 10px;
@@ -281,7 +281,7 @@ body {
 }
 .panel .numeric-solar_insolation {
     color: rgb(196, 167, 4);
-    width: 340px;
+    width: 200px;
 }
 
 .panel .numeric-panel_power {

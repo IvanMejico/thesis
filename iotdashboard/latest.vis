@@ -1,0 +1,166 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd /opt/lampp/htdocs/iotdashboard
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +422 assets/js/core/src/app.js
+badd +201 assets/js/visualization.js
+badd +12 requests/requests.php
+badd +6 requests/includes/Feed.php
+badd +4 requests/EnergyFeed.php
+badd +15 requests/EnvironmentFeed.php
+badd +3 requests/includes/nodeconfig.php
+badd +25 requests/includes/config.php
+badd +138 home/index.php
+badd +283 assets/css/dashboard.css
+badd +46 requests/includes/Model.php
+badd +197 tests/python/data_sumbissions/RandomDataSubmitter.py
+badd +1 .git/config
+badd +1 assets/resources/priotable/assets/css/table.css
+badd +353 assets/resources/priotable/assets/js/priotable.js
+badd +16 requests/Loads.php
+badd +7 requests/relay.php
+badd +73 assets/resources/batterypanel/assets/js/batterypanel.js
+badd +0 assets/resources/ledpanel/assets/js/ledpanel.js
+argglobal
+%argdel
+$argadd assets/js/core/src/app.js
+edit assets/resources/ledpanel/assets/js/ledpanel.js
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 31 + 75) / 150)
+exe 'vert 2resize ' . ((&columns * 118 + 75) / 150)
+argglobal
+enew
+file NERD_tree_3
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+wincmd w
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+let s:l = 102 - ((24 * winheight(0) + 18) / 37)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+102
+normal! 047|
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 75) / 150)
+exe 'vert 2resize ' . ((&columns * 118 + 75) / 150)
+tabedit requests/relay.php
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 31 + 75) / 150)
+exe 'vert 2resize ' . ((&columns * 118 + 75) / 150)
+argglobal
+enew
+file NERD_tree_1
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+wincmd w
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=10
+setlocal nofen
+let s:l = 7 - ((6 * winheight(0) + 18) / 37)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+7
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 75) / 150)
+exe 'vert 2resize ' . ((&columns * 118 + 75) / 150)
+tabedit home/index.php
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=4
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+104
+normal! zo
+106
+normal! zo
+104
+normal! zc
+let s:l = 135 - ((31 * winheight(0) + 18) / 37)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+135
+normal! 0
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToO
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

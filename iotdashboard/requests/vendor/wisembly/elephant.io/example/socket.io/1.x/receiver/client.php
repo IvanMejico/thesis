@@ -14,7 +14,7 @@ use ElephantIO\Engine\SocketIO\Version1X;
 
 require __DIR__ . '/../../../../vendor/autoload.php';
 
-$client = new Client(new Version1X('http://localhost:1337'));
+$client = new Client(new Version1X('http://192.168.254.10:1337'));
 
 $client->initialize();
 

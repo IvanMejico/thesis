@@ -9,7 +9,7 @@ class Validator {
         }
     }
 
-    public function confirmAccessToken($token) {
+    public static function confirmAccessToken($token) {
         if($token !== ACCESS_TOKEN) {
             throw new Exception('Invalid access token.');
         } 

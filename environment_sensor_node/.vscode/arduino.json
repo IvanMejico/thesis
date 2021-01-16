@@ -1,6 +1,0 @@
-{
-    "board": "arduino:avr:nano",
-    "configuration": "cpu=atmega328old",
-    "port": "COM3",
-    "sketch": "environment_sensor_node.ino"
-}

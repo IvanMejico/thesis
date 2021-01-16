@@ -5,6 +5,47 @@ class Visualization {
 		this.display = options.display;
 		this.readingType = options.readingType;
 		this.datapoints = {}; 
+		this._maxReadableLength = 170;
+	}
+
+	_sortTimestamp(timestampArr) { 
+		return timestampArr.sort((a, b) => b > a? 1: -1); // sort earliest to latest
+	}
+
+	getEarliestDatapointTimestamp() { 
+		var timestampArr = Array();
+		for (let [key,value] of Object.entries(this.datapoints)) {
+			if(value.length === 0) continue;
+			timestampArr.push(value[0].x);
+		} 
+		var sortedTimestamps = this._sortTimestamp(timestampArr)
+
+		return sortedTimestamps[0]; 
+	} 
+
+	getLatestDatapointTimestamp() {
+		var timestampArr = Array();
+		for (let [key,value] of Object.entries(this.datapoints)) {
+			if(value.length === 0) continue;
+			timestampArr.push(value[value.length-1].x);
+		} 
+		var sortedTimestamps = this._sortTimestamp(timestampArr)
+
+		return sortedTimestamps[sortedTimestamps.length-1]; 
+	}
+
+	getEllapsedTime() {
+		var earliest = this.getEarliestDatapointTimestamp();
+		var latest = this.getLatestDatapointTimestamp();
+		var ellapsed;
+
+		if(earliest === undefined && latest === undefined) { 
+			return false;
+		}
+		else {
+			ellapsed = this.getDateTimeDifference(earliest, latest) 
+			return ellapsed; 
+		}
 	}
 
 	getDateTimeDifference(earlier, later) {
@@ -58,9 +99,10 @@ class Visualization {
 		}
 	}
 
-	updateChart(data) {
+	updateChart(data) { 
 		if(this._getDataLength(data) > 0) {
 			this.pushToChartDatapoints(data, false);
+			this.force24HourChartInterval();
 			try {
 				this.renderChart();
 			} catch(err) {
@@ -68,7 +110,7 @@ class Visualization {
 			}
 		} else {
 			this.showNoDataMessage();
-		}
+		} 
 	}
 
 	destroyChart() {
@@ -95,7 +137,7 @@ class Visualization {
 					this.datapoints[key] = Array(); 
 				this.datapoints[key].push({
 					x: new Date(timeStamp),
-					y: value === null ? null : parseFloat(value)
+					y: value !== null ? parseFloat(value) : null 
 				});
 			}
 			if (this.hasExeededMaxAllowedLength() && typeof x === "number")
@@ -103,13 +145,17 @@ class Visualization {
 		});
 	}
 
-	hasExeededMaxAllowedLength() {
+	getCurrentMaxLength() { 
 		let lengthArr = [], currentMaxLen;
 		for(let readingItem of Object.values(this.datapoints))
 			lengthArr.push(readingItem .length);
 		currentMaxLen = Math.max.apply(null, lengthArr);
 
-		return currentMaxLen > this.dataLength ? currentMaxLen-this.dataLength : false; 
+		return currentMaxLen;
+	}
+
+	hasExeededMaxAllowedLength() { 
+		return this.getCurrentMaxLength() > this.dataLength ? currentMaxLen-this.dataLength : false; 
 	}
 
 	shiftDatapoints(n) {
@@ -159,7 +205,7 @@ class Visualization {
 			}, 
 			axisY: {
 				// title: 'PIV',
-				includeZero: false,
+				includeZero: true,
 				gridThickness: 1,
 				gridColor: "#424a44",
 				labelFontColor: "#fff",
@@ -169,7 +215,7 @@ class Visualization {
 					labelFontColor: "#F8F8F8",
 					snapToDataPoint: false
 				},
-				logarithmic: true
+				logarithmic: false
 			},
 
 			data: [
@@ -186,7 +232,7 @@ class Visualization {
 					color: "#05a4ee",
 					lineColor: "#05a4ee",
 					markerColor: "#05a4ee",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.power
 				}, 
 				// VOLTAGE
@@ -202,7 +248,7 @@ class Visualization {
 					color: "#ec0b0b",
 					lineColor: "#ec0b0b",
 					markerColor: "#ec0b0b",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.voltage
 				}, 
 				// CURRENT
@@ -218,7 +264,7 @@ class Visualization {
 					color: "#007c1f",
 					lineColor: "#007c1f",
 					markerColor: "#007c1f",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.current
 				}, 
 				// WIND SPEED
@@ -234,7 +280,7 @@ class Visualization {
 					color: "#a80cad",
 					lineColor: "#a80cad",
 					markerColor: "#a80cad",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.wind_speed
 				}, 
 				// SOLAR INSOLATION
@@ -250,7 +296,7 @@ class Visualization {
 					color: "#c4a704",
 					lineColor: "#c4a704",
 					markerColor: "#c4a704",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.solar_insolation
 				}, 
 				// Solar Power
@@ -266,7 +312,7 @@ class Visualization {
 					color: "#38ff00",
 					lineColor: "#38ff00",
 					markerColor: "#38ff00",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.solar_power
 				}, 
 				// Wind Power
@@ -282,7 +328,7 @@ class Visualization {
 					color: "#e8073c",
 					lineColor: "#e8073c",
 					markerColor: "#e8073c",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.wind_power
 				}, 
 				// Load Consumption
@@ -298,13 +344,77 @@ class Visualization {
 					color: "#0004ff",
 					lineColor: "#0004ff",
 					markerColor: "#0004ff",
-					markerSize: 0,
+					markerSize: 5,
 					dataPoints: this.datapoints.load_power
 				}
 			]
 		});
+		this.force24HourChartInterval();
+
 		return this; 
 	}
+
+	/**
+	 * ELLAPSED | INTERVAL | INTERVAL TYPE
+	 * ---------+----------+-----------------
+	 * default  | 1        | second
+	 * 30 secs  | 15       | second
+	 * 1 mins   | 1        | minute
+	 * 30 mins  | 5        | minute
+	 * 1 hour   | 15       | minute
+	 * 2 hours  | 30       | minute	
+	 * 6 hours  | 1	       | hour
+	 */
+	force24HourChartInterval() { 
+		if(this.chart === undefined) return;
+		var xIntervalType = this.chart.options.axisX.intervalType;
+
+		if( xIntervalType == "day" ||
+			xIntervalType == "week" ||
+			xIntervalType == "month" ||
+			xIntervalType == "year" ) { return }
+
+		var ellapsedTime = this.getEllapsedTime()[0]; 
+		var elHour = ellapsedTime.hh,
+			elMinute = ellapsedTime.mm,
+			elSecond = ellapsedTime.ss;
+
+		// NOTE: These are conditions that are applicable only for dataset
+		// 		within 24 hours of end-to-end interval 
+		if(ellapsedTime) { 
+			if(elHour === 0 && elMinute === 0 && elSecond >= 30) { 
+				// When 30 seconds or more has passed
+				this.chart.options.axisX.interval = 15; 
+				this.chart.options.axisX.intervalType = "second";
+				this.chart.options.axisX.valueFormatString = "ss"
+			} else if (elHour === 0 && elMinute >= 1 && elMinute < 30) { 
+				// When 1 minute or more has passed
+				this.chart.options.axisX.interval = 1;
+				this.chart.options.axisX.intervalType = "minute";
+				this.chart.options.axisX.valueFormatString = "HH:mm"
+			} else if(elHour === 0 && elMinute >= 30 && elMinute <= 59) { 
+				// When 30 minutes or more has passed
+				this.chart.options.axisX.interval = 5;
+				this.chart.options.axisX.intervalType = "minute";
+				this.chart.options.axisX.valueFormatString = "HH:mm"
+			} else if(elHour >= 1 && elHour < 2){ 
+				// When the ellaped time is between 1 to 2 hours
+				this.chart.options.axisX.interval = 15;
+				this.chart.options.axisX.intervalType = "minute";
+				this.chart.options.axisX.valueFormatString = "HH:mm"
+			} else if(elHour >= 2 && elHour < 6) {
+				// When the ellapsed time is between 2 to 6 hours
+				this.chart.options.axisX.interval = 30;
+				this.chart.options.axisX.intervalType = "minute";
+				this.chart.options.axisX.valueFormatString = "HH:mm"
+			} else if(elHour >= 6) { 
+				// When the ellapsed time is 6 hours or more
+				this.chart.options.axisX.interval = 1;
+				this.chart.options.axisX.intervalType = "hour";
+				this.chart.options.axisX.valueFormatString = "HH"
+			} 
+		}
+	}	
 
 	renderChart() {
 		this.chart.render();

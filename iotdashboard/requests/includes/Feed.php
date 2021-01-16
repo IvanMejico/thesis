@@ -1,15 +1,16 @@
 <?php 
 
-// == SERVER:
-// retrieval
-// filtering
-// parsing
-// returning
-// == CLIENT 
-// parsing
-// pushing
-// rendering
-
+/* 
+| ## SERVER:
+| > data retrieval
+| > data filtering
+| > data encoding (JSON)
+|
+| ## CLIENT 
+| > parsing from JSON
+| > pushing to datapoints
+| > rendering data to charts
+*/ 
 
 require("vendor/autoload.php");
 use ElephantIO\Client;
@@ -29,7 +30,7 @@ class Feed extends Model {
     
     public function emitSocketEvent($eventName, $data) {
         try {
-            $client = new Client(new Version2X('http://localhost:3000'));
+            $client = new Client(new Version2X('http://192.168.254.10:3000'));
             $client->initialize();
             $client->emit($eventName, $data);
             $client->close();

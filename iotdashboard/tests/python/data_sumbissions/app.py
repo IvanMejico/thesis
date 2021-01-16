@@ -18,7 +18,7 @@ import sys, getopt
 def main(argv):
     HOST = "localhost"
     USERNAME = "root"
-    PASSWORD = ""
+    PASSWORD = "root"
     DATABASE = "sensor_database"
 
     helpText = 'app.py -o [database operation] -n [node id] -s [starting date] -e [ending date] -i [interval in seconds] -t [delay in seconds]'

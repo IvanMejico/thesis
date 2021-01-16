@@ -20,10 +20,6 @@ import ioClient from 'socket.io-client';
 		return (' ' + el.className + ' ').indexOf(' ' + cn + ' ') !== -1;
 	},
 
-	isObjectLiteral = function(object) {
-
-	},
-
 	last = function (arr) {
 		if (arr instanceof Array && arr.length>0)
 			return arr[arr.length - 1];
@@ -90,12 +86,18 @@ import ioClient from 'socket.io-client';
 		data_length: 100   
 	},
 
+
+	 // IDEA: Base the values of chartInterval, chartIntervalType, and xValueformat
+	 //	from the amount of time that has ellapsed end to end.
+
+
+	 // These are default values and are bound to change in runtime
 	chartParams = {
 		day: {
 			chartInterval: 1,
-			chartIntervalType: "hour",
+			chartIntervalType: "second",
 			chartType: "area",
-			xValueFormat: "HH:mm",
+			xValueFormat: "ss",
 			fillOpacity: 0.1
 		},
 		week: {
@@ -252,7 +254,7 @@ import ioClient from 'socket.io-client';
 		}; 
 
 		self.buildFeedRequestURL = function() {
-			var url = new URL("http://localhost/iotdashboard/requests/requests.php"),
+			var url = new URL("http://192.168.254.10/iotdashboard/requests/requests.php"),
 					formatter = new DateStringFormatter(),
 					format = "YYYY-MM-DD",
 					isWeek = self.state.reading_scope === 'week',
@@ -364,7 +366,7 @@ import ioClient from 'socket.io-client';
 
 		// initialize state values
 		self.state = {
-			reading_date: new Date('2020-01-01'),
+			reading_date: new Date(),
 			reading_scope: self.getSelectedTimeCtrl(), 
 			reading_unit: self.getSelectedValueCtrl(),
 		}; 
@@ -381,7 +383,7 @@ import ioClient from 'socket.io-client';
 			readingType: opts.reading_type
 		}); 
 
-		var socket = io.connect('http://localhost:3000');
+		var socket = io.connect('http://192.168.254.10:3000');
 		socket.on("new_feed", function(data) { 
 			if (self.hasExceededScope(new Date(data.timestamp))) return; 
 			if (opts.reading_type !== "overview" && data.node_id !== opts.node_id) return;
@@ -421,7 +423,7 @@ import ioClient from 'socket.io-client';
 			mode: 'same-origin',
 			credentials: 'same-origin',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'text/html'
 			}
 		})
 		.then(res => res.json())

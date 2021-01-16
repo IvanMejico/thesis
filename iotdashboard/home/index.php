@@ -34,43 +34,57 @@ if(!isset($_SESSION['logged_in_user'])) {
 <link rel="stylesheet" type="text/css" href="../assets/resources/batterypanel/assets/css/battery.css">
 
 <style>
+	div#radio-auto {
+		color: white;
+		display: block;
+		float: right;
+		margin-bottom: 10px;
+		padding-right: 10px;
+		font-weight: 300;
+	}
+
+	div#radio-auto input {
+		display: inline-block;
+		margin-right: 15px;
+	}
+
     #scrollBtn {
-			display: none;
-			position: fixed;
-			bottom: 20px;
-			right: 30px;
-			z-index: 99;
-			font-size: 18px;
-			border: none;
-			outline: none;
-			background-color: red;
-			color: white;
-			cursor: pointer;
-			padding: 15px;
-			border-radius: 5px;
-			border-radius: 50%;
-			width: 50px;
-			height: 50px;
+		display: none;
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		z-index: 99;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		background-color: red;
+		color: white;
+		cursor: pointer;
+		padding: 15px;
+		border-radius: 5px;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
     }
 
     #scrollBtn:before {
-			margin: 0;
-			padding: 0;
-			font-weight: 700;
-			line-height: 0.2em;
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+		line-height: 0.2em;
     }
 
     #scrollBtn:hover {
-			background-color: #555;
-    }
+		background-color: #555;
+}
 
     html {
-			scroll-behavior: smooth;
+		scroll-behavior: smooth;
     }
 </style>
 </head>
 <body>
-	
+
 	<div id="loader">
 		<div class="battery-loader">
 			<span class="battery-loader_item"></span>
@@ -78,6 +92,7 @@ if(!isset($_SESSION['logged_in_user'])) {
 			<span class="battery-loader_item"></span>
 		</div>
 	</div>
+
 
 	<button onclick="topFunction()" id="scrollBtn" class="flaticon-up-arrow" title="Go to top"></button>
 
@@ -298,8 +313,17 @@ if(!isset($_SESSION['logged_in_user'])) {
 				</div>
 			</div>
 			<div id = "load-prioritization" class="panel">
-				<div class="panel-header"><h3>Load Prioritization</h3></div>
+				<div class="panel-header"><h3>Load Prioritization</h2></div>
 				<div class="panel-body">
+					<!-- TODO: add AJAX request for radio button change event -->
+					<!-- TODO: generated these with javascript -->
+					<div id="radio-auto">
+						<label for="setmanual">Manual</label>
+						<input type="radio" class="prio-radio" name="priomode" id="setmanual" value="manual" checked>
+						<label for="setauto">Automatic</label>
+						<input type="radio" class="prio-radio" name="priomode" id="setauto" value="auto">
+					</div>
+
 					<div class="battery-panel">
 						<div style="padding: 10px;" id="asf23fsd"></div>
 					</div>
@@ -313,43 +337,43 @@ if(!isset($_SESSION['logged_in_user'])) {
 			</div>
 		</div>
 
-	</div>
-	<div class="footer">
-	</div>
-	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
-	<script src="../assets/js/dateformatter.js"></script>
-	<script src="../assets/js/visualization.js"></script>
-	<script src="../assets/js/pikayear.js"></script>
-	<script src="../assets/resources/pikaday/js/moment.min.js"></script>
-	<script src="../assets/resources/canvasjs/canvasjs.min.js"></script>
-	<script src="../assets/resources/pikaday/js/pikaday.js"></script>
-	<script src="../assets/resources/pikamonth/js/pikamonth.js"></script>
-	<script src="../assets/resources/priotable/assets/js/priotable.js"></script>
-	<script src="../assets/resources/ledpanel/assets/js/ledpanel.js"></script>
-	<script src="../assets/resources/batterypanel/assets/js/batterypanel.js"></script>
-	<script src="../assets/js/core/dist/bundle.js"></script>
+		</div>
+		<div class="footer">
+		</div>
+		<script src="http://192.168.254.10:3000/socket.io/socket.io.js"></script>
+		<script src="../assets/js/dateformatter.js"></script>
+		<script src="../assets/js/visualization.js"></script>
+		<script src="../assets/js/pikayear.js"></script>
+		<script src="../assets/resources/pikaday/js/moment.min.js"></script>
+		<script src="../assets/resources/canvasjs/canvasjs.min.js"></script>
+		<script src="../assets/resources/pikaday/js/pikaday.js"></script>
+		<script src="../assets/resources/pikamonth/js/pikamonth.js"></script>
+		<script src="../assets/resources/priotable/assets/js/priotable.js"></script>
+		<script src="../assets/resources/ledpanel/assets/js/ledpanel.js"></script>
+		<script src="../assets/resources/batterypanel/assets/js/batterypanel.js"></script>
+		<script src="../assets/js/core/dist/bundle.js"></script>
 	
-	<script>
-	    var node_config = {
+		<script>
+			var node_config = {
 				'esn001': 'environment',
 				'psn001': 'load',
 				'psn002': 'wind',
 				'psn003': 'solar',
-	    };
+			};
 
-	    window.onload = function() {
+			window.onload = function() {
 				setTimeout(function() {
-						document.getElementsByTagName('body')[0].className= 'loaded';	
+					document.getElementsByTagName('body')[0].className= 'loaded';	
 				}, 2000);
-			}
+			} 
 
 			var mybutton = document.getElementById("scrollBtn");
 			window.onscroll = function() {scrollFunction()};
 			function scrollFunction() {
 				if (document.body.scrollTop > 1500 || document.documentElement.scrollTop > 1500) {
-						mybutton.style.display = "block";
+					mybutton.style.display = "block";
 				} else {
-						mybutton.style.display = "none";
+					mybutton.style.display = "none";
 				}
 			}
 

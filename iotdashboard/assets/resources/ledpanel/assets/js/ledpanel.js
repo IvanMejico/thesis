@@ -93,7 +93,7 @@
 
     defaults = {},
 
-    url = "http://localhost/iotdashboard/requests/Loads.php",
+    url = "http://192.168.254.10/iotdashboard/requests/relay.php?type=client",
 
     LedPanel = function(options) {
         var self = this,
@@ -104,7 +104,7 @@
                 span = self._panel.querySelector('#indicator-'+data.id+' span');
             updateCheckbox(
                 checkbox, 
-                data.relay_status === 'TR'
+                data.relay_status == 1
             );
             updateTextSpan(
                 span,
@@ -117,7 +117,7 @@
                 'indicator-'+data.id,
                 colorset[data.priority_level],
                 data.load_name,
-                data.relay_status === 'TR'
+                data.relay_status == 1
             ));
         };
 
@@ -126,7 +126,7 @@
             self._panel.removeChild(el);
         };
 
-        var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('http://192.168.254.10:3000');
         socket.on('loadlist_insert', self.addIndicator);
         socket.on('loadlist_delete', self.deleteIndicator);
         socket.on('loadlist_update', self.updateIndicator);
@@ -146,26 +146,20 @@
         drawPanel: function() {
             var el = document.createElement('div');
             el.className = 'led-container';
-            fetch(url, {
-                method: 'GET',
-                mode: 'same-origin',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                // console.log('ledpanel request(drawPanel method):',data);
                 data.map(function(val, i) {
                     el.append(renderIndicator(
                         'indicator-'+val.id,
                         colorset[i],
                         val.load_name,
-                        val.relay_status === 'TR'
+                        val.relay_status == '1'
                     ));
                 });
-            });
+            })
+            .catch((error) => console.log("Led Panel Error:", error));
+            
             this._o.container.append(el);
             this._panel = el;
         }

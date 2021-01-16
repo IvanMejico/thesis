@@ -121,7 +121,7 @@
             data.id = row.id;
         inputs.forEach(function(i) {
             if(i.type == 'checkbox')
-                data[i.dataset.valuetype] = i.checked ? 'TR' : 'FL';
+                data[i.dataset.valuetype] = i.checked ? 1 : 0;
             else
                 data[i.dataset.valuetype] = i.value;
         });
@@ -178,7 +178,7 @@
             renderTextSpan(ordinal_suffix_of(data.priority_level) + ' priority')
         ], {className:"legend"}));
         row.append(renderCell([
-            renderSwitch(data.relay_status=="TR")
+            renderSwitch(data.relay_status == "1")
         ]));
         row.append(renderCell([
             renderInput({
@@ -348,7 +348,7 @@
 
     defaults = {},
 
-    url = "http://localhost/iotdashboard/requests/Loads.php",
+    url = "http://192.168.254.10/iotdashboard/requests/relay.php",
 
     Priotable = function(options) {
         var self = this,
@@ -407,6 +407,14 @@
                 var row = getParentRow(target);
                 saveRecord(rowToJSON(row));
             }
+
+            if (target.type && target.type === 'radio') {
+                var data = {
+                    id: "automatic_prioritization",
+                    value: target.value 
+                }; 
+                sendRequest(data, 'PUT');
+            }
         };
 
         self.addRow = function() {
@@ -454,7 +462,7 @@
             inputs.forEach(function(el) {
                 if(el.dataset.valuetype === 'priority_level') return; // Skip changes on priority level. For now.
                 if(el.type === 'checkbox')
-                    el.checked = data[el.dataset.valuetype] === 'TR';
+                    el.checked = data[el.dataset.valuetype] === 1;
                 else
                     el.value = data[el.dataset.valuetype];
             });
@@ -534,11 +542,15 @@
             next.dispatchEvent(ev_index_changed);
         };
 
+        var radios = document.getElementById('radio-auto');
+        addEvent(radios, 'change', self._onChange, true);
+
+        self.drawRadio();
         self.drawTable();
         addEvent(self._t, 'click', self._onClick, true);
         addEvent(self._t, 'change', self._onChange, true);
 
-        var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('http://192.168.254.10:3000');
         socket.on('loadlist_update', self.updateRow);
         // TODO: Probably listen to loadlist_delete.
         //      Check if the row still exists then delete it from the nodelist.
@@ -556,17 +568,23 @@
 
             return opts;
         },
+
+        drawRadio: function() { 
+            // TODO: draw radio buttons here
+            // TODO:    
+        },
         
         drawTable: function() {
+
             var table = document.createElement('table');
                 table.className = "priotable";
-            table.append(renderTableHead());
-            fetch(url).then((res) => res.json())
-                .then((data) => {
-                    // console.log('priotable request(drawTable method):',data);
-                    table.append(renderTableBody(data));
-                })
-                .catch((error) => console.log(error));
+            table.append(renderTableHead()); 
+
+            fetch(url+"?type=client").then((res) => res.json())
+            .then((data) => {
+                table.append(renderTableBody(data));
+            })
+            .catch((error) => console.log("Priotable Error:", error));
 
             this._o.container.append(table);
             this._t = table;
